@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_30_154505) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_30_172213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -53,9 +53,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_30_154505) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "platform_track_genres", force: :cascade do |t|
+    t.string "genre_id", null: false
+    t.uuid "track_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "platform_tracks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.citext "title", null: false
+    t.integer "duration_in_seconds", null: false
+    t.uuid "album_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "platform_album_genres", "platform_albums", column: "album_id"
   add_foreign_key "platform_album_genres", "platform_genres", column: "genre_id"
   add_foreign_key "platform_albums", "platform_artists", column: "artist_id"
   add_foreign_key "platform_artist_genres", "platform_artists", column: "artist_id"
   add_foreign_key "platform_artist_genres", "platform_genres", column: "genre_id"
+  add_foreign_key "platform_track_genres", "platform_genres", column: "genre_id"
+  add_foreign_key "platform_track_genres", "platform_tracks", column: "track_id"
+  add_foreign_key "platform_tracks", "platform_albums", column: "album_id"
 end

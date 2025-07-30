@@ -28,6 +28,8 @@ class Platform::AlbumTest < ActiveSupport::TestCase
 
   context 'associations' do
     should belong_to(:artist).class_name('Platform::Artist')
+
     should have_many(:genre_relationships).class_name('Platform::AlbumGenre')
+    should have_many(:tracks).class_name('Platform::Track')
   end
 end

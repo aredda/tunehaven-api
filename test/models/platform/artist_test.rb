@@ -19,5 +19,6 @@ class Platform::ArtistTest < ActiveSupport::TestCase
   context "associations" do
     should have_many(:genre_relationships).class_name("Platform::ArtistGenre")
     should have_many(:albums).class_name("Platform::Album")
+    should have_many(:tracks).class_name("Platform::Track")
   end
 end
