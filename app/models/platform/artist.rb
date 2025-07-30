@@ -13,4 +13,5 @@ class Platform::Artist < ApplicationRecord
   has_many :genres, through: :genre_relationships, source: :genre
 
   has_many :albums, class_name: 'Platform::Album', inverse_of: :artist, dependent: :destroy
+  has_many :tracks, class_name: 'Platform::Track', through: :albums, inverse_of: :artist, dependent: :destroy
 end
