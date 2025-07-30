@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+# == Schema Information
+#
+# Table name: platform_genres
+#
+#  id          :string           not null, primary key
+#  description :text
+#  name        :string           not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+art_rock:
+  id: art_rock
+  name: Art Rock
+  description: Art rock is a subgenre of rock music characterized by its experimental, avant-garde, and often intellectual approach, drawing influences from classical music, jazz, and other art forms
+
+indie_rock:
+  id: indie_rock
+  name: Indie rock
+  description: Indie rock is a genre of rock music that originated in the 1980s, primarily in the UK, US, and New Zealand. Initially, it described music released on independent record labels, but by the 1990s, it became more broadly associated with the music produced by bands on those labels.
