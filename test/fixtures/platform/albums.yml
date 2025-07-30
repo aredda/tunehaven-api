@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+# == Schema Information
+#
+# Table name: platform_albums
+#
+#  id           :uuid             not null, primary key
+#  cover        :string
+#  release_date :date
+#  title        :citext           not null
+#  tracks_count :integer          default(0), not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  artist_id    :uuid             not null
+#
+# Foreign Keys
+#
+#  fk_rails_...  (artist_id => platform_artists.id)
+#
+rumours:
+  title: Rumours
+  release_date: 02-04-1977
+  artist: fleetwood_mac
