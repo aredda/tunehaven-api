@@ -20,4 +20,6 @@ class Platform::Album < ApplicationRecord
 
   has_many :genre_relationships, class_name: 'Platform::AlbumGenre', foreign_key: :album_id, dependent: :destroy, inverse_of: :album
   has_many :genres, through: :genre_relationships, source: :genre
+
+  has_many :tracks, class_name: 'Platform::Track', foreign_key: :album_id, inverse_of: :album, dependent: :destroy
 end
