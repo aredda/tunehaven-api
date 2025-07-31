@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_31_140201) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_31_150322) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -68,6 +68,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_31_140201) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_jwt_denylists", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.index ["jti"], name: "index_user_jwt_denylists_on_jti"
+  end
+
   create_table "user_playlist_tracks", force: :cascade do |t|
     t.uuid "playlist_id", null: false
     t.uuid "track_id", null: false
@@ -90,11 +96,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_31_140201) do
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "username", null: false
     t.citext "email", null: false
-    t.string "password", null: false
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "platform_album_genres", "platform_albums", column: "album_id"

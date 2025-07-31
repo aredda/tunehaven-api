@@ -3,6 +3,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 require 'shoulda-context'
 require 'shoulda-matchers'
+require 'devise/jwt/test_helpers'
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
