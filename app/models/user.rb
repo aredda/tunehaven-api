@@ -24,5 +24,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable,
          :jwt_authenticatable, jwt_revocation_strategy: User::JwtDenylist
 
+  after_create :create_default_playlist
+
   has_many :playlists, class_name: 'User::Playlist', inverse_of: :user, dependent: :destroy
+  has_one :liked_playlist, -> { where(is_default: true) }, class_name: 'User::Playlist'
+
+  def create_default_playlist
+    self.create_liked_playlist(title: 'Liked')
+  end
 end

@@ -4,6 +4,7 @@ require "rails/test_help"
 require 'shoulda-context'
 require 'shoulda-matchers'
 require 'devise/jwt/test_helpers'
+require 'fabrication'
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
