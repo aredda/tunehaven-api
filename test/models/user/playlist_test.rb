@@ -4,6 +4,7 @@
 #
 #  id           :uuid             not null, primary key
 #  description  :text
+#  is_default   :boolean          default(FALSE)
 #  title        :string           not null
 #  tracks_count :integer          default(0)
 #  visibility   :string           default("private")
@@ -23,6 +24,7 @@ class User::PlaylistTest < ActiveSupport::TestCase
     should have_db_column(:description)
     should have_db_column(:visibility)
     should have_db_column(:tracks_count)
+    should have_db_column(:is_default)
   end
 
   context 'associations' do
