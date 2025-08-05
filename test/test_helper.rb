@@ -1,10 +1,10 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
-require 'shoulda-context'
-require 'shoulda-matchers'
-require 'devise/jwt/test_helpers'
-require 'fabrication'
+require "shoulda-context"
+require "shoulda-matchers"
+require "devise/jwt/test_helpers"
+require "fabrication"
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -22,5 +22,14 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+  end
+end
+
+class UserIntegrationTest < ActionDispatch::IntegrationTest
+  def setup
+    super
+
+    @user = Fabricate(:user)
+    @auth_headers = Devise::JWT::TestHelpers.auth_headers({ "Accept" => "application/json" }, @user, scope: :user)
   end
 end
