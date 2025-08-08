@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  before_action :use_unsafe_params, only: :index
+
   respond_to :json
 
   include ActionController::MimeResponds
@@ -10,4 +12,14 @@ class ApplicationController < ActionController::API
 
   include Devise::Controllers::Helpers
   include Devise::Controllers::UrlHelpers
+
+  def params
+    @_dangerous_params || super
+  end
+
+  private
+
+  def use_unsafe_params
+    @_dangerous_params = request.parameters
+  end
 end
