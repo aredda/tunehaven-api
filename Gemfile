@@ -79,6 +79,7 @@ gem 'dry-validation'
 gem 'faker'
 
 gem 'multi_json'
+gem 'kaminari-activerecord'
 gem 'reform'
 gem 'representable'
 gem 'responders'
