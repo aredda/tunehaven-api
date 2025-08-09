@@ -22,14 +22,27 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    def res_errors
+      response.parsed_body["errors"]
+    end
+
+    def res_data
+      response.parsed_body["data"]
+    end
+
+    def res_meta
+      response.parsed_body["meta"]
+    end
   end
 end
 
 class UserIntegrationTest < ActionDispatch::IntegrationTest
   def setup
-    super
-
     @user = Fabricate(:user)
     @auth_headers = Devise::JWT::TestHelpers.auth_headers({ "Accept" => "application/json" }, @user, scope: :user)
+
+    post_setup
   end
+
+  def post_setup; end
 end

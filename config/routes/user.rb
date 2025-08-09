@@ -8,4 +8,5 @@ namespace :user do
       put :toggle_like
     end
   end
+  resources :playlists
 end
