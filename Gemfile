@@ -51,6 +51,7 @@ end
 
 group :development do
   gem 'annotaterb'
+  gem 'trailblazer-wizard'
 end
 
 group :test do

@@ -431,6 +431,8 @@ GEM
     trailblazer-rails (2.4.4)
       railties (>= 6.0.0)
       trailblazer (>= 2.1.0, < 2.2.0)
+    trailblazer-wizard (0.0.6)
+      activesupport
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
@@ -504,6 +506,7 @@ DEPENDENCIES
   trailblazer-finder
   trailblazer-operation
   trailblazer-rails
+  trailblazer-wizard
   tzinfo-data
   warden-jwt_auth
 
