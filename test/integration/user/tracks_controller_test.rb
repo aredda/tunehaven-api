@@ -28,7 +28,7 @@ class User::TracksControllerTest < UserIntegrationTest
     it "should fail: track is not found" do
       put "/api/user/tracks/xyz/toggle_like", headers: @auth_headers
 
-      assert_response :unprocessable_entity
+      assert_response :unprocessable_content
       assert_equal [ "Track is not found!" ], response.parsed_body["errors"]["base"]
     end
     it "should pass: add track to liked playlist" do

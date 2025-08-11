@@ -41,7 +41,7 @@ class User::PlaylistsController < User::Controller
     render json: {
       success: false,
       errors: @form.errors.messages
-    }, status: :unprocessable_entity
+    }, status: :unprocessable_content
   end
 
   # PUT   /api/user/playlists/:id
@@ -56,7 +56,7 @@ class User::PlaylistsController < User::Controller
     render json: {
       success: false,
       errors: @form.errors.messages
-    }, status: :unprocessable_entity
+    }, status: :unprocessable_content
   end
 
   # DELETE  /api/user/playlists/:id
@@ -70,6 +70,6 @@ class User::PlaylistsController < User::Controller
     render json: {
       success: false,
       errors: @form.errors.messages
-    }, status: :unprocessable_entity
+    }, status: :unprocessable_content
   end
 end

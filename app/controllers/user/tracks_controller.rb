@@ -20,6 +20,6 @@ class User::TracksController < User::Controller
       return render json: { success: true }, status: :ok
     end
 
-    render json: { success: false, errors: @form.errors.messages }, status: :unprocessable_entity
+    render json: { success: false, errors: @form.errors.messages }, status: :unprocessable_content
   end
 end
