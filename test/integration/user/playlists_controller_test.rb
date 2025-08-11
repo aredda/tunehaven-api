@@ -43,7 +43,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
         }
       }
 
-      assert_response :unprocessable_entity
+      assert_response :unprocessable_content
       assert_predicate res_errors["title"], :present?
       assert_equal ["must be filled"], res_errors["title"]
     end
@@ -68,7 +68,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
         }
       }
 
-      assert_response :unprocessable_entity
+      assert_response :unprocessable_content
       assert_equal [ "Playlist is not found!" ], res_errors["base"]
     end
     it "should pass" do
@@ -90,7 +90,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
       assert_no_difference -> { @user.playlists.count } do
         delete "/api/user/playlists/xyz", headers: @auth_headers
 
-        assert_response :unprocessable_entity
+        assert_response :unprocessable_content
         assert_equal [ "Playlist is not found!" ], res_errors["base"]
       end
     end
@@ -100,7 +100,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
       assert_no_difference -> { @user.playlists.count } do
         delete "/api/user/playlists/#{@playlists.first.id}", headers: @auth_headers
 
-        assert_response :unprocessable_entity
+        assert_response :unprocessable_content
         assert_equal [ "This playlist is irremovable!" ], res_errors["base"]
       end
     end
