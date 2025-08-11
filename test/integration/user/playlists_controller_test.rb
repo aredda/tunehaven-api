@@ -36,14 +36,80 @@ class User::PlaylistsControllerTest < UserIntegrationTest
   end
 
   describe "POST create" do
+    it "should fail: missing required params" do
+      post "/api/user/playlists", headers: @auth_headers, params: {
+        playlist: {
+          title: nil
+        }
+      }
 
+      assert_response :unprocessable_entity
+      assert_predicate res_errors["title"], :present?
+      assert_equal ["must be filled"], res_errors["title"]
+    end
+    it "should create a playlist" do
+      assert_difference -> { @user.playlists.count } do
+        post "/api/user/playlists", headers: @auth_headers, params: {
+          playlist: {
+            title: "Mock Playlist"
+          }
+        }
+
+        assert_response :created
+      end
+    end
   end
 
   describe "PUT update" do
+    it "should fail: playlist not found" do
+      put "/api/user/playlists/xyz", headers: @auth_headers, params: {
+        playlist: {
+          description: "This is a mock playlist"
+        }
+      }
 
+      assert_response :unprocessable_entity
+      assert_equal [ "Playlist is not found!" ], res_errors["base"]
+    end
+    it "should pass" do
+      put "/api/user/playlists/#{@playlists.first.id}", headers: @auth_headers, params: {
+        playlist: {
+          title: "Mock Playlist",
+          description: "This is a mock playlist"
+        }
+      }
+
+      assert_response :success
+      assert_equal "Mock Playlist", @playlists.first.reload.title
+      assert_equal "This is a mock playlist", @playlists.first.description
+    end
   end
 
   describe "DELETE destroy" do
+    it "should fail: playlist not found" do
+      assert_no_difference -> { @user.playlists.count } do
+        delete "/api/user/playlists/xyz", headers: @auth_headers
 
+        assert_response :unprocessable_entity
+        assert_equal [ "Playlist is not found!" ], res_errors["base"]
+      end
+    end
+    it "should fail: default playlist is not removable" do
+      @playlists.first.update is_default: true
+
+      assert_no_difference -> { @user.playlists.count } do
+        delete "/api/user/playlists/#{@playlists.first.id}", headers: @auth_headers
+
+        assert_response :unprocessable_entity
+        assert_equal [ "This playlist is irremovable!" ], res_errors["base"]
+      end
+    end
+    it "should pass" do
+      assert_difference -> { @user.playlists.count }, -1 do
+        delete "/api/user/playlists/#{@playlists.last.id}", headers: @auth_headers
+
+        assert_response :success
+      end
+    end
   end
 end
