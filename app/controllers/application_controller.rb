@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
-  before_action :use_unsafe_params, only: :index
+  before_action :use_unsafe_params
 
   respond_to :json
 
@@ -20,6 +20,8 @@ class ApplicationController < ActionController::API
   private
 
   def use_unsafe_params
+    return unless self.class.method_defined?(:index)
+
     @_dangerous_params = request.parameters
   end
 end
