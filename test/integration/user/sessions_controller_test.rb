@@ -4,7 +4,7 @@ require 'test_helper'
 
 class User::SessionsControllerTest < ActionDispatch::IntegrationTest
   test '#sign_in' do
-    user = Fabricate(:user, email: 'brando@gmail.com', password: '12345678')
+    Fabricate(:user, email: 'brando@gmail.com', password: '12345678')
 
     # failure: invalid email
     post '/api/user/sign_in', params: {

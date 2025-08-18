@@ -3,7 +3,7 @@
 class User::TracksController < User::Controller
   # GET   /api/user/tracks
   def index
-    run User::PlaylistTrack::Operation::Index do |context|
+    run User::PlaylistTrack::Operation::DefaultIndex do |context|
       result = context[:finder].result
 
       render json: {

@@ -2,7 +2,7 @@
 
 module User::PlaylistTrack::Operation
   class ToggleLike < ApplicationOperation
-    step Subprocess(Show), Output(:failure) => Track(:end)
+    step Subprocess(DefaultShow), Output(:failure) => Track(:end)
     step :find_relationship, Output(:failure) => Id(:like)
     step :unlike, pass_fast: true
     step :like

@@ -8,5 +8,7 @@ namespace :user do
       put :toggle_like
     end
   end
-  resources :playlists
+  resources :playlists do
+    resources :tracks, controller: "playlists/tracks", only: %i[index create destroy]
+  end
 end
