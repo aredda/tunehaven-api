@@ -32,7 +32,7 @@ module User::Playlists
       render json: {
         success: false,
         errors: @form.errors.messages
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_content
     end
 
     # DELETE  /api/user/playlists/:playlist_id/tracks/:id
@@ -46,7 +46,7 @@ module User::Playlists
       render json: {
         success: false,
         errors: @form.errors.messages
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_content
     end
   end
 end
