@@ -59,6 +59,20 @@ class User::PlaylistsController < User::Controller
     }, status: :unprocessable_content
   end
 
+  # PUT   /api/user/playlists/:id/toggle_visibility
+  def toggle_visibility
+    run User::Playlist::Operation::ToggleVisibility do
+      return render json: {
+        success: true
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_content
+  end
+
   # DELETE  /api/user/playlists/:id
   def destroy
     run User::Playlist::Operation::Destroy do
