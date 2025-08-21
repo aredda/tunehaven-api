@@ -85,6 +85,29 @@ class User::PlaylistsControllerTest < UserIntegrationTest
     end
   end
 
+  describe "PUT toggle_visibility" do
+    it "should fail: playlist not found" do
+      put "/api/user/playlists/xyz/toggle_visibility", headers: @auth_headers
+
+      assert_response 422
+      assert_equal [ "Playlist is not found!" ], res_errors["base"]
+    end
+    it "should fail: default playlists cannot be public" do
+      put "/api/user/playlists/#{@user.liked_playlist.id}/toggle_visibility", headers: @auth_headers
+
+      assert_response 422
+      assert_equal [ "Cannot share your Liked Tracks playlist to the public!" ], res_errors["base"]
+    end
+    it "should pass" do
+      playlist = @playlists.first
+
+      put "/api/user/playlists/#{playlist.id}/toggle_visibility", headers: @auth_headers
+
+      assert_response 200
+      assert_equal "public", playlist.reload.visibility
+    end
+  end
+
   describe "DELETE destroy" do
     it "should fail: playlist not found" do
       assert_no_difference -> { @user.playlists.count } do

@@ -9,6 +9,10 @@ namespace :user do
     end
   end
   resources :playlists do
+    member do
+      put :toggle_visibility
+    end
+
     resources :tracks, controller: "playlists/tracks", only: %i[index create destroy]
   end
 end
