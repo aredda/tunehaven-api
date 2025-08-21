@@ -63,6 +63,7 @@ class User::Playlists::TracksControllerTest < UserIntegrationTest
         }
 
         assert_response 201
+        assert_equal 1, @playlist.reload.tracks_count
       end
     end
   end

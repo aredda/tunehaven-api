@@ -19,6 +19,6 @@
 #  fk_rails_...  (track_id => platform_tracks.id) ON DELETE => cascade
 #
 class User::PlaylistTrack < ApplicationRecord
-  belongs_to :playlist, class_name: 'User::Playlist', inverse_of: :track_relationships, foreign_key: :playlist_id
+  belongs_to :playlist, class_name: 'User::Playlist', inverse_of: :track_relationships, foreign_key: :playlist_id, counter_cache: :tracks_count
   belongs_to :track, class_name: 'Platform::Track'
 end
