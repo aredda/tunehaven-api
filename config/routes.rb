@@ -14,9 +14,10 @@ Rails.application.routes.draw do
                  sessions: "user/sessions",
                  passwords: "user/passwords"
                }
-    devise_for :admin_users, path: "/admin",
+    devise_for :admins, class_name: AdminUser, path: "/admin",
                controllers: { sessions: "admin/sessions", passwords: "admin/passwords" }
 
     draw(:user)
+    draw(:admin)
   end
 end
