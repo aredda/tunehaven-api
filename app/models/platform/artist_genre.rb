@@ -14,5 +14,5 @@
 #  fk_rails_...  (genre_id => platform_genres.id)
 #
 class Platform::ArtistGenre < ApplicationRecord
-  belongs_to :artist, class_name: 'Platform::Artist', foreign_key: :artist_id, inverse_of: :genre_relationships
+  belongs_to :artist, class_name: "Platform::Artist", foreign_key: :artist_id, inverse_of: :genre_relationships
 end

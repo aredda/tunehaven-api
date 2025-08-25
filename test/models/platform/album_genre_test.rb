@@ -16,7 +16,7 @@
 require "test_helper"
 
 class Platform::AlbumGenreTest < ActiveSupport::TestCase
-  context 'associations' do
-    should belong_to(:album).class_name('Platform::Album')
+  context "associations" do
+    should belong_to(:album).class_name("Platform::Album")
   end
 end

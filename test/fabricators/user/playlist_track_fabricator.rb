@@ -20,7 +20,7 @@
 #  fk_rails_...  (playlist_id => user_playlists.id) ON DELETE => cascade
 #  fk_rails_...  (track_id => platform_tracks.id) ON DELETE => cascade
 #
-Fabricator :user_playlist_track, class_name: 'User::PlaylistTrack' do
+Fabricator :user_playlist_track, class_name: "User::PlaylistTrack" do
   track { Fabricate(:track) }
   playlist { Fabricate(:playlist) }
 end

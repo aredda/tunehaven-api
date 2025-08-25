@@ -23,23 +23,23 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  context 'validations' do
+  context "validations" do
     should have_db_column(:username)
     should have_db_column(:email)
     should have_db_column(:encrypted_password)
   end
 
-  context 'associations' do
-    should have_many(:playlists).class_name('User::Playlist')
-    should have_one(:liked_playlist).class_name('User::Playlist')
+  context "associations" do
+    should have_many(:playlists).class_name("User::Playlist")
+    should have_one(:liked_playlist).class_name("User::Playlist")
   end
 
-  context 'default playlist creation hook' do
-    it 'create a default playlist' do
+  context "default playlist creation hook" do
+    it "create a default playlist" do
       user = Fabricate(:user)
 
       assert_not_nil user.liked_playlist
-      assert_equal 'Liked', user.liked_playlist.title
+      assert_equal "Liked", user.liked_playlist.title
       assert user.liked_playlist.is_default
     end
   end

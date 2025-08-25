@@ -16,10 +16,10 @@
 #  fk_rails_...  (artist_id => platform_artists.id)
 #
 class Platform::Album < ApplicationRecord
-  belongs_to :artist, class_name: 'Platform::Artist', foreign_key: :artist_id, inverse_of: :albums
+  belongs_to :artist, class_name: "Platform::Artist", foreign_key: :artist_id, inverse_of: :albums
 
-  has_many :genre_relationships, class_name: 'Platform::AlbumGenre', foreign_key: :album_id, dependent: :destroy, inverse_of: :album
+  has_many :genre_relationships, class_name: "Platform::AlbumGenre", foreign_key: :album_id, dependent: :destroy, inverse_of: :album
   has_many :genres, through: :genre_relationships, source: :genre
 
-  has_many :tracks, class_name: 'Platform::Track', foreign_key: :album_id, inverse_of: :album, dependent: :destroy
+  has_many :tracks, class_name: "Platform::Track", foreign_key: :album_id, inverse_of: :album, dependent: :destroy
 end

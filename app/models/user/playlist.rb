@@ -19,9 +19,9 @@
 class User::Playlist < ApplicationRecord
   enum :visibility, { public:, private: }, prefix: true
 
-  belongs_to :user, class_name: 'User', inverse_of: :playlists
+  belongs_to :user, class_name: "User", inverse_of: :playlists
 
-  has_many :track_relationships, class_name: 'User::PlaylistTrack', inverse_of: :playlist, dependent: :destroy, foreign_key: :playlist_id
+  has_many :track_relationships, class_name: "User::PlaylistTrack", inverse_of: :playlist, dependent: :destroy, foreign_key: :playlist_id
   has_many :tracks, through: :track_relationships, source: :track
 
   state_machine :visibility, initial: :private do
