@@ -9,11 +9,13 @@ Rails.application.routes.draw do
 
   scope :api, defaults: { format: :json }, format: false do
     devise_for :users,
-               path: '/user',
+               path: "/user",
                controllers: {
-                 sessions: 'user/sessions',
-                 passwords: 'user/passwords'
+                 sessions: "user/sessions",
+                 passwords: "user/passwords"
                }
+    devise_for :admin_users, path: "/admin",
+               controllers: { sessions: "admin/sessions", passwords: "admin/passwords" }
 
     draw(:user)
   end
