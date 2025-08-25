@@ -22,7 +22,7 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
-Fabricator :user, class_name: 'User' do
+Fabricator :user, class_name: "User" do
   username    { Faker::Name.name }
   email         { Faker::Internet.email }
   password      { Faker::Internet.password }

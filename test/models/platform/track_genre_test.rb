@@ -16,7 +16,7 @@
 require "test_helper"
 
 class Platform::TrackGenreTest < ActiveSupport::TestCase
-  context 'associations' do
-    should belong_to(:track).class_name('Platform::Track')
+  context "associations" do
+    should belong_to(:track).class_name("Platform::Track")
   end
 end

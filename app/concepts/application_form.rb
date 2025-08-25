@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'reform/form/coercion'
-require 'reform/form/dry'
+require "reform/form/coercion"
+require "reform/form/dry"
 
 class ApplicationForm < Reform::Form
   VALID_EMAIL_REGEX = URI::MailTo::EMAIL_REGEXP
@@ -16,7 +16,7 @@ class ApplicationForm < Reform::Form
 
     OptionalField = Types::Coercible::String.constructor { |x| x.nil? ? Undefined : x }
     StrippedString = Types::Coercible::String.constructor(&:strip)
-    NarrowString = Types::Coercible::String.constructor { |x| x.delete(' ') }
+    NarrowString = Types::Coercible::String.constructor { |x| x.delete(" ") }
     NullableString = Types::Coercible::String.constructor(&:presence)
     FloatType = Types::Coercible::String.constructor(&:to_f)
     IntegerType = Types::Coercible::String.constructor(&:to_i)

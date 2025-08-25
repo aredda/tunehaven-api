@@ -11,7 +11,7 @@
 require "test_helper"
 
 class Platform::GenreTest < ActiveSupport::TestCase
-  context 'validations' do
+  context "validations" do
     should have_db_column(:name)
     should have_db_column(:description)
   end

@@ -45,52 +45,52 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
-  gem 'fabrication'
-  gem 'rubocop'
+  gem "fabrication"
+  gem "rubocop"
 end
 
 group :development do
-  gem 'annotaterb'
-  gem 'trailblazer-wizard'
+  gem "annotaterb"
+  gem "trailblazer-wizard"
 end
 
 group :test do
-  gem 'test-unit'
+  gem "test-unit"
 
-  gem 'minitest'
-  gem 'minitest-spec-rails'
+  gem "minitest"
+  gem "minitest-spec-rails"
 
-  gem 'rubocop-minitest'
+  gem "rubocop-minitest"
 
-  gem 'shoulda-context'
-  gem 'shoulda-matchers'
+  gem "shoulda-context"
+  gem "shoulda-matchers"
 
-  gem 'timecop'
+  gem "timecop"
 end
 
-gem 'devise'
-gem 'devise-jwt'
-gem 'warden-jwt_auth'
+gem "devise"
+gem "devise-jwt"
+gem "warden-jwt_auth"
 
-gem 'dry-configurable', '>= 0.11'
-gem 'dry-monads'
-gem 'dry-types'
-gem 'dry-validation'
+gem "dry-configurable", ">= 0.11"
+gem "dry-monads"
+gem "dry-types"
+gem "dry-validation"
 
-gem 'faker'
+gem "faker"
 
-gem 'multi_json'
-gem 'kaminari-activerecord'
-gem 'reform'
-gem 'representable'
-gem 'responders'
+gem "multi_json"
+gem "kaminari-activerecord"
+gem "reform"
+gem "representable"
+gem "responders"
 
-gem 'state_machines-activerecord'
+gem "state_machines-activerecord"
 
-gem 'trailblazer'
-gem 'trailblazer-activity'
-gem 'trailblazer-finder'
-gem 'trailblazer-operation'
-gem 'trailblazer-rails'
+gem "trailblazer"
+gem "trailblazer-activity"
+gem "trailblazer-finder"
+gem "trailblazer-operation"
+gem "trailblazer-rails"
 
-gem 'dotenv-rails'
+gem "dotenv-rails"

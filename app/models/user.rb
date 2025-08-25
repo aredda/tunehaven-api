@@ -26,10 +26,10 @@ class User < ApplicationRecord
 
   after_create :create_default_playlist
 
-  has_many :playlists, class_name: 'User::Playlist', inverse_of: :user, dependent: :destroy
-  has_one :liked_playlist, -> { where(is_default: true) }, class_name: 'User::Playlist'
+  has_many :playlists, class_name: "User::Playlist", inverse_of: :user, dependent: :destroy
+  has_one :liked_playlist, -> { where(is_default: true) }, class_name: "User::Playlist"
 
   def create_default_playlist
-    self.create_liked_playlist(title: 'Liked')
+    self.create_liked_playlist(title: "Liked")
   end
 end

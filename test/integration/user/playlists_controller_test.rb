@@ -45,7 +45,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
 
       assert_response :unprocessable_content
       assert_predicate res_errors["title"], :present?
-      assert_equal ["must be filled"], res_errors["title"]
+      assert_equal [ "must be filled" ], res_errors["title"]
     end
     it "should create a playlist" do
       assert_difference -> { @user.playlists.count } do

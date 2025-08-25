@@ -14,5 +14,5 @@
 #  fk_rails_...  (track_id => platform_tracks.id)
 #
 class Platform::TrackGenre < ApplicationRecord
-  belongs_to :track, class_name: 'Platform::Track', foreign_key: :track_id, inverse_of: :genre_relationships
+  belongs_to :track, class_name: "Platform::Track", foreign_key: :track_id, inverse_of: :genre_relationships
 end
