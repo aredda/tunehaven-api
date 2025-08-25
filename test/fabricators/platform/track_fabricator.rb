@@ -15,6 +15,6 @@
 #
 #  fk_rails_...  (album_id => platform_albums.id)
 #
-Fabricator :track, class_name: 'Platform::Track' do
+Fabricator :track, class_name: "Platform::Track" do
   title { Faker::Music::RockBand.song }
 end

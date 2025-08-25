@@ -18,7 +18,7 @@
 require "test_helper"
 
 class Platform::AlbumTest < ActiveSupport::TestCase
-  context 'validations' do
+  context "validations" do
     should have_db_column(:title)
     should have_db_column(:cover)
     should have_db_column(:tracks_count)
@@ -26,10 +26,10 @@ class Platform::AlbumTest < ActiveSupport::TestCase
     should have_db_column(:artist_id)
   end
 
-  context 'associations' do
-    should belong_to(:artist).class_name('Platform::Artist')
+  context "associations" do
+    should belong_to(:artist).class_name("Platform::Artist")
 
-    should have_many(:genre_relationships).class_name('Platform::AlbumGenre')
-    should have_many(:tracks).class_name('Platform::Track')
+    should have_many(:genre_relationships).class_name("Platform::AlbumGenre")
+    should have_many(:tracks).class_name("Platform::Track")
   end
 end

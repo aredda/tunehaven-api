@@ -21,12 +21,12 @@
 require "test_helper"
 
 class User::PlaylistTrackTest < ActiveSupport::TestCase
-  context 'validations' do
+  context "validations" do
     should have_db_column(:position)
   end
 
-  context 'associations' do
-    should belong_to(:playlist).class_name('User::Playlist')
-    should belong_to(:track).class_name('Platform::Track')
+  context "associations" do
+    should belong_to(:playlist).class_name("User::Playlist")
+    should belong_to(:track).class_name("Platform::Track")
   end
 end

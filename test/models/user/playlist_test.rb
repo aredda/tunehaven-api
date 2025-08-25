@@ -19,7 +19,7 @@
 require "test_helper"
 
 class User::PlaylistTest < ActiveSupport::TestCase
-  context 'validations' do
+  context "validations" do
     should have_db_column(:title)
     should have_db_column(:description)
     should have_db_column(:visibility)
@@ -27,10 +27,10 @@ class User::PlaylistTest < ActiveSupport::TestCase
     should have_db_column(:is_default)
   end
 
-  context 'associations' do
-    should belong_to(:user).class_name('User')
+  context "associations" do
+    should belong_to(:user).class_name("User")
 
-    should have_many(:track_relationships).class_name('User::PlaylistTrack')
+    should have_many(:track_relationships).class_name("User::PlaylistTrack")
     should have_many(:tracks).through(:track_relationships)
   end
 end
