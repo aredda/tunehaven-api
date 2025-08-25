@@ -7,7 +7,7 @@
 #  is_default   :boolean          default(FALSE)
 #  title        :string           not null
 #  tracks_count :integer          default(0)
-#  visibility   :string           default("private")
+#  visibility   :string           default(NULL)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  user_id      :uuid             not null

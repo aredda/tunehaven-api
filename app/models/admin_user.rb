@@ -1,0 +1,26 @@
+# frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: admin_users
+#
+#  id                     :bigint           not null, primary key
+#  confirmation_sent_at   :datetime
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  email                  :string           not null
+#  encrypted_password     :string           not null
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  index_admin_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_admin_users_on_email                 (email) UNIQUE
+#  index_admin_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+class AdminUser < ApplicationRecord
+  devise :database_authenticatable, :jwt_authenticatable, jwt_revocation_strategy: AdminUser::JwtDenyList
+end
