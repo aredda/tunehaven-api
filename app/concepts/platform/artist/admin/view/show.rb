@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module Platform::Artist::Admin::View
-  class Show < ApplicationView
+  class Show < Index
   end
 end
