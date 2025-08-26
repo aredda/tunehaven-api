@@ -2,5 +2,7 @@
 
 module Platform::Artist::Admin::Form
   class Update < ApplicationForm
+    property :name
+    property :about
   end
 end

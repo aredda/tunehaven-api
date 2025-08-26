@@ -46,3 +46,14 @@ class UserIntegrationTest < ActionDispatch::IntegrationTest
 
   def post_setup; end
 end
+
+class AdminIntegrationTest < ActionDispatch::IntegrationTest
+  def setup
+    @admin = Fabricate(:admin)
+    @auth_headers = Devise::JWT::TestHelpers.auth_headers({ "Accept" => "application/json" }, @admin, scope: :admin)
+
+    post_setup
+  end
+
+  def post_setup; end
+end
