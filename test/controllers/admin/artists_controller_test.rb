@@ -64,7 +64,7 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
           }
         }
 
-        assert_response :unprocessable_entity
+        assert_response :unprocessable_content
         assert_equal [ "must be filled", "size cannot be less than 2" ], res_errors["name"]
       end
     end
@@ -84,7 +84,7 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
     it "should fail: artist is not found" do
       put "/api/admin/artists/abc", headers: @auth_headers
 
-      assert_response :unprocessable_entity
+      assert_response :unprocessable_content
       assert_equal [ "Artist is not found!" ], res_errors["base"]
     end
   end
@@ -101,7 +101,7 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
       assert_no_difference "Platform::Artist.count" do
         delete "/api/admin/artists/abc", headers: @auth_headers
 
-        assert_response :unprocessable_entity
+        assert_response :unprocessable_content
         assert_equal [ "Artist is not found!" ], res_errors["base"]
       end
     end
