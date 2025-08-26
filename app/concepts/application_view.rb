@@ -2,6 +2,8 @@
 
 class ApplicationView < Representable::Decorator
   feature Representable::JSON
+
+  defaults render_nil: true
 end
 
 class MetaView < ApplicationView
