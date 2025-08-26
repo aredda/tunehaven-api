@@ -2,4 +2,6 @@
 
 namespace :admin do
   resource :me, controller: :me, only: :show
+
+  resources :artists
 end
