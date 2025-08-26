@@ -431,7 +431,7 @@ GEM
     trailblazer-rails (2.4.4)
       railties (>= 6.0.0)
       trailblazer (>= 2.1.0, < 2.2.0)
-    trailblazer-wizard (0.0.7)
+    trailblazer-wizard (0.0.8)
       activesupport
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
