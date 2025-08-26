@@ -9,4 +9,9 @@
 #  updated_at  :datetime         not null
 #
 class Platform::Genre < ApplicationRecord
+  before_create :set_id
+
+  def set_id
+    self.id = name.parameterize
+  end
 end
