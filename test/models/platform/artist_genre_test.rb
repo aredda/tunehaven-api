@@ -18,5 +18,6 @@ require "test_helper"
 class Platform::ArtistGenreTest < ActiveSupport::TestCase
   context "associations" do
     should belong_to(:artist).class_name("Platform::Artist")
+    should belong_to(:genre).class_name("Platform::Genre")
   end
 end

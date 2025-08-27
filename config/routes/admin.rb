@@ -4,5 +4,7 @@ namespace :admin do
   resource :me, controller: :me, only: :show
 
   resources :genres
-  resources :artists
+  resources :artists do
+    resources :genres, controller: "artists/genres"
+  end
 end
