@@ -10,7 +10,7 @@ module Platform::Album::Admin::Finder
     end
 
     def apply_artist_name(entity, _attribute, value)
-      entity.joins(:artist).where("platform_albums_artists.name ILIKE ?", "%#{value}%") if value.present?
+      entity.joins(:artist).where("name ILIKE ?", "%#{value}%") if value.present?
     end
   end
 end

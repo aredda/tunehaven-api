@@ -15,11 +15,20 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
       assert_equal 2, res_data.count
       assert_equal %w[id title cover release_date tracks_count artist created_at updated_at], res_data.first.keys
 
-      # filter by: name
+      # filter by: title
       get "/api/admin/albums", headers: @auth_headers, params: {
         per_page: 10,
         page: 1,
         title: "ok c"
+      }
+
+      assert_response :success
+      assert_equal 1, res_data.count
+      assert_equal "OK Computer", res_data.first["title"]
+
+      # filter by: artist_name
+      get "/api/admin/albums", headers: @auth_headers, params: {
+        artist_name: "RadioHead"
       }
 
       assert_response :success
