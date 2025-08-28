@@ -7,4 +7,5 @@ namespace :admin do
   resources :artists do
     resources :genres, controller: "artists/genres"
   end
+  resources :albums
 end
