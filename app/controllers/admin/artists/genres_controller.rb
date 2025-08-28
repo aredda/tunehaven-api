@@ -8,8 +8,7 @@ class Admin::Artists::GenresController < Admin::Controller
 
       return render json: {
         success: true,
-        data: Platform::ArtistGenre::Admin::View::Index.for_collection.new(result),
-        meta: MetaView.new(result)
+        data: Platform::ArtistGenre::Admin::View::Index.for_collection.new(result)
       }, status: :ok
     end
 
