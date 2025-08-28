@@ -9,7 +9,7 @@ class Admin::Artists::GenresControllerTest < AdminIntegrationTest
 
   describe "GET index" do
     it "should pass" do
-      artist.genres << [art_rock, indie_rock]
+      artist.genres << [ art_rock, indie_rock ]
 
       get "/api/admin/artists/#{artist.id}/genres", headers: @auth_headers
 
@@ -76,7 +76,7 @@ class Admin::Artists::GenresControllerTest < AdminIntegrationTest
         delete "/api/admin/artists/abc/genres/xyz", headers: @auth_headers
 
         assert_response :unprocessable_content
-        assert_equal ["Artist is not found!"], res_errors["base"]
+        assert_equal [ "Artist is not found!" ], res_errors["base"]
       end
     end
     it "should fail: record is not found" do
@@ -85,7 +85,7 @@ class Admin::Artists::GenresControllerTest < AdminIntegrationTest
           delete "/api/admin/artists/#{artist.id}/genres/xyz", headers: @auth_headers
 
           assert_response :unprocessable_content
-          assert_equal ["Record is not found!"], res_errors["base"]
+          assert_equal [ "Record is not found!" ], res_errors["base"]
         end
       end
     end
