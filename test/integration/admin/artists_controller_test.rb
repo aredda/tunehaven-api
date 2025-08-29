@@ -29,6 +29,19 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
     end
   end
 
+  describe "GET autocomplete" do
+    it "should pass" do
+      get "/api/admin/artists/autocomplete", headers: @auth_headers, params: {
+        q: "fleet"
+      }
+
+      assert_response :success
+      assert_equal 1, res_data.count
+      assert_equal %w[id name], res_data.first.keys
+      assert_equal "Fleetwood Mac", res_data.first["name"]
+    end
+  end
+
   describe "GET show" do
     it "should pass" do
       get "/api/admin/artists/#{artist.id}", headers: @auth_headers
