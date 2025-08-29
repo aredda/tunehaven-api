@@ -14,6 +14,19 @@ class Admin::ArtistsController < Admin::Controller
     end
   end
 
+  # GET   /api/admin/artists/autocomplete
+  def autocomplete
+    run Platform::Artist::Admin::Operation::Autocomplete do |context|
+      result = context[:finder].result
+
+      render json: {
+        success: true,
+        data: Platform::Artist::Admin::View::Autocomplete.for_collection.new(result),
+        meta: MetaView.new(result)
+      }, status: :ok
+    end
+  end
+
   # GET   /api/admin/artists/:id
   def show
     run Platform::Artist::Admin::Operation::Show do
