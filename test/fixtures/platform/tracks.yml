@@ -22,3 +22,13 @@ the_chain:
   title: The Chain
   album: rumours
   duration_in_seconds: 268
+
+no_surprises:
+  title: No Surprises
+  album: ok_computer
+  duration_in_seconds: 129
+
+let_down:
+  title: Let Down
+  album: ok_computer
+  duration_in_seconds: 259
