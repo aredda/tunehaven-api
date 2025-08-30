@@ -27,3 +27,8 @@ no_surprises:
   title: No Surprises
   album: ok_computer
   duration_in_seconds: 129
+
+let_down:
+  title: Let Down
+  album: ok_computer
+  duration_in_seconds: 259

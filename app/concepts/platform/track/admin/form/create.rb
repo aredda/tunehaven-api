@@ -3,7 +3,7 @@
 module Platform::Track::Admin::Form
   class Create < ApplicationForm
     property :title
-    property :duration_in_seconds
+    property :duration_in_seconds, type: Types::IntegerType
     property :album_id
 
     validation do
