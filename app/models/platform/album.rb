@@ -16,6 +16,8 @@
 #  fk_rails_...  (artist_id => platform_artists.id)
 #
 class Platform::Album < ApplicationRecord
+  mount_uploader :cover, CoverUploader
+
   belongs_to :artist, class_name: "Platform::Artist", foreign_key: :artist_id, inverse_of: :albums
 
   has_many :genre_relationships, class_name: "Platform::AlbumGenre", foreign_key: :album_id, dependent: :destroy, inverse_of: :album

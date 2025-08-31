@@ -4,7 +4,7 @@ module Platform::Album::Admin::View
   class Index < ApplicationView
     property :id
     property :title
-    property :cover
+    property :cover_thumb_url, getter: ->(represented:, **) { represented.cover.thumb.url }
     property :release_date
     property :tracks_count
     property :artist do
