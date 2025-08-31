@@ -18,7 +18,7 @@ class User::SearchControllerTest < UserIntegrationTest
       }
 
       assert_response 200
-      assert_equal 2, res_data.count
+      assert_equal 4, res_data.count
       assert_equal %w[ id title duration_in_seconds ], res_data.first.keys
 
       # filter by query
