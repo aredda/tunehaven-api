@@ -1,6 +1,12 @@
 require "test_helper"
+require "fileutils"
 
 class Admin::AlbumsControllerTest < AdminIntegrationTest
+  # Remove uploaded test files
+  def teardown
+    FileUtils.rm_rf("public/uploads")
+  end
+
   let(:artist) { platform_artists(:radiohead) }
   let(:album) { platform_albums(:ok_computer) }
 
@@ -13,7 +19,7 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
 
       assert_response :success
       assert_equal 2, res_data.count
-      assert_equal %w[id title cover release_date tracks_count artist created_at updated_at], res_data.first.keys
+      assert_equal %w[id title cover_thumb_url release_date tracks_count artist created_at updated_at], res_data.first.keys
 
       # filter by: title
       get "/api/admin/albums", headers: @auth_headers, params: {
@@ -42,7 +48,7 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
       get "/api/admin/albums/#{album.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id title cover release_date tracks_count artist created_at updated_at], res_data.keys
+      assert_equal %w[id title cover_thumb_url release_date tracks_count artist created_at updated_at], res_data.keys
     end
     it "should fail: album is not found" do
       get "/api/admin/albums/xyz", headers: @auth_headers
@@ -58,7 +64,8 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
         post "/api/admin/albums", headers: @auth_headers, params: {
           album: {
             title: "In Rainbows",
-            artist_id: artist.id
+            artist_id: artist.id,
+            cover: Rack::Test::UploadedFile.new("test/fixtures/files/cover.jpg", "image/jpeg")
           }
         }
 

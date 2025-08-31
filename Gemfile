@@ -68,6 +68,8 @@ group :test do
   gem "timecop"
 end
 
+gem "carrierwave"
+
 gem "devise"
 gem "devise-jwt"
 gem "warden-jwt_auth"
