@@ -15,4 +15,5 @@
 #
 class Platform::TrackGenre < ApplicationRecord
   belongs_to :track, class_name: "Platform::Track", foreign_key: :track_id, inverse_of: :genre_relationships
+  belongs_to :genre, class_name: "Platform::Genre", foreign_key: :genre_id
 end
