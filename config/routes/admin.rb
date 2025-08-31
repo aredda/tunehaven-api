@@ -14,5 +14,7 @@ namespace :admin do
   resources :albums do
     resources :genres, controller: "albums/genres"
   end
-  resources :tracks
+  resources :tracks do
+    resources :genres, controller: "tracks/genres"
+  end
 end
