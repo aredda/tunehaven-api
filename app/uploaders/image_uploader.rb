@@ -4,6 +4,6 @@ class ImageUploader < BaseUploader
   include CarrierWave::MiniMagick
 
   def extension_allowlist
-    %w(jpg jpeg)
+    %w[jpg jpeg]
   end
 end
