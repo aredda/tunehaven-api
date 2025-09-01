@@ -26,5 +26,7 @@ class Platform::TrackTest < ActiveSupport::TestCase
     should have_one(:artist).through(:album).class_name("Platform::Artist")
 
     should have_many(:genre_relationships).class_name("Platform::TrackGenre")
+
+    should have_many(:audios).class_name("Platform::Track::Audio")
   end
 end
