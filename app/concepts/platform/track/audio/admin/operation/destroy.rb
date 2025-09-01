@@ -2,6 +2,5 @@
 
 module Platform::Track::Audio::Admin::Operation
   class Destroy < ApplicationOperation
-
   end
 end

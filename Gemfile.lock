@@ -410,6 +410,8 @@ GEM
     state_machines-activerecord (0.100.0)
       activerecord (>= 7.2)
       state_machines-activemodel (>= 0.100.0)
+    streamio-ffmpeg (3.0.2)
+      multi_json (~> 1.8)
     stringio (3.1.7)
     test-unit (3.7.0)
       power_assert
@@ -524,6 +526,7 @@ DEPENDENCIES
   solid_cache
   solid_queue
   state_machines-activerecord
+  streamio-ffmpeg
   test-unit
   thruster
   timecop

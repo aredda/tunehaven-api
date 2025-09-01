@@ -3,10 +3,14 @@
 require "test_helper"
 
 class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
+  # Remove uploaded test files
+  def teardown
+    FileUtils.rm_rf("public/uploads")
+  end
+
   let(:track) { platform_tracks(:let_down) }
 
   describe "GET index" do
-
   end
 
   describe "POST create" do
@@ -30,9 +34,22 @@ class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
         assert_equal [ "You are not allowed to upload \"jpg\" files, allowed types: flac, wav, aiff" ], res_errors["file"]
       end
     end
+    it "should pass" do
+      assert_difference -> { track.audios.count } do
+        post "/api/admin/tracks/#{track.id}/audios", headers: @auth_headers, params: {
+          audio: {
+            file: Rack::Test::UploadedFile.new("test/fixtures/files/audio.flac", "audio/flac")
+          }
+        }
+
+        assert_response :created
+        assert_equal "flac", res_data["format"]
+        assert_equal true, res_data["is_master"]
+        assert_equal 122, res_data["duration"]
+      end
+    end
   end
 
   describe "DELETE destroy" do
-
   end
 end

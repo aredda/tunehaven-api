@@ -13,7 +13,7 @@ module Platform::Track::Audio::Admin::Operation
     end
 
     def fail_model_errors(context, model:, **)
-      context["contract.default"].errors.add(:file, model.errors.messages[:file])
+      context["contract.default"].errors.add(:file, model.errors.messages[:file]) if model.errors.messages.key?(:file)
     end
   end
 end
