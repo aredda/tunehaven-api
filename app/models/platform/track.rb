@@ -19,4 +19,6 @@ class Platform::Track < ApplicationRecord
 
   has_many :genre_relationships, class_name: "Platform::TrackGenre", inverse_of: :track, dependent: :destroy
   has_many :genres, through: :genre_relationships, source: :genre
+
+  has_many :audios, class_name: "Platform::Track::Audio", inverse_of: :track, dependent: :destroy
 end
