@@ -88,6 +88,7 @@ gem "representable"
 gem "responders"
 
 gem "state_machines-activerecord"
+gem "streamio-ffmpeg"
 
 gem "trailblazer"
 gem "trailblazer-activity"
