@@ -32,4 +32,12 @@ class User < ApplicationRecord
   def create_default_playlist
     self.create_liked_playlist(title: "Liked")
   end
+
+  def reset_password(new_password)
+    self.password = new_password
+    self.reset_password_token = nil
+    self.reset_password_sent_at = nil
+
+    save
+  end
 end
