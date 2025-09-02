@@ -5,6 +5,7 @@ namespace :user do
 
   resources :tracks do
     member do
+      get :stream
       put :toggle_like
     end
   end

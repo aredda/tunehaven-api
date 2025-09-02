@@ -24,6 +24,6 @@ class Platform::Track::AudioUploader < AudioUploader
   end
 
   def filename
-    "#{model.id}.#{model.format}"
+    "#{model.bitrate}.#{model.format}"
   end
 end
