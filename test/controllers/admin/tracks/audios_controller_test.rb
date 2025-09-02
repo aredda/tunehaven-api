@@ -9,8 +9,24 @@ class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
   end
 
   let(:track) { platform_tracks(:let_down) }
+  let(:audios) { Fabricate.times(2, :track_audio, track:) }
 
   describe "GET index" do
+    it "should fail: track is not found" do
+      get "/api/admin/tracks/xyz/audios", headers: @auth_headers
+
+      assert_response :not_found
+      assert_equal [ "Track is not found!" ], res_errors["base"]
+    end
+    it "should pass" do
+      Fabricate.times(2, :track_audio, track:)
+
+      get "/api/admin/tracks/#{track.id}/audios", headers: @auth_headers
+
+      assert_response :success
+      assert_equal 2, res_data.count
+      assert_equal %w[id duration format bitrate size channels sample_rate is_master created_at updated_at], res_data.first.keys
+    end
   end
 
   describe "POST create" do
@@ -51,5 +67,33 @@ class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
   end
 
   describe "DELETE destroy" do
+    it "should fail: audio is not found" do
+      assert_no_difference -> { track.audios.count } do
+        delete "/api/admin/tracks/#{track.id}/audios/abc", headers: @auth_headers
+
+        assert_response :unprocessable_content
+        assert_equal [ "Audio is not found!" ], res_errors["base"]
+      end
+    end
+    it "should fail: cannot delete a master audio" do
+      audio = audios.first
+      audio.update is_master: true
+
+      assert_no_difference -> { track.audios.count } do
+        delete "/api/admin/tracks/#{track.id}/audios/#{audio.id}", headers: @auth_headers
+
+        assert_response :unprocessable_content
+        assert_equal [ "Cannot delete a master audio!" ], res_errors["base"]
+      end
+    end
+    it "should pass" do
+      audio = audios.first
+
+      assert_difference -> { track.audios.count }, -1 do
+        delete "/api/admin/tracks/#{track.id}/audios/#{audio.id}", headers: @auth_headers
+
+        assert_response :success
+      end
+    end
   end
 end
