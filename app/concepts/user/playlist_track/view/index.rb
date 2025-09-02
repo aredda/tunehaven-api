@@ -7,6 +7,7 @@ module User::PlaylistTrack::View
       property :id
       property :title
       property :duration_in_seconds
+      property :cover_thumb_url, getter: ->(represented:, **) { represented.album.cover.thumb.url }
     end
     property :created_at
   end
