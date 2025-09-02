@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 namespace :user do
+  post :sign_up, controller: :registrations, action: :create
+
   resource :me, controller: :me, only: :show
 
   resources :tracks do
