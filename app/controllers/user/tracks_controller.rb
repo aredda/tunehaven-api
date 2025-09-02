@@ -32,7 +32,7 @@ class User::TracksController < User::Controller
   # GET   /api/user/tracks/:id/stream
   def stream
     run Platform::Track::Operation::Stream do
-      return send_file "public/#{@model.file.url}", type: "audio/#{@model.format}", disposition: "inline"
+      return send_file File.join("public", @model.file.url), type: "audio/#{@model.format}", disposition: "inline"
     end
 
     head :not_found

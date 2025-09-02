@@ -3,6 +3,13 @@
 namespace :user do
   post :sign_up, controller: :registrations, action: :create
 
+  resource :password, controller: :password, except: [] do
+    collection do
+      post :forget
+      post :reset
+    end
+  end
+
   resource :me, controller: :me, only: :show
 
   resources :tracks do
