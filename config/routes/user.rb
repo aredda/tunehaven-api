@@ -21,6 +21,7 @@ namespace :user do
   resources :playlists do
     member do
       put :toggle_visibility
+      post :toggle_save
     end
 
     resources :tracks, controller: "playlists/tracks", only: %i[index create destroy]

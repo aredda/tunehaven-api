@@ -7,6 +7,7 @@ module User::Playlist::View
     property :id
     property :title
     property :tracks_count
+    property :saves_count
     property :is_default
     property :created_at
   end
