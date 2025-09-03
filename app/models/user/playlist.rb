@@ -5,6 +5,7 @@
 #  id           :uuid             not null, primary key
 #  description  :text
 #  is_default   :boolean          default(FALSE)
+#  saves_count  :integer          default(0)
 #  title        :string           not null
 #  tracks_count :integer          default(0)
 #  visibility   :string           default(NULL)
@@ -23,6 +24,8 @@ class User::Playlist < ApplicationRecord
 
   has_many :track_relationships, class_name: "User::PlaylistTrack", inverse_of: :playlist, dependent: :destroy, foreign_key: :playlist_id
   has_many :tracks, through: :track_relationships, source: :track
+
+  has_many :user_saves, class_name: "User::PlaylistSave", inverse_of: :playlist, dependent: :destroy, foreign_key: :playlist_id
 
   state_machine :visibility, initial: :private do
     event :toggle_visibility do
