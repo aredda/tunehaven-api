@@ -19,7 +19,7 @@ class User::TracksController < User::Controller
     run Platform::Track::Operation::Show do
       return render json: {
         success: true,
-        data: Platform::Track::View::Show.new(@model)
+        data: Platform::Track::View::Show.with_options(current_user:).new(@model)
       }, status: :ok
     end
 
