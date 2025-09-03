@@ -44,11 +44,9 @@ class User < ApplicationRecord
     save
   end
 
-  def owns_playlist?(playlist)
-    playlists.include?(playlist)
-  end
+  def owns_playlist?(playlist) = playlists.include?(playlist)
 
-  def saved_playlist?(playlist)
-    saved_playlists.include?(playlist)
-  end
+  def saved_playlist?(playlist) = saved_playlists.include?(playlist)
+
+  def likes_track?(track) = liked_playlist.tracks.include?(track)
 end
