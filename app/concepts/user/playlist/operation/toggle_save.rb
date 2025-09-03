@@ -2,7 +2,7 @@
 
 module User::Playlist::Operation
   class ToggleSave < ApplicationOperation
-    step Model::Find(User::Playlist, find_by: :id)
+    step Model::Find(User::Playlist.visibility_public, find_by: :id)
     fall :fail_not_found, fail_fast: true
     step :is_own_playlist
     fall ->(_, **) { fail_error(_, "Cannot save your own playlist!") }, fail_fast: true
