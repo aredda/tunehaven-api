@@ -86,4 +86,18 @@ class User::PlaylistsController < User::Controller
       errors: @form.errors.messages
     }, status: :unprocessable_content
   end
+
+  # POST  /api/user/playlists/:id/toggle_save
+  def toggle_save
+    run User::Playlist::Operation::ToggleSave do
+      return render json: {
+        success: true
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_content
+  end
 end

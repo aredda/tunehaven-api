@@ -16,7 +16,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
 
       assert_response :success
       assert_equal 3, res_data.count
-      assert_equal %w[id title tracks_count is_default created_at], res_data.first.keys
+      assert_equal %w[id title tracks_count saves_count is_default created_at], res_data.first.keys
     end
   end
 
@@ -31,7 +31,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
       get "/api/user/playlists/#{@playlists.first.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[ id title tracks_count is_default created_at description ], res_data.keys
+      assert_equal %w[ id title tracks_count saves_count is_default created_at description ], res_data.keys
     end
   end
 
@@ -132,6 +132,48 @@ class User::PlaylistsControllerTest < UserIntegrationTest
         delete "/api/user/playlists/#{@playlists.last.id}", headers: @auth_headers
 
         assert_response :success
+      end
+    end
+  end
+
+  describe "POST toggle_save" do
+    it "should fail: playlist is not found" do
+      assert_no_difference -> { @user.saved_playlists.count } do
+        post "/api/user/playlists/xyz/toggle_save", headers: @auth_headers
+
+        assert_response :unprocessable_content
+        assert_equal [ "Playlist is not found!" ], res_errors["base"]
+      end
+    end
+    it "should fail: own playlist" do
+      playlist = @playlists.first
+
+      assert_no_difference -> { @user.saved_playlists.count } do
+        post "/api/user/playlists/#{playlist.id}/toggle_save", headers: @auth_headers
+
+        assert_response :unprocessable_content
+        assert_equal [ "Cannot save your own playlist!" ], res_errors["base"]
+      end
+    end
+    it "should pass: saves playlist" do
+      playlist = Fabricate(:playlist)
+
+      assert_difference -> { @user.saved_playlists.count } do
+        post "/api/user/playlists/#{playlist.id}/toggle_save", headers: @auth_headers
+
+        assert_response :success
+        assert_equal 1, playlist.reload.saves_count
+      end
+    end
+    it "should pass: unsaves playlist" do
+      playlist = Fabricate(:playlist)
+      @user.saved_playlists << playlist
+
+      assert_difference -> { @user.saved_playlists.count }, -1 do
+        post "/api/user/playlists/#{playlist.id}/toggle_save", headers: @auth_headers
+
+        assert_response :success
+        assert_equal 0, playlist.reload.saves_count
       end
     end
   end
