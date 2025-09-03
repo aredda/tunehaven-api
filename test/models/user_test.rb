@@ -32,6 +32,9 @@ class UserTest < ActiveSupport::TestCase
   context "associations" do
     should have_many(:playlists).class_name("User::Playlist")
     should have_one(:liked_playlist).class_name("User::Playlist")
+
+    should have_many(:playlist_saves).class_name("User::PlaylistSave")
+    should have_many(:saved_playlists).class_name("User::Playlist").through(:playlist_saves)
   end
 
   context "default playlist creation hook" do
