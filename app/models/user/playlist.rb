@@ -18,7 +18,7 @@
 #  fk_rails_...  (user_id => users.id) ON DELETE => cascade
 #
 class User::Playlist < ApplicationRecord
-  enum :visibility, { public:, private: }, prefix: true
+  enum :visibility, { public: "public", private: "private"}, prefix: true
 
   belongs_to :user, class_name: "User", inverse_of: :playlists
 
