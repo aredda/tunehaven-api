@@ -2,6 +2,5 @@
 
 module Platform::Album::Operation
   class Index < ApplicationOperation
-
   end
 end
