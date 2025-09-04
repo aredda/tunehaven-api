@@ -5,15 +5,19 @@ class ApplicationView < Representable::Decorator
 
   defaults render_nil: true
 
-  @options = {}
-
   class << self
+    @options = {}
+
     attr_reader :options
 
     def with_options(**options)
       @options = options
 
       self
+    end
+
+    def user
+      options[:current_user]
     end
   end
 end
