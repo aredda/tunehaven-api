@@ -26,5 +26,10 @@ namespace :user do
 
     resources :tracks, controller: "playlists/tracks", only: %i[index create destroy]
   end
+  resources :albums do
+    member do
+      post :toggle_save
+    end
+  end
   resource :search, controller: :search, only: :show
 end

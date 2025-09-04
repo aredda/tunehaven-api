@@ -52,4 +52,6 @@ class User < ApplicationRecord
   def saved_playlist?(playlist) = saved_playlists.include?(playlist)
 
   def likes_track?(track) = liked_playlist.tracks.include?(track)
+
+  def saved_album?(album) = saved_albums.include?(album)
 end
