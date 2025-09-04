@@ -24,4 +24,6 @@ class Platform::Album < ApplicationRecord
   has_many :genres, through: :genre_relationships, source: :genre
 
   has_many :tracks, class_name: "Platform::Track", foreign_key: :album_id, inverse_of: :album, dependent: :destroy
+
+  has_many :user_saves, class_name: "User::AlbumSave", inverse_of: :album
 end

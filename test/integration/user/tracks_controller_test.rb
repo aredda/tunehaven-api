@@ -39,7 +39,7 @@ class User::TracksControllerTest < UserIntegrationTest
       get "/api/user/tracks/#{track1.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id title duration_in_seconds cover_url is_liked], res_data.keys
+      assert_equal %w[id title duration_in_seconds is_liked cover_url], res_data.keys
     end
   end
 
