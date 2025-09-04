@@ -32,6 +32,9 @@ class User < ApplicationRecord
   has_many :playlist_saves, class_name: "User::PlaylistSave", inverse_of: :user, dependent: :destroy
   has_many :saved_playlists, class_name: "User::Playlist", through: :playlist_saves, source: :playlist
 
+  has_many :album_saves, class_name: "User::AlbumSave", inverse_of: :user, dependent: :destroy
+  has_many :saved_albums, through: :album_saves, source: :album
+
   def create_default_playlist
     self.create_liked_playlist(title: "Liked")
   end
@@ -49,4 +52,6 @@ class User < ApplicationRecord
   def saved_playlist?(playlist) = saved_playlists.include?(playlist)
 
   def likes_track?(track) = liked_playlist.tracks.include?(track)
+
+  def saved_album?(album) = saved_albums.include?(album)
 end

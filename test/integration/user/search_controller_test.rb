@@ -23,7 +23,7 @@ class User::SearchControllerTest < UserIntegrationTest
 
       assert_response 200
       assert_equal 4, res_data.count
-      assert_equal %w[ id title duration_in_seconds cover_thumb_url is_liked ], res_data.first.keys
+      assert_equal %w[ id title duration_in_seconds is_liked cover_thumb_url ], res_data.first.keys
 
       # filter by query
       get "/api/user/search", headers: @auth_headers, params: {
@@ -43,7 +43,7 @@ class User::SearchControllerTest < UserIntegrationTest
 
       assert_response 200
       assert_equal 2, res_data.count
-      assert_equal %w[ id title artist release_date tracks_count ], res_data.first.keys
+      assert_equal %w[ id title cover_thumb_url tracks_count release_date artist ], res_data.first.keys
 
       # filter by query
       get "/api/user/search", headers: @auth_headers, params: {

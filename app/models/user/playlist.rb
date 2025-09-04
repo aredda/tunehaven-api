@@ -8,7 +8,7 @@
 #  saves_count  :integer          default(0)
 #  title        :string           not null
 #  tracks_count :integer          default(0)
-#  visibility   :string           default(NULL)
+#  visibility   :string           default("private")
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  user_id      :uuid             not null
@@ -18,7 +18,7 @@
 #  fk_rails_...  (user_id => users.id) ON DELETE => cascade
 #
 class User::Playlist < ApplicationRecord
-  enum :visibility, { public:, private: }, prefix: true
+  enum :visibility, { public: "public", private: "private" }, prefix: true
 
   belongs_to :user, class_name: "User", inverse_of: :playlists
 
