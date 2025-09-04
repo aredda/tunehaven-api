@@ -19,7 +19,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
 
       assert_response :success
       assert_equal 5, res_data.count
-      assert_equal %w[id title tracks_count saves_count is_default is_owned is_saved created_at], res_data.first.keys
+      assert_equal %w[id title visibility tracks_count saves_count is_default is_owned is_saved created_at], res_data.first.keys
     end
   end
 
@@ -34,7 +34,9 @@ class User::PlaylistsControllerTest < UserIntegrationTest
       get "/api/user/playlists/#{@playlists.first.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[ id title tracks_count saves_count is_default is_owned is_saved created_at description ], res_data.keys
+      assert_equal %w[ id title visibility tracks_count saves_count is_default is_owned is_saved created_at description ], res_data.keys
+      assert_equal true, res_data["is_owned"]
+      assert_equal "private", res_data["visibility"]
     end
   end
 
@@ -59,6 +61,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
         }
 
         assert_response :created
+        assert_equal "private", res_data["visibility"]
       end
     end
   end
@@ -103,6 +106,8 @@ class User::PlaylistsControllerTest < UserIntegrationTest
     end
     it "should pass" do
       playlist = @playlists.first
+
+      assert_equal "private", playlist.visibility
 
       put "/api/user/playlists/#{playlist.id}/toggle_visibility", headers: @auth_headers
 
@@ -150,6 +155,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
     end
     it "should fail: own playlist" do
       playlist = @playlists.first
+      playlist.toggle_visibility
 
       assert_no_difference -> { @user.saved_playlists.count } do
         post "/api/user/playlists/#{playlist.id}/toggle_save", headers: @auth_headers
@@ -170,7 +176,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
       end
     end
     it "should pass: saves playlist" do
-      playlist = Fabricate(:playlist)
+      playlist = Fabricate(:playlist, visibility: :public)
 
       assert_difference -> { @user.saved_playlists.count } do
         post "/api/user/playlists/#{playlist.id}/toggle_save", headers: @auth_headers
@@ -180,7 +186,7 @@ class User::PlaylistsControllerTest < UserIntegrationTest
       end
     end
     it "should pass: unsaves playlist" do
-      playlist = Fabricate(:playlist)
+      playlist = Fabricate(:playlist, visibility: :public)
       @user.saved_playlists << playlist
 
       assert_difference -> { @user.saved_playlists.count }, -1 do
