@@ -2,11 +2,11 @@
 
 module User::Playlist::Operation
   class Show < ApplicationOperation
-    step :find_model
+    step :find_playlist
     fall :fail_not_found
 
-    def find_model(context, current_user:, params:, **)
-      context[:model] = current_user.playlists.find_by(id: params[:id])
+    def find_playlist(context, current_user:, params:, **)
+      context[:model] = current_user.playlists.find_by(id: params[:id]) || User::Playlist.visibility_public.find_by(id: params[:id])
     end
 
     def fail_not_found_message(_context) = "Playlist is not found!"

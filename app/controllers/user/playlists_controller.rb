@@ -8,7 +8,7 @@ class User::PlaylistsController < User::Controller
 
       render json: {
         success: true,
-        data: User::Playlist::View::Index.for_collection.new(result),
+        data: User::Playlist::View::Index.with_options(current_user:).for_collection.new(result),
         meta: MetaView.new(result)
       }, status: :ok
     end
@@ -19,7 +19,7 @@ class User::PlaylistsController < User::Controller
     run User::Playlist::Operation::Show do
       return render json: {
         success: true,
-        data: User::Playlist::View::Show.new(@model)
+        data: User::Playlist::View::Show.with_options(current_user:).new(@model)
       }, status: :ok
     end
 
@@ -34,7 +34,7 @@ class User::PlaylistsController < User::Controller
     run User::Playlist::Operation::Create do
       return render json: {
         success: true,
-        data: User::Playlist::View::Index.new(@model)
+        data: User::Playlist::View::Index.with_options(current_user:).new(@model)
       }, status: :created
     end
 
@@ -49,7 +49,7 @@ class User::PlaylistsController < User::Controller
     run User::Playlist::Operation::Update do
       return render json: {
         success: true,
-        data: User::Playlist::View::Show.new(@model)
+        data: User::Playlist::View::Show.with_options(current_user:).new(@model)
       }, status: :ok
     end
 
@@ -76,6 +76,20 @@ class User::PlaylistsController < User::Controller
   # DELETE  /api/user/playlists/:id
   def destroy
     run User::Playlist::Operation::Destroy do
+      return render json: {
+        success: true
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_content
+  end
+
+  # POST  /api/user/playlists/:id/toggle_save
+  def toggle_save
+    run User::Playlist::Operation::ToggleSave do
       return render json: {
         success: true
       }, status: :ok

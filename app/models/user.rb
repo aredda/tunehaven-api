@@ -29,7 +29,29 @@ class User < ApplicationRecord
   has_many :playlists, class_name: "User::Playlist", inverse_of: :user, dependent: :destroy
   has_one :liked_playlist, -> { where(is_default: true) }, class_name: "User::Playlist"
 
+  has_many :playlist_saves, class_name: "User::PlaylistSave", inverse_of: :user, dependent: :destroy
+  has_many :saved_playlists, class_name: "User::Playlist", through: :playlist_saves, source: :playlist
+
+  has_many :album_saves, class_name: "User::AlbumSave", inverse_of: :user, dependent: :destroy
+  has_many :saved_albums, through: :album_saves, source: :album
+
   def create_default_playlist
     self.create_liked_playlist(title: "Liked")
   end
+
+  def reset_password(new_password)
+    self.password = new_password
+    self.reset_password_token = nil
+    self.reset_password_sent_at = nil
+
+    save
+  end
+
+  def owns_playlist?(playlist) = playlists.include?(playlist)
+
+  def saved_playlist?(playlist) = saved_playlists.include?(playlist)
+
+  def likes_track?(track) = liked_playlist.tracks.include?(track)
+
+  def saved_album?(album) = saved_albums.include?(album)
 end

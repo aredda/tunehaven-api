@@ -8,7 +8,7 @@ class User::SearchController < User::Controller
     run User::Operation::Search do |context|
       result = context[:finder].result
       view = case params[:type]
-      when "track" then Platform::Track::View::Index
+      when "track" then Platform::Track::View::Index.with_options(current_user:)
       when "album" then Platform::Album::View::Index
       when "artist" then Platform::Artist::View::Index
       when "playlist" then User::Playlist::View::Index
