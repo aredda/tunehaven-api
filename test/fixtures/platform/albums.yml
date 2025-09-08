@@ -11,6 +11,7 @@
 #  id           :uuid             not null, primary key
 #  cover        :string
 #  release_date :date
+#  slug         :citext
 #  title        :citext           not null
 #  tracks_count :integer          default(0), not null
 #  created_at   :datetime         not null

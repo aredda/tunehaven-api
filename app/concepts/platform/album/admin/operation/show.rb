@@ -2,8 +2,12 @@
 
 module Platform::Album::Admin::Operation
   class Show < ApplicationOperation
-    step Model::Find(Platform::Album, find_by: :id)
+    step :find_album
     fall :fail_not_found
+
+    def find_album(context, params:, **)
+      context[:model] = Platform::Album.where(id: params[:id]).or(Platform::Album.where(slug: params[:id])).first
+    end
 
     def fail_not_found_message(_context)
       "Album is not found!"
