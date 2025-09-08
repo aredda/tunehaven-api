@@ -14,7 +14,7 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
 
       assert_response :success
       assert_equal 3, res_data.count
-      assert_equal %w[id name about created_at updated_at], res_data.first.keys
+      assert_equal %w[id name about albums_count created_at updated_at], res_data.first.keys
 
       # filter by: name
       get "/api/admin/artists", headers: @auth_headers, params: {
@@ -47,7 +47,7 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
       get "/api/admin/artists/#{artist.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id name about created_at updated_at], res_data.keys
+      assert_equal %w[id name about albums_count created_at updated_at], res_data.keys
     end
     it "should fail: artist is not found" do
       get "/api/admin/artists/xyz", headers: @auth_headers

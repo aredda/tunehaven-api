@@ -68,17 +68,19 @@ class Admin::TracksControllerTest < AdminIntegrationTest
   describe "POST create" do
     it "should pass" do
       assert_difference "Platform::Track.count" do
-        post "/api/admin/tracks", headers: @auth_headers, params: {
-          track: {
-            title: "Paranoid Android",
-            duration_in_seconds: 387,
-            album_id: album.id
+        assert_difference -> { album.reload.tracks_count } do
+          post "/api/admin/tracks", headers: @auth_headers, params: {
+            track: {
+              title: "Paranoid Android",
+              duration_in_seconds: 387,
+              album_id: album.id
+            }
           }
-        }
 
-        assert_response :created
-        assert_equal "OK Computer", res_data["album"]["title"]
-        assert_equal "Radiohead", res_data["artist"]["name"]
+          assert_response :created
+          assert_equal "OK Computer", res_data["album"]["title"]
+          assert_equal "Radiohead", res_data["artist"]["name"]
+        end
       end
     end
     it "should fail: missing params" do
