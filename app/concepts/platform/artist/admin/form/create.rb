@@ -10,6 +10,10 @@ module Platform::Artist::Admin::Form
         required(:name).filled(min_size?: 2)
         optional(:about)
       end
+
+      rule(:name) do
+        key.failure("This band name already exists!") if Platform::Artist.exists?(slug: value.parameterize)
+      end
     end
   end
 end

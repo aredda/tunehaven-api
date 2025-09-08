@@ -2,8 +2,12 @@
 
 module Platform::Artist::Admin::Operation
   class Show < ApplicationOperation
-    step Model::Find(Platform::Artist, find_by: :id)
+    step :find_artist
     fall :fail_not_found
+
+    def find_artist(context, params:, **)
+      context[:model] = Platform::Artist.where(id: params[:id]).or(Platform::Artist.where(slug: params[:id])).first
+    end
 
     def fail_not_found_message(_context)
       "Artist is not found!"

@@ -12,14 +12,18 @@
 #  about        :text
 #  albums_count :integer          default(0)
 #  name         :citext           not null
+#  slug         :citext
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
 fleetwood_mac:
   name: Fleetwood Mac
+  slug: fleetwood-mac
 
 boston:
   name: Boston
+  slug: boston
 
 radiohead:
   name: Radiohead
+  slug: radiohead
