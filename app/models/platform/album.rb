@@ -18,7 +18,7 @@
 class Platform::Album < ApplicationRecord
   mount_uploader :cover, CoverUploader
 
-  belongs_to :artist, class_name: "Platform::Artist", foreign_key: :artist_id, inverse_of: :albums
+  belongs_to :artist, class_name: "Platform::Artist", foreign_key: :artist_id, inverse_of: :albums, counter_cache: :albums_count
 
   has_many :genre_relationships, class_name: "Platform::AlbumGenre", foreign_key: :album_id, dependent: :destroy, inverse_of: :album
   has_many :genres, through: :genre_relationships, source: :genre

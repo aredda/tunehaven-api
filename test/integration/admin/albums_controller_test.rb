@@ -61,15 +61,17 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
   describe "POST create" do
     it "should pass" do
       assert_difference "Platform::Album.count" do
-        post "/api/admin/albums", headers: @auth_headers, params: {
-          album: {
-            title: "In Rainbows",
-            artist_id: artist.id,
-            cover: Rack::Test::UploadedFile.new("test/fixtures/files/cover.jpg", "image/jpeg")
+        assert_difference -> { artist.reload.albums_count } do
+          post "/api/admin/albums", headers: @auth_headers, params: {
+            album: {
+              title: "In Rainbows",
+              artist_id: artist.id,
+              cover: Rack::Test::UploadedFile.new("test/fixtures/files/cover.jpg", "image/jpeg")
+            }
           }
-        }
 
-        assert_response :created
+          assert_response :created
+        end
       end
     end
     it "should fail: missing params" do
