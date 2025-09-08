@@ -3,6 +3,7 @@
 module Platform::Artist::Admin::View
   class Index < ApplicationView
     property :id
+    property :slug
     property :name
     property :about
     property :albums_count
