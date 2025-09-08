@@ -6,6 +6,7 @@
 #  about        :text
 #  albums_count :integer          default(0)
 #  name         :citext           not null
+#  slug         :citext
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #

@@ -14,7 +14,7 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
 
       assert_response :success
       assert_equal 3, res_data.count
-      assert_equal %w[id name about albums_count created_at updated_at], res_data.first.keys
+      assert_equal %w[id slug name about albums_count created_at updated_at], res_data.first.keys
 
       # filter by: name
       get "/api/admin/artists", headers: @auth_headers, params: {
@@ -47,7 +47,12 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
       get "/api/admin/artists/#{artist.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id name about albums_count created_at updated_at], res_data.keys
+      assert_equal %w[id slug name about albums_count created_at updated_at], res_data.keys
+
+      # find by slug
+      get "/api/admin/artists/radiohead", headers: @auth_headers
+
+      assert_response :success
     end
     it "should fail: artist is not found" do
       get "/api/admin/artists/xyz", headers: @auth_headers
@@ -67,6 +72,19 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
         }
 
         assert_response :created
+        assert_equal "queen", res_data["slug"]
+      end
+    end
+    it "should fail: name already exists" do
+      assert_no_difference "Platform::Artist.count" do
+        post "/api/admin/artists", headers: @auth_headers, params: {
+          artist: {
+            name: "Radiohead"
+          }
+        }
+
+        assert_response :unprocessable_content
+        assert_equal [ "This band name already exists!" ], res_errors["name"]
       end
     end
     it "should fail: missing params" do
