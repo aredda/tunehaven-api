@@ -4,6 +4,7 @@
 #
 #  id                  :uuid             not null, primary key
 #  duration_in_seconds :integer          not null
+#  position            :integer
 #  title               :citext           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -14,6 +15,8 @@
 #  fk_rails_...  (album_id => platform_albums.id)
 #
 class Platform::Track < ApplicationRecord
+  acts_as_list scope: :album
+
   belongs_to :album, class_name: "Platform::Album", foreign_key: :album_id, inverse_of: :tracks, counter_cache: :tracks_count
   has_one :artist, class_name: "Platform::Artist", through: :album, source: :artist
 

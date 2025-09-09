@@ -14,7 +14,7 @@ class Admin::TracksControllerTest < AdminIntegrationTest
 
       assert_response :success
       assert_equal 3, res_data.count
-      assert_equal %w[id title duration_in_seconds album artist created_at updated_at], res_data.first.keys
+      assert_equal %w[id position title duration_in_seconds album artist created_at updated_at], res_data.first.keys
 
       # filter by: title
       get "/api/admin/tracks", headers: @auth_headers, params: {
@@ -55,7 +55,7 @@ class Admin::TracksControllerTest < AdminIntegrationTest
       get "/api/admin/tracks/#{track.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id title duration_in_seconds album artist created_at updated_at], res_data.keys
+      assert_equal %w[id position title duration_in_seconds album artist created_at updated_at], res_data.keys
     end
     it "should fail: album is not found" do
       get "/api/admin/tracks/xyz", headers: @auth_headers
@@ -117,6 +117,28 @@ class Admin::TracksControllerTest < AdminIntegrationTest
 
       assert_response :unprocessable_content
       assert_equal [ "Track is not found!" ], res_errors["base"]
+    end
+  end
+
+  describe "PUT move" do
+    it "should fail: track is not found" do
+      put "/api/admin/tracks/xyz/move/1", headers: @auth_headers
+
+      assert_response :unprocessable_content
+      assert_equal ["Track is not found!"], res_errors["base"]
+    end
+    it "should pass" do
+      put "/api/admin/tracks/#{track.id}/move/1", headers: @auth_headers
+
+      assert_response :success
+      assert_equal 1, res_data["position"]
+
+      track1 = Fabricate(:track, album:)
+
+      put "/api/admin/tracks/#{track1.id}/move/1", headers: @auth_headers
+
+      assert_equal 1, track1.reload.position
+      assert_equal 2, track.reload.position
     end
   end
 
