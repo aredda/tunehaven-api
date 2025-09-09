@@ -131,7 +131,7 @@ class Admin::TracksControllerTest < AdminIntegrationTest
       put "/api/admin/tracks/xyz/move/1", headers: @auth_headers
 
       assert_response :unprocessable_content
-      assert_equal ["Track is not found!"], res_errors["base"]
+      assert_equal [ "Track is not found!" ], res_errors["base"]
     end
     it "should pass" do
       put "/api/admin/tracks/#{track.id}/move/1", headers: @auth_headers
