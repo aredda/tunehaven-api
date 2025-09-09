@@ -59,6 +59,22 @@ class Admin::TracksController < Admin::Controller
     }, status: :unprocessable_content
   end
 
+  # PUT   /api/admin/tracks/:id/move/:position
+  def move
+    run Platform::Track::Admin::Operation::Move do
+      return render json: {
+        success: true,
+        data: Platform::Track::Admin::View::Show.new(@model)
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_content
+  end
+
+
   # DELETE  /api/admin/tracks/:id
   def destroy
     run Platform::Track::Admin::Operation::Destroy do

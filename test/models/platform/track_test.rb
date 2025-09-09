@@ -4,6 +4,7 @@
 #
 #  id                  :uuid             not null, primary key
 #  duration_in_seconds :integer          not null
+#  position            :integer
 #  title               :citext           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -28,5 +29,18 @@ class Platform::TrackTest < ActiveSupport::TestCase
     should have_many(:genre_relationships).class_name("Platform::TrackGenre")
 
     should have_many(:audios).class_name("Platform::Track::Audio")
+  end
+
+  it "should assign position" do
+    album = platform_albums(:ok_computer)
+
+    album.tracks.order(created_at: :asc).each.with_index(1) do |track, index|
+      track.update position: index
+    end
+
+    track = album.tracks.create(title: "The Tourist", duration_in_seconds: 300)
+
+    assert_predicate track.position, :present?
+    assert_equal album.tracks.count, track.position
   end
 end

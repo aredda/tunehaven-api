@@ -15,6 +15,10 @@ namespace :admin do
     resources :genres, controller: "albums/genres"
   end
   resources :tracks do
+    member do
+      put :move, path: "move/:position"
+    end
+
     resources :genres, controller: "tracks/genres"
     resources :audios, controller: "tracks/audios"
   end

@@ -6,6 +6,7 @@
 #
 #  id                  :uuid             not null, primary key
 #  duration_in_seconds :integer          not null
+#  position            :integer
 #  title               :citext           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -17,4 +18,5 @@
 #
 Fabricator :track, class_name: "Platform::Track" do
   title { Faker::Music::RockBand.song }
+  duration_in_seconds { Random.rand(600) }
 end
