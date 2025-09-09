@@ -5,6 +5,7 @@ module Platform::Genre::Admin::View
     property :id
     property :name
     property :description
+    property :parent_id
     property :created_at
     property :updated_at
   end
