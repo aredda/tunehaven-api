@@ -14,7 +14,7 @@ class Admin::GenresControllerTest < AdminIntegrationTest
 
       assert_response :success
       assert_equal 2, res_data.count
-      assert_equal %w[id name description created_at updated_at], res_data.first.keys
+      assert_equal %w[id name description parent_id created_at updated_at], res_data.first.keys
 
       # filter by: name
       get "/api/admin/genres", headers: @auth_headers, params: {
@@ -34,7 +34,7 @@ class Admin::GenresControllerTest < AdminIntegrationTest
       get "/api/admin/genres/#{genre.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id name description created_at updated_at], res_data.keys
+      assert_equal %w[id name description parent_id created_at updated_at], res_data.keys
     end
     it "should fail: genre is not found" do
       get "/api/admin/genres/xyz", headers: @auth_headers
@@ -55,6 +55,32 @@ class Admin::GenresControllerTest < AdminIntegrationTest
 
         assert_response :created
         assert_equal "progressive-rock", res_data["id"]
+      end
+    end
+    it "should pass: assign a parent genre" do
+      assert_difference "Platform::Genre.count" do
+        post "/api/admin/genres", headers: @auth_headers, params: {
+          genre: {
+            name: "Art Pop",
+            parent_id: genre.id
+          }
+        }
+
+        assert_response :created
+        assert_equal "art-pop", res_data["id"]
+      end
+    end
+    it "should fail: parent genre is not found" do
+      assert_no_difference "Platform::Genre.count" do
+        post "/api/admin/genres", headers: @auth_headers, params: {
+          genre: {
+            name: "Psychedelic Rock",
+            parent_id: "invalid"
+          }
+        }
+
+        assert_response :unprocessable_content
+        assert_equal [ "Genre is not found!" ], res_errors["parent_id"]
       end
     end
     it "should fail: missing params" do
