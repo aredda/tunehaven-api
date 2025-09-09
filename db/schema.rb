@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_09_104115) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_09_123124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_09_104115) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "parent_id"
   end
 
   create_table "platform_track_audios", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -171,6 +172,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_09_104115) do
   add_foreign_key "platform_albums", "platform_artists", column: "artist_id"
   add_foreign_key "platform_artist_genres", "platform_artists", column: "artist_id"
   add_foreign_key "platform_artist_genres", "platform_genres", column: "genre_id"
+  add_foreign_key "platform_genres", "platform_genres", column: "parent_id"
   add_foreign_key "platform_track_audios", "platform_tracks", column: "track_id"
   add_foreign_key "platform_track_genres", "platform_genres", column: "genre_id"
   add_foreign_key "platform_track_genres", "platform_tracks", column: "track_id"

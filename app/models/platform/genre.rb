@@ -7,9 +7,17 @@
 #  name        :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  parent_id   :string
+#
+# Foreign Keys
+#
+#  fk_rails_...  (parent_id => platform_genres.id)
 #
 class Platform::Genre < ApplicationRecord
   before_create :set_id
+
+  belongs_to :parent_genre, class_name: "Platform::Genre", inverse_of: :child_genres, foreign_key: :parent_id, optional: true
+  has_many :child_genres, class_name: "Platform::Genre", inverse_of: :parent_genre, dependent: :destroy
 
   def set_id
     self.id = name.parameterize
