@@ -121,6 +121,12 @@ class Admin::TracksControllerTest < AdminIntegrationTest
   end
 
   describe "PUT move" do
+    it "should fail: invalid position parameter" do
+      put "/api/admin/tracks/#{track.id}/move/invalid", headers: @auth_headers
+
+      assert_response :unprocessable_content
+      assert_equal [ "must be greater than or equal to 1" ], res_errors["position"]
+    end
     it "should fail: track is not found" do
       put "/api/admin/tracks/xyz/move/1", headers: @auth_headers
 
