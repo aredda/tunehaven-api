@@ -3,6 +3,7 @@
 module Platform::Track::Admin::View
   class Index < ApplicationView
     property :id
+    property :position
     property :title
     property :duration_in_seconds
     property :album do

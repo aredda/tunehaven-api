@@ -4,6 +4,7 @@
 #
 #  id                  :uuid             not null, primary key
 #  duration_in_seconds :integer          not null
+#  position            :integer
 #  title               :citext           not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
