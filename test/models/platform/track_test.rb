@@ -33,9 +33,14 @@ class Platform::TrackTest < ActiveSupport::TestCase
 
   it "should assign position" do
     album = platform_albums(:ok_computer)
+
+    album.tracks.order(created_at: :asc).each.with_index(1) do |track, index|
+      track.update position: index
+    end
+
     track = album.tracks.create(title: "The Tourist", duration_in_seconds: 300)
 
     assert_predicate track.position, :present?
-    assert_equal 3, track.position
+    assert_equal album.tracks.count, track.position
   end
 end
