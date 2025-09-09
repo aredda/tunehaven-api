@@ -74,6 +74,7 @@ gem "carrierwave"
 
 gem "devise"
 gem "devise-jwt"
+gem "fog-google"
 gem "warden-jwt_auth"
 
 gem "dry-configurable", ">= 0.11"
