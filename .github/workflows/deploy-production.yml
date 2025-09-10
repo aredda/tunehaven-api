@@ -1,0 +1,17 @@
+name: Deploy to Production
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+jobs:
+  ssh-connection:
+    name: Remote SSH Connection
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute SSH commands
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
+          script_path: deploy.sh
