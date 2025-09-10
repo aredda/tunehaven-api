@@ -1,6 +1,6 @@
 services:
   database:
-    container_name: db
+    container_name: database
     image: 'postgres:latest'
     ports:
       - "5432:5432"
@@ -11,6 +11,7 @@ services:
   api:
     container_name: api
     build: .
+    entrypoint: ./entrypoint.sh
     volumes:
       - .:/app
     ports:
