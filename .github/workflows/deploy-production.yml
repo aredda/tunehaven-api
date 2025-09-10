@@ -14,4 +14,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
-          script_path: ./deploy-production.sh
+          script_path: ./../../deploy-production.sh
