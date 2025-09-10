@@ -1,0 +1,398 @@
+[
+  {
+    "id": "rock",
+    "name": "Rock",
+    "description": "A broad genre of popular music that emerged in the 1950s, characterized by electric guitars, drums, and strong rhythms.",
+    "parent_id": null
+  },
+  {
+    "id": "hard-rock",
+    "name": "Hard Rock",
+    "description": "A louder, more aggressive style of rock featuring heavy guitar riffs and powerful vocals.",
+    "parent_id": "rock"
+  },
+  {
+    "id": "punk-rock",
+    "name": "Punk Rock",
+    "description": "A raw, fast-paced rock genre with simple chords and rebellious themes.",
+    "parent_id": "rock"
+  },
+  {
+    "id": "post-punk",
+    "name": "Post-Punk",
+    "description": "An experimental evolution of punk with darker atmospheres, unconventional structures, and influences from electronic music.",
+    "parent_id": "punk-rock"
+  },
+  {
+    "id": "garage-rock",
+    "name": "Garage Rock",
+    "description": "A raw, energetic style of rock that emerged in the 1960s with lo-fi production and simple riffs.",
+    "parent_id": "rock"
+  },
+  {
+    "id": "alternative-rock",
+    "name": "Alternative Rock",
+    "description": "A broad rock category that diverges from mainstream trends, often experimental and independent.",
+    "parent_id": "rock"
+  },
+  {
+    "id": "grunge",
+    "name": "Grunge",
+    "description": "A subgenre of alternative rock characterized by distorted guitars, angst-filled lyrics, and Seattle roots.",
+    "parent_id": "alternative-rock"
+  },
+  {
+    "id": "indie-rock",
+    "name": "Indie Rock",
+    "description": "Rock made outside major label influence, often experimental, lo-fi, or unconventional.",
+    "parent_id": "alternative-rock"
+  },
+  {
+    "id": "progressive-rock",
+    "name": "Progressive Rock",
+    "description": "Rock music that incorporates experimental structures, complex instrumentals, and conceptual themes.",
+    "parent_id": "rock"
+  },
+  {
+    "id": "psychedelic-rock",
+    "name": "Psychedelic Rock",
+    "description": "Rock inspired by psychedelic culture, using experimental sounds, effects, and surreal lyrics.",
+    "parent_id": "rock"
+  },
+  {
+    "id": "metal",
+    "name": "Metal",
+    "description": "A genre evolving from rock, known for distorted guitars, heavy drumming, and powerful vocals.",
+    "parent_id": "rock"
+  },
+  {
+    "id": "heavy-metal",
+    "name": "Heavy Metal",
+    "description": "The foundational style of metal with loud guitars, emphatic rhythms, and soaring vocals.",
+    "parent_id": "metal"
+  },
+  {
+    "id": "thrash-metal",
+    "name": "Thrash Metal",
+    "description": "Fast, aggressive metal characterized by palm-muted guitar riffs and rapid drumming.",
+    "parent_id": "metal"
+  },
+  {
+    "id": "death-metal",
+    "name": "Death Metal",
+    "description": "An extreme subgenre of metal with growled vocals, heavily distorted guitars, and complex structures.",
+    "parent_id": "metal"
+  },
+  {
+    "id": "melodic-death-metal",
+    "name": "Melodic Death Metal",
+    "description": "A blend of death metal and melody, featuring harmonized guitars and growled vocals.",
+    "parent_id": "death-metal"
+  },
+  {
+    "id": "black-metal",
+    "name": "Black Metal",
+    "description": "A raw, atmospheric form of metal characterized by shrieked vocals and dark themes.",
+    "parent_id": "metal"
+  },
+  {
+    "id": "doom-metal",
+    "name": "Doom Metal",
+    "description": "A slow, heavy form of metal with dark, melancholic themes.",
+    "parent_id": "metal"
+  },
+  {
+    "id": "folk-metal",
+    "name": "Folk Metal",
+    "description": "A fusion of heavy metal with folk instruments and themes from traditional music.",
+    "parent_id": "metal"
+  },
+  {
+    "id": "symphonic-metal",
+    "name": "Symphonic Metal",
+    "description": "A metal subgenre combining heavy guitar with orchestral and operatic elements.",
+    "parent_id": "metal"
+  },
+  {
+    "id": "pop",
+    "name": "Pop",
+    "description": "Popular music focused on catchy melodies, simple structures, and mass appeal.",
+    "parent_id": null
+  },
+  {
+    "id": "dance-pop",
+    "name": "Dance Pop",
+    "description": "Pop music with strong beats designed for dancing, influenced by electronic music.",
+    "parent_id": "pop"
+  },
+  {
+    "id": "synthpop",
+    "name": "Synthpop",
+    "description": "A pop style emphasizing synthesizers and electronic sounds, popular in the 1980s.",
+    "parent_id": "pop"
+  },
+  {
+    "id": "k-pop",
+    "name": "K-Pop",
+    "description": "South Korean pop music blending pop, hip hop, and electronic influences with choreographed performances.",
+    "parent_id": "pop"
+  },
+  {
+    "id": "hip-hop",
+    "name": "Hip Hop",
+    "description": "A cultural movement and music genre featuring rhythmic speech (rapping) over beats.",
+    "parent_id": null
+  },
+  {
+    "id": "trap",
+    "name": "Trap",
+    "description": "A subgenre of hip hop with 808 bass, hi-hats, and themes of street life.",
+    "parent_id": "hip-hop"
+  },
+  {
+    "id": "boom-bap",
+    "name": "Boom Bap",
+    "description": "A hip hop style with hard-hitting drum loops and lyrical emphasis, popular in the 1990s.",
+    "parent_id": "hip-hop"
+  },
+  {
+    "id": "gangsta-rap",
+    "name": "Gangsta Rap",
+    "description": "Hip hop focusing on gritty narratives of street life and violence.",
+    "parent_id": "hip-hop"
+  },
+  {
+    "id": "jazz",
+    "name": "Jazz",
+    "description": "A music genre originating in African-American communities, characterized by swing, improvisation, and complex harmonies.",
+    "parent_id": null
+  },
+  {
+    "id": "bebop",
+    "name": "Bebop",
+    "description": "A fast, complex form of jazz emphasizing improvisation and virtuosic solos.",
+    "parent_id": "jazz"
+  },
+  {
+    "id": "swing",
+    "name": "Swing",
+    "description": "A jazz style from the 1930s with strong rhythm and big band arrangements.",
+    "parent_id": "jazz"
+  },
+  {
+    "id": "cool-jazz",
+    "name": "Cool Jazz",
+    "description": "A smoother, more relaxed form of jazz developed in the 1950s.",
+    "parent_id": "jazz"
+  },
+  {
+    "id": "free-jazz",
+    "name": "Free Jazz",
+    "description": "Avant-garde jazz characterized by free improvisation and rejection of standard structures.",
+    "parent_id": "jazz"
+  },
+  {
+    "id": "fusion",
+    "name": "Jazz Fusion",
+    "description": "A genre combining jazz improvisation with rock, funk, and electronic elements.",
+    "parent_id": "jazz"
+  },
+  {
+    "id": "blues",
+    "name": "Blues",
+    "description": "A genre rooted in African-American history, using expressive lyrics and the 12-bar chord progression.",
+    "parent_id": null
+  },
+  {
+    "id": "delta-blues",
+    "name": "Delta Blues",
+    "description": "One of the earliest blues styles, originating in the Mississippi Delta with raw vocals and slide guitar.",
+    "parent_id": "blues"
+  },
+  {
+    "id": "chicago-blues",
+    "name": "Chicago Blues",
+    "description": "An electrified blues style that developed in Chicago with amplified instruments.",
+    "parent_id": "blues"
+  },
+  {
+    "id": "soul",
+    "name": "Soul",
+    "description": "A genre combining gospel, R&B, and jazz, emphasizing deep vocals and emotional expression.",
+    "parent_id": "blues"
+  },
+  {
+    "id": "neo-soul",
+    "name": "Neo-Soul",
+    "description": "A modern evolution of soul blending R&B, funk, and hip hop elements.",
+    "parent_id": "soul"
+  },
+  {
+    "id": "funk",
+    "name": "Funk",
+    "description": "A rhythmic genre emphasizing groove, basslines, and syncopated rhythms.",
+    "parent_id": "soul"
+  },
+  {
+    "id": "electronic",
+    "name": "Electronic",
+    "description": "Music produced mainly with electronic instruments, synthesizers, and digital production.",
+    "parent_id": null
+  },
+  {
+    "id": "house",
+    "name": "House",
+    "description": "A form of electronic dance music with repetitive 4/4 beats, steady basslines, and club orientation.",
+    "parent_id": "electronic"
+  },
+  {
+    "id": "deep-house",
+    "name": "Deep House",
+    "description": "A smoother, atmospheric style of house music with jazz and soul influences.",
+    "parent_id": "house"
+  },
+  {
+    "id": "tech-house",
+    "name": "Tech House",
+    "description": "A fusion of house and techno with rhythmic, minimal beats.",
+    "parent_id": "house"
+  },
+  {
+    "id": "techno",
+    "name": "Techno",
+    "description": "A subgenre of electronic dance music focusing on repetitive rhythms and synthetic sounds.",
+    "parent_id": "electronic"
+  },
+  {
+    "id": "trance",
+    "name": "Trance",
+    "description": "Electronic dance music with uplifting melodies, long builds, and breakdowns.",
+    "parent_id": "electronic"
+  },
+  {
+    "id": "drum-and-bass",
+    "name": "Drum and Bass",
+    "description": "Fast-paced electronic music featuring breakbeats, heavy bass, and jungle influences.",
+    "parent_id": "electronic"
+  },
+  {
+    "id": "dubstep",
+    "name": "Dubstep",
+    "description": "A bass-heavy style of electronic music with syncopated rhythms and wobble bass.",
+    "parent_id": "electronic"
+  },
+  {
+    "id": "ambient",
+    "name": "Ambient",
+    "description": "Electronic music focusing on atmosphere, textures, and soundscapes rather than rhythm.",
+    "parent_id": "electronic"
+  },
+  {
+    "id": "country",
+    "name": "Country",
+    "description": "A genre rooted in American folk traditions, often featuring guitars, storytelling, and rural themes.",
+    "parent_id": null
+  },
+  {
+    "id": "bluegrass",
+    "name": "Bluegrass",
+    "description": "A country style with banjos, fiddles, and fast-paced acoustic instrumentation.",
+    "parent_id": "country"
+  },
+  {
+    "id": "honky-tonk",
+    "name": "Honky Tonk",
+    "description": "A lively style of country music with piano, steel guitars, and barroom themes.",
+    "parent_id": "country"
+  },
+  {
+    "id": "outlaw-country",
+    "name": "Outlaw Country",
+    "description": "A rebellious style of country music rejecting Nashville's polished production.",
+    "parent_id": "country"
+  },
+  {
+    "id": "folk",
+    "name": "Folk",
+    "description": "Traditional and modern music based on storytelling, acoustic instruments, and cultural roots.",
+    "parent_id": null
+  },
+  {
+    "id": "indie-folk",
+    "name": "Indie Folk",
+    "description": "A contemporary form of folk with indie rock and pop influences.",
+    "parent_id": "folk"
+  },
+  {
+    "id": "classical",
+    "name": "Classical",
+    "description": "Art music rooted in Western traditions, spanning centuries from Baroque to contemporary orchestral works.",
+    "parent_id": null
+  },
+  {
+    "id": "baroque",
+    "name": "Baroque",
+    "description": "A style of classical music from the 17th–18th centuries, featuring ornate melodies and counterpoint.",
+    "parent_id": "classical"
+  },
+  {
+    "id": "romantic",
+    "name": "Romantic",
+    "description": "A 19th-century classical style emphasizing emotion, drama, and expressive orchestration.",
+    "parent_id": "classical"
+  },
+  {
+    "id": "modern-classical",
+    "name": "Modern Classical",
+    "description": "20th and 21st century classical music with experimental and contemporary approaches.",
+    "parent_id": "classical"
+  },
+  {
+    "id": "reggae",
+    "name": "Reggae",
+    "description": "A Jamaican genre with offbeat rhythms, laid-back grooves, and themes of social consciousness.",
+    "parent_id": null
+  },
+  {
+    "id": "ska",
+    "name": "Ska",
+    "description": "A precursor to reggae, combining Caribbean rhythms with jazz and R&B influences.",
+    "parent_id": "reggae"
+  },
+  {
+    "id": "dub",
+    "name": "Dub",
+    "description": "A subgenre of reggae emphasizing remixing, echo effects, and heavy bass.",
+    "parent_id": "reggae"
+  },
+  {
+    "id": "dancehall",
+    "name": "Dancehall",
+    "description": "A Jamaican genre derived from reggae with faster rhythms and DJ-style vocals.",
+    "parent_id": "reggae"
+  },
+  {
+    "id": "latin",
+    "name": "Latin",
+    "description": "A diverse category of music from Latin America, featuring rhythmic diversity and cultural fusion.",
+    "parent_id": null
+  },
+  {
+    "id": "salsa",
+    "name": "Salsa",
+    "description": "A lively dance music style from the Caribbean, combining Afro-Cuban rhythms with jazz.",
+    "parent_id": "latin"
+  },
+  {
+    "id": "bossa-nova",
+    "name": "Bossa Nova",
+    "description": "A Brazilian style blending samba rhythms with smooth jazz harmonies.",
+    "parent_id": "latin"
+  },
+  {
+    "id": "flamenco",
+    "name": "Flamenco",
+    "description": "A Spanish genre combining guitar, singing, and dance with passionate expression.",
+    "parent_id": "latin"
+  }
+]
