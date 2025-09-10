@@ -8,10 +8,12 @@ jobs:
     name: Remote SSH Connection
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5.0.0
       - name: Execute SSH commands
         uses: appleboy/ssh-action@v1.2.2
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
-          script_path: ./../../deploy-production.sh
+          script_path: deploy-production.sh
