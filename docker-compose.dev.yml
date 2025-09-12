@@ -10,7 +10,9 @@ services:
       - ./test-db-data/:/var/lib/postgresql/data/
   api:
     container_name: tunehaven_api
-    build: .
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
     volumes:
       - .:/app
     ports:
