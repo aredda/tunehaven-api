@@ -13,6 +13,10 @@ module Platform::Genre::Admin::Form
         optional(:parent_id)
       end
 
+      rule(:name) do
+        key.failure("The genre (#{value.parameterize}) already exists!") if Platform::Genre.exists?(id: value.parameterize)
+      end
+
       rule(:parent_id) do
         key.failure("Genre is not found!") if !Platform::Genre.exists?(id: value) && value.present?
       end

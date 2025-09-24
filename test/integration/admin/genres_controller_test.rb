@@ -95,6 +95,18 @@ class Admin::GenresControllerTest < AdminIntegrationTest
         assert_equal [ "must be filled", "size cannot be less than 2" ], res_errors["name"]
       end
     end
+    it "should fail: genre already exists" do
+      assert_no_difference("Platform::Genre.count") do
+        post "/api/admin/genres", headers: @auth_headers, params: {
+          genre: {
+            name: "Art Rock"
+          }
+        }
+
+        assert_response :unprocessable_content
+        assert_equal [ "The genre (art-rock) already exists!" ], res_errors["name"]
+      end
+    end
   end
 
   describe "PUT update" do

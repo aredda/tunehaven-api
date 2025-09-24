@@ -20,11 +20,11 @@
 #  fk_rails_...  (parent_id => platform_genres.id)
 #
 art_rock:
-  id: art_rock
+  id: art-rock
   name: Art Rock
   description: Art rock is a subgenre of rock music characterized by its experimental, avant-garde, and often intellectual approach, drawing influences from classical music, jazz, and other art forms
 
 indie_rock:
-  id: indie_rock
+  id: indie-rock
   name: Indie rock
   description: Indie rock is a genre of rock music that originated in the 1980s, primarily in the UK, US, and New Zealand. Initially, it described music released on independent record labels, but by the 1990s, it became more broadly associated with the music produced by bands on those labels.
