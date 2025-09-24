@@ -14,6 +14,18 @@ class Admin::GenresController < Admin::Controller
     end
   end
 
+  # GET     /api/admin/genres/autocomplete
+  def autocomplete
+    run Platform::Genre::Admin::Operation::Autocomplete do |context|
+      result = context[:finder].result
+
+      render json: {
+        success: true,
+        data: Platform::Genre::Admin::View::Autocomplete.for_collection.new(result)
+      }, status: :ok
+    end
+  end
+
   # GET     /api/admin/genres/:id
   def show
     run Platform::Genre::Admin::Operation::Show do

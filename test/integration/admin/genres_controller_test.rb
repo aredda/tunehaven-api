@@ -29,6 +29,26 @@ class Admin::GenresControllerTest < AdminIntegrationTest
     end
   end
 
+  describe "GET autocomplete" do
+    it "should pass" do
+      get "/api/admin/genres/autocomplete", headers: @auth_headers, params: {
+        q: "rock"
+      }
+
+      assert_response :success
+      assert_equal 2, res_data.count
+
+      get "/api/admin/genres/autocomplete", headers: @auth_headers, params: {
+        q: "art"
+      }
+
+      assert_response :success
+      assert_equal 1, res_data.count
+      assert_equal "art-rock", res_data.first["id"]
+      assert_equal "Art Rock", res_data.first["name"]
+    end
+  end
+
   describe "GET show" do
     it "should pass" do
       get "/api/admin/genres/#{genre.id}", headers: @auth_headers
