@@ -3,7 +3,11 @@
 namespace :admin do
   resource :me, controller: :me, only: :show
 
-  resources :genres
+  resources :genres do
+    collection do
+      get :autocomplete
+    end
+  end
   resources :artists do
     collection do
       get :autocomplete
