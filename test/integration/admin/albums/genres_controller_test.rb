@@ -32,7 +32,7 @@ class Admin::Albums::GenresControllerTest < AdminIntegrationTest
 
       assert_response :created
       assert_equal %w[id genre created_at updated_at], res_data.first.keys
-      assert_equal "art_rock", res_data.first["genre"]["id"]
+      assert_equal "art-rock", res_data.first["genre"]["id"]
     end
     it "should fail: duplicate genres" do
       album.genres << [ art_rock ]
@@ -44,7 +44,7 @@ class Admin::Albums::GenresControllerTest < AdminIntegrationTest
       }
 
       assert_response :unprocessable_content
-      assert_equal [ "This album is already associated with this genre: art_rock" ], res_errors["genre_ids"]
+      assert_equal [ "This album is already associated with this genre: art-rock" ], res_errors["genre_ids"]
     end
     it "should fail: invalid input" do
       post "/api/admin/albums/#{album.id}/genres", headers: @auth_headers, params: {
