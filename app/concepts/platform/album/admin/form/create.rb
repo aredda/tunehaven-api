@@ -8,6 +8,8 @@ module Platform::Album::Admin::Form
     property :cover
 
     validation do
+      option :form
+
       params do
         required(:title).filled(min_size?: 1)
         required(:artist_id).filled
@@ -17,6 +19,12 @@ module Platform::Album::Admin::Form
 
       rule(:artist_id) do
         key.failure("Artist is not found!") unless Platform::Artist.exists?(id: value)
+      end
+
+      rule(:title) do
+        artist = Platform::Artist.find(form.artist_id)
+
+        key.failure("This album is already added!") if Platform::Album.exists?(slug: [ artist.slug, value ].join("-").parameterize)
       end
     end
   end

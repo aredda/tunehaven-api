@@ -97,6 +97,21 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
         assert_equal [ "must be filled" ], res_errors["artist_id"]
       end
     end
+    it "should fail: duplicate album" do
+      artist.albums.create title: "Hail to the thief"
+
+      assert_no_difference("Platform::Album.count") do
+        post "/api/admin/albums", headers: @auth_headers, params: {
+          album: {
+            title: "Hail to the thief",
+            artist_id: artist.id
+          }
+        }
+
+        assert_response :unprocessable_content
+        assert_equal [ "This album is already added!" ], res_errors["title"]
+      end
+    end
   end
 
   describe "PUT update" do
