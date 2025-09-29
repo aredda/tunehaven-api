@@ -43,6 +43,18 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
     end
   end
 
+  describe "GET autocomplete" do
+    it "should pass" do
+      get "/api/admin/albums/autocomplete", headers: @auth_headers, params: {
+        q: "com"
+      }
+
+      assert_response :success
+      assert_equal 1, res_data.count
+      assert_equal "OK Computer", res_data.first["title"]
+    end
+  end
+
   describe "GET show" do
     it "should pass" do
       get "/api/admin/albums/#{album.id}", headers: @auth_headers

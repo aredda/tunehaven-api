@@ -16,6 +16,10 @@ namespace :admin do
     resources :genres, controller: "artists/genres"
   end
   resources :albums do
+    collection do
+      get :autocomplete
+    end
+
     resources :genres, controller: "albums/genres"
   end
   resources :tracks do
