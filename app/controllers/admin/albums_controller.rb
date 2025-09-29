@@ -14,6 +14,19 @@ class Admin::AlbumsController < Admin::Controller
     end
   end
 
+  # GET     /api/admin/albums/autocomplete
+  def autocomplete
+    run Platform::Album::Admin::Operation::Autocomplete do |context|
+      result = context[:finder].result
+
+      render json: {
+        success: true,
+        data: Platform::Album::Admin::View::Autocomplete.for_collection.new(result),
+        meta: MetaView.new(result)
+      }, status: :ok
+    end
+  end
+
   # GET     /api/admin/albums/:id
   def show
     run Platform::Album::Admin::Operation::Show do
