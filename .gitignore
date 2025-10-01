@@ -33,3 +33,6 @@
 
 # Ignore .idea settings
 /.idea/*
+
+# Ignore uploads
+/public/uploads/*
