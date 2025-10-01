@@ -14,7 +14,7 @@ class Platform::Track::AudioUploader < AudioUploader
     model.sample_rate = media.audio_sample_rate
     model.channels = media.audio_channels
     model.format = media.audio_codec
-    model.is_master = true
+    model.is_master = model.track.audios.count.zero?
   end
 
   def store_dir
