@@ -12,7 +12,7 @@ module Platform::Artist::Admin::Form
       end
 
       rule(:name) do
-        key.failure("This band name already exists!") if Platform::Artist.exists?(slug: value.parameterize)
+        key.failure("This artist/band name already exists!") if Platform::Artist.exists?(slug: value.parameterize)
       end
     end
   end

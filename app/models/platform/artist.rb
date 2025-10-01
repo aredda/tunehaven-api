@@ -20,6 +20,6 @@ class Platform::Artist < ApplicationRecord
   has_many :tracks, class_name: "Platform::Track", through: :albums, inverse_of: :artist, dependent: :destroy
 
   def set_slug
-    self.slug = name.parameterize unless slug.present?
+    self.slug = name.parameterize
   end
 end
