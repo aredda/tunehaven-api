@@ -14,6 +14,7 @@ module Platform::Track::Admin::View
       property :id
       property :name
     end
+    property :audios_count
     property :created_at
     property :updated_at
   end

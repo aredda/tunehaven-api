@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_09_123124) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_01_161838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -101,11 +101,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_09_123124) do
 
   create_table "platform_tracks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.citext "title", null: false
-    t.integer "duration_in_seconds", null: false
+    t.integer "duration_in_seconds"
     t.uuid "album_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
+    t.integer "audios_counter", default: 0
   end
 
   create_table "user_album_saves", force: :cascade do |t|

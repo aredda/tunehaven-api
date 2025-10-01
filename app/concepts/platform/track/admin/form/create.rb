@@ -9,7 +9,7 @@ module Platform::Track::Admin::Form
     validation do
       params do
         required(:title).filled(min_size?: 1)
-        required(:duration_in_seconds).filled(:int?, gteq?: 0)
+        optional(:duration_in_seconds).maybe(:int?, gteq?: 0)
         required(:album_id).filled
       end
 

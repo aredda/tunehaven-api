@@ -3,7 +3,8 @@
 # Table name: platform_tracks
 #
 #  id                  :uuid             not null, primary key
-#  duration_in_seconds :integer          not null
+#  audios_counter      :integer          default(0)
+#  duration_in_seconds :integer
 #  position            :integer
 #  title               :citext           not null
 #  created_at          :datetime         not null
