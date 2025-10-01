@@ -4,7 +4,7 @@ require "fileutils"
 class Admin::AlbumsControllerTest < AdminIntegrationTest
   # Remove uploaded test files
   def teardown
-    FileUtils.rm_rf("public/uploads")
+    FileUtils.rm_rf("public/test/uploads")
   end
 
   let(:artist) { platform_artists(:radiohead) }
