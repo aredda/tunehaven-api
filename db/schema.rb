@@ -106,7 +106,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_01_161838) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
-    t.integer "audios_counter", default: 0
+    t.integer "audios_count", default: 0
   end
 
   create_table "user_album_saves", force: :cascade do |t|
