@@ -50,6 +50,18 @@ class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
         assert_equal [ "You are not allowed to upload \"jpg\" files, allowed types: flac, wav, aiff" ], res_errors["file"]
       end
     end
+    it "should fail: missing file" do
+      assert_no_difference -> { track.audios.count } do
+        post "/api/admin/tracks/#{track.id}/audios", headers: @auth_headers, params: {
+          audio: {
+            file: "undefined"
+          }
+        }
+
+        assert_response :unprocessable_content
+        assert_equal [ "Invalid file input." ], res_errors["file"]
+      end
+    end
     it "should pass" do
       assert_difference -> { track.audios.count } do
         post "/api/admin/tracks/#{track.id}/audios", headers: @auth_headers, params: {
