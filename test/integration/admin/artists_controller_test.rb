@@ -84,7 +84,7 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
         }
 
         assert_response :unprocessable_content
-        assert_equal [ "This band name already exists!" ], res_errors["name"]
+        assert_equal [ "This artist/band name already exists!" ], res_errors["name"]
       end
     end
     it "should fail: missing params" do
@@ -117,6 +117,18 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
 
       assert_response :unprocessable_content
       assert_equal [ "Artist is not found!" ], res_errors["base"]
+    end
+    it "should fail: using a taken name" do
+      Fabricate(:artist, name: "Muse")
+
+      put "/api/admin/artists/#{artist.id}", headers: @auth_headers, params: {
+        artist: {
+          name: "Muse"
+        }
+      }
+
+      assert_response :unprocessable_content
+      assert_equal [ "This artist/band name already exists!" ], res_errors["name"]
     end
   end
 
