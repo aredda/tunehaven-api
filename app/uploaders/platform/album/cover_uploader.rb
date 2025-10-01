@@ -2,6 +2,8 @@
 
 class Platform::Album::CoverUploader < ImageUploader
   def store_dir
+    return "test/album_cover/#{model.id}" if Rails.env.test?
+
     "uploads/album_cover/#{model.id}"
   end
 
