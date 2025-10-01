@@ -14,7 +14,7 @@ class Admin::TracksControllerTest < AdminIntegrationTest
 
       assert_response :success
       assert_equal 3, res_data.count
-      assert_equal %w[id position title duration_in_seconds album artist created_at updated_at], res_data.first.keys
+      assert_equal %w[id position title duration_in_seconds album artist audios_count created_at updated_at], res_data.first.keys
 
       # filter by: title
       get "/api/admin/tracks", headers: @auth_headers, params: {
@@ -55,7 +55,7 @@ class Admin::TracksControllerTest < AdminIntegrationTest
       get "/api/admin/tracks/#{track.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id position title duration_in_seconds album artist created_at updated_at], res_data.keys
+      assert_equal %w[id position title duration_in_seconds album artist audios_count created_at updated_at], res_data.keys
     end
     it "should fail: album is not found" do
       get "/api/admin/tracks/xyz", headers: @auth_headers

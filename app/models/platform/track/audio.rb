@@ -22,5 +22,5 @@
 class Platform::Track::Audio < ApplicationRecord
   mount_uploader :file, Platform::Track::AudioUploader
 
-  belongs_to :track, class_name: "Platform::Track", inverse_of: :audios, foreign_key: :track_id
+  belongs_to :track, class_name: "Platform::Track", inverse_of: :audios, foreign_key: :track_id, counter_cache: :audios_count
 end
