@@ -4,7 +4,7 @@ require "test_helper"
 
 class User::TracksControllerTest < UserIntegrationTest
   def teardown
-    FileUtils.rm_rf("public/uploads")
+    FileUtils.rm_rf("public/test/uploads")
   end
 
   let(:track1) { platform_tracks(:dreams) }

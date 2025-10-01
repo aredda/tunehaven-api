@@ -5,7 +5,7 @@ require "test_helper"
 class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
   # Remove uploaded test files
   def teardown
-    FileUtils.rm_rf("public/uploads")
+    FileUtils.rm_rf("public/test/uploads")
   end
 
   let(:track) { platform_tracks(:let_down) }
