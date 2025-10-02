@@ -60,7 +60,7 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
       get "/api/admin/albums/#{album.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id slug title cover_thumb_url release_date tracks_count artist created_at updated_at], res_data.keys
+      assert_equal %w[id slug title cover_thumb_url release_date tracks_count artist created_at updated_at tracks], res_data.keys
 
       album.set_slug
       album.save
