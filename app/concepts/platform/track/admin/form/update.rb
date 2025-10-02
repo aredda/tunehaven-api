@@ -3,6 +3,5 @@
 module Platform::Track::Admin::Form
   class Update < ApplicationForm
     property :title
-    property :duration_in_seconds
   end
 end

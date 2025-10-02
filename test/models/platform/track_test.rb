@@ -2,14 +2,13 @@
 #
 # Table name: platform_tracks
 #
-#  id                  :uuid             not null, primary key
-#  audios_count        :integer          default(0)
-#  duration_in_seconds :integer
-#  position            :integer
-#  title               :citext           not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  album_id            :uuid
+#  id           :uuid             not null, primary key
+#  audios_count :integer          default(0)
+#  position     :integer
+#  title        :citext           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  album_id     :uuid
 #
 # Foreign Keys
 #
@@ -30,6 +29,7 @@ class Platform::TrackTest < ActiveSupport::TestCase
     should have_many(:genre_relationships).class_name("Platform::TrackGenre")
 
     should have_many(:audios).class_name("Platform::Track::Audio")
+    should have_one(:master_audio).class_name("Platform::Track::Audio")
   end
 
   it "should assign position" do

@@ -4,14 +4,13 @@
 #
 # Table name: platform_tracks
 #
-#  id                  :uuid             not null, primary key
-#  audios_count        :integer          default(0)
-#  duration_in_seconds :integer
-#  position            :integer
-#  title               :citext           not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  album_id            :uuid
+#  id           :uuid             not null, primary key
+#  audios_count :integer          default(0)
+#  position     :integer
+#  title        :citext           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  album_id     :uuid
 #
 # Foreign Keys
 #
@@ -19,5 +18,4 @@
 #
 Fabricator :track, class_name: "Platform::Track" do
   title { Faker::Music::RockBand.song }
-  duration_in_seconds { Random.rand(600) }
 end
