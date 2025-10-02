@@ -19,7 +19,6 @@ require "test_helper"
 class Platform::TrackTest < ActiveSupport::TestCase
   context "validations" do
     should have_db_column(:title).of_type(:citext)
-    should have_db_column(:duration_in_seconds).of_type(:integer)
   end
 
   context "associations" do
@@ -39,7 +38,7 @@ class Platform::TrackTest < ActiveSupport::TestCase
       track.update position: index
     end
 
-    track = album.tracks.create(title: "The Tourist", duration_in_seconds: 300)
+    track = album.tracks.create(title: "The Tourist")
 
     assert_predicate track.position, :present?
     assert_equal album.tracks.count, track.position
