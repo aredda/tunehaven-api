@@ -121,7 +121,6 @@ class Admin::TracksControllerTest < AdminIntegrationTest
         post "/api/admin/tracks", headers: @auth_headers, params: {
           track: {
             title: nil,
-            duration_in_seconds: -1,
             album_id: nil,
             audio: "invalid file input"
           }
@@ -130,7 +129,6 @@ class Admin::TracksControllerTest < AdminIntegrationTest
         assert_response :unprocessable_content
         assert_equal [ "must be filled", "size cannot be less than 1" ], res_errors["title"]
         assert_equal [ "must be filled" ], res_errors["album_id"]
-        assert_equal [ "must be greater than or equal to 0" ], res_errors["duration_in_seconds"]
         assert_equal [ "Invalid file input." ], res_errors["audio"]
       end
     end

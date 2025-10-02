@@ -2,14 +2,13 @@
 #
 # Table name: platform_tracks
 #
-#  id                  :uuid             not null, primary key
-#  audios_count        :integer          default(0)
-#  duration_in_seconds :integer
-#  position            :integer
-#  title               :citext           not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  album_id            :uuid
+#  id           :uuid             not null, primary key
+#  audios_count :integer          default(0)
+#  position     :integer
+#  title        :citext           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  album_id     :uuid
 #
 # Foreign Keys
 #
@@ -18,19 +17,15 @@
 dreams:
   title: Dreams
   album: rumours
-  duration_in_seconds: 258
 
 the_chain:
   title: The Chain
   album: rumours
-  duration_in_seconds: 268
 
 no_surprises:
   title: No Surprises
   album: ok_computer
-  duration_in_seconds: 129
 
 let_down:
   title: Let Down
   album: ok_computer
-  duration_in_seconds: 259
