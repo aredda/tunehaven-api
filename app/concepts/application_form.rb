@@ -21,4 +21,10 @@ class ApplicationForm < Reform::Form
     FloatType = Types::Coercible::String.constructor(&:to_f)
     IntegerType = Types::Coercible::String.constructor(&:to_i)
   end
+
+  class BaseContract < ::Dry::Validation::Contract
+    register_macro(:is_file?) do
+      key.failure("Invalid file input.") unless value.is_a? ActionDispatch::Http::UploadedFile
+    end
+  end
 end
