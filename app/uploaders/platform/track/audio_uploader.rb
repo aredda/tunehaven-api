@@ -20,7 +20,7 @@ class Platform::Track::AudioUploader < AudioUploader
   def store_dir
     dirs = [ model.track.artist.name, model.track.album.title, model.track.title ]
 
-    return "test/uploads/library/#{dirs.map(&:parameterize).join("/")}"
+    return "test/uploads/library/#{dirs.map(&:parameterize).join("/")}" if Rails.env.test?
 
     "uploads/library/#{dirs.map(&:parameterize).join("/")}"
   end
