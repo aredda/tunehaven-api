@@ -25,6 +25,7 @@ namespace :admin do
   resources :tracks do
     member do
       put :move, path: "move/:position"
+      get :stream
     end
 
     resources :genres, controller: "tracks/genres"
