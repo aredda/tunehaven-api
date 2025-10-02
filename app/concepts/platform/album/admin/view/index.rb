@@ -10,6 +10,7 @@ module Platform::Album::Admin::View
     property :tracks_count
     property :artist do
       property :id
+      property :slug
       property :name
     end
     property :created_at
