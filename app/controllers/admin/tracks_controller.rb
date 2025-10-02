@@ -29,6 +29,18 @@ class Admin::TracksController < Admin::Controller
     }, status: :not_found
   end
 
+  # GET   /api/admin/tracks/:id/stream
+  def stream
+    run Platform::Track::Operation::Stream do
+      # local file storage: use `send_file` and `.path`
+      # remote buckets I will have to use `.url`
+
+      return send_file @model.file.path, type: "audio/#{@model.format}", disposition: "inline"
+    end
+
+    head :not_found
+  end
+
   # POST  /api/admin/tracks
   def create
     run Platform::Track::Admin::Operation::Create do
