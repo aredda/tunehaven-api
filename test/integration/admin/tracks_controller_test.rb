@@ -5,6 +5,11 @@ class Admin::TracksControllerTest < AdminIntegrationTest
   let(:album) { platform_albums(:ok_computer) }
   let(:track) { platform_tracks(:let_down) }
 
+  # Remove uploaded test files
+  def teardown
+    FileUtils.rm_rf("public/test/uploads")
+  end
+
   describe "GET index" do
     it "should pass" do
       get "/api/admin/tracks", headers: @auth_headers, params: {
@@ -90,17 +95,24 @@ class Admin::TracksControllerTest < AdminIntegrationTest
     it "should pass" do
       assert_difference "Platform::Track.count" do
         assert_difference -> { album.reload.tracks_count } do
-          post "/api/admin/tracks", headers: @auth_headers, params: {
-            track: {
-              title: "Paranoid Android",
-              duration_in_seconds: 387,
-              album_id: album.id
+          assert_difference -> { Platform::Track::Audio.count } do
+            post "/api/admin/tracks", headers: @auth_headers, params: {
+              track: {
+                title: "Paranoid Android",
+                duration_in_seconds: 387,
+                album_id: album.id,
+                audio: Rack::Test::UploadedFile.new("test/fixtures/files/audio.flac", "audio/flac")
+              }
             }
-          }
 
-          assert_response :created
-          assert_equal "OK Computer", res_data["album"]["title"]
-          assert_equal "Radiohead", res_data["artist"]["name"]
+            assert_response :created
+            assert_equal "OK Computer", res_data["album"]["title"]
+            assert_equal "Radiohead", res_data["artist"]["name"]
+
+            created_track = Platform::Track.find(res_data["id"])
+
+            assert_equal 1, created_track.audios.count
+          end
         end
       end
     end
@@ -110,7 +122,8 @@ class Admin::TracksControllerTest < AdminIntegrationTest
           track: {
             title: nil,
             duration_in_seconds: -1,
-            album_id: nil
+            album_id: nil,
+            audio: "invalid file input"
           }
         }
 
@@ -118,6 +131,7 @@ class Admin::TracksControllerTest < AdminIntegrationTest
         assert_equal [ "must be filled", "size cannot be less than 1" ], res_errors["title"]
         assert_equal [ "must be filled" ], res_errors["album_id"]
         assert_equal [ "must be greater than or equal to 0" ], res_errors["duration_in_seconds"]
+        assert_equal [ "Invalid file input." ], res_errors["audio"]
       end
     end
   end
