@@ -47,7 +47,7 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
       get "/api/admin/artists/#{artist.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id slug name about albums_count created_at updated_at], res_data.keys
+      assert_equal %w[id slug name about albums_count created_at updated_at albums], res_data.keys
 
       # find by slug
       get "/api/admin/artists/radiohead", headers: @auth_headers

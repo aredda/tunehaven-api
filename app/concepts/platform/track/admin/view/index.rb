@@ -9,10 +9,12 @@ module Platform::Track::Admin::View
     property :album do
       property :id
       property :title
+      property :slug
     end
     property :artist do
       property :id
       property :name
+      property :slug
     end
     property :audios_count
     property :created_at
