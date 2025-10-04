@@ -31,4 +31,10 @@ namespace :admin do
     resources :genres, controller: "tracks/genres"
     resources :audios, controller: "tracks/audios"
   end
+
+  resource :dashboard, controller: :dashboard do
+    collection do
+      get :stats
+    end
+  end
 end
