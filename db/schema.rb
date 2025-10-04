@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_02_154851) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_04_205108) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -90,6 +90,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_02_154851) do
     t.integer "sample_rate"
     t.integer "channels"
     t.boolean "is_master", default: false
+    t.string "quality", default: "low"
   end
 
   create_table "platform_track_genres", force: :cascade do |t|
