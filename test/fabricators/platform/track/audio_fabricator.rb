@@ -11,6 +11,7 @@
 #  file        :string
 #  format      :string
 #  is_master   :boolean          default(FALSE)
+#  quality     :string           default("low")
 #  sample_rate :integer
 #  size        :integer
 #  created_at  :datetime         not null

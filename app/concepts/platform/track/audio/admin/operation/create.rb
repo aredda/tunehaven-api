@@ -7,6 +7,7 @@ module Platform::Track::Audio::Admin::Operation
     step Contract::Validate(key: :audio)
     step Contract::Persist()
     fall :fail_model_errors
+    pass :transcode
 
     def build_model(context, model:, **)
       context[:model] = model.audios.build
@@ -14,6 +15,10 @@ module Platform::Track::Audio::Admin::Operation
 
     def fail_model_errors(context, model:, **)
       context["contract.default"].errors.add(:file, model.errors.messages[:file]) if model.errors.messages.key?(:file)
+    end
+
+    def transcode(_context, model:, **)
+      Platform::Track::Audio::TranscodeJob.perform_later(model)
     end
   end
 end
