@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
+  include ActiveJob::TestHelper
+
   # Remove uploaded test files
   def teardown
     FileUtils.rm_rf("public/test/uploads")
@@ -25,7 +27,7 @@ class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
 
       assert_response :success
       assert_equal 2, res_data.count
-      assert_equal %w[id duration format bitrate size channels sample_rate is_master created_at updated_at], res_data.first.keys
+      assert_equal %w[id quality duration format bitrate size channels sample_rate is_master created_at updated_at], res_data.first.keys
     end
   end
 
@@ -63,17 +65,19 @@ class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
       end
     end
     it "should pass" do
-      assert_difference -> { track.audios.count } do
-        post "/api/admin/tracks/#{track.id}/audios", headers: @auth_headers, params: {
-          audio: {
-            file: Rack::Test::UploadedFile.new("test/fixtures/files/audio.flac", "audio/flac")
+      assert_enqueued_jobs 1 do
+        assert_difference -> { track.audios.count } do
+          post "/api/admin/tracks/#{track.id}/audios", headers: @auth_headers, params: {
+            audio: {
+              file: Rack::Test::UploadedFile.new("test/fixtures/files/audio.flac", "audio/flac")
+            }
           }
-        }
 
-        assert_response :created
-        assert_equal "flac", res_data["format"]
-        assert_equal true, res_data["is_master"]
-        assert_equal 122, res_data["duration"]
+          assert_response :created
+          assert_equal "flac", res_data["format"]
+          assert_equal true, res_data["is_master"]
+          assert_equal 122, res_data["duration"]
+        end
       end
     end
   end

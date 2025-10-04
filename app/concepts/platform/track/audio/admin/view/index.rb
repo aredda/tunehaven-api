@@ -3,6 +3,7 @@
 module Platform::Track::Audio::Admin::View
   class Index < ApplicationView
     property :id
+    property :quality
     property :duration
     property :format
     property :bitrate
