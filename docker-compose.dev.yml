@@ -20,4 +20,4 @@ services:
     depends_on:
       - database
     env_file:
-      - .env
+      - .env.dev
