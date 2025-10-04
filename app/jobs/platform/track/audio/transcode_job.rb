@@ -21,14 +21,14 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
 
       result = audio.transcode(path, { bitrate: })
 
-      original.track.audios.create(
+      original.track.audios.create!(
         size: result.size,
         duration: result.duration,
         bitrate: result.bitrate,
         sample_rate: result.audio_sample_rate,
         channels: result.audio_channels,
         format: result.audio_codec,
-        file: File.open(path),
+        file: path,
         quality: key
       )
     end
