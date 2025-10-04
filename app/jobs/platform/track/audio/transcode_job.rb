@@ -16,10 +16,9 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
     dir = File.dirname(original.file.path)
 
     TIERS.each_pair do |key, value|
-      bitrate = value[:bitrate]
-      path = File.join(dir, "#{bitrate}.mp3")
-
-      result = audio.transcode(path, { bitrate: })
+      audio_bitrate = value[:bitrate]
+      path = File.join(dir, "#{audio_bitrate}.mp3")
+      result = audio.transcode(path, { audio_bitrate: })
 
       original.track.audios.create!(
         size: result.size,
