@@ -7,9 +7,14 @@ module Platform::Track::Admin::Operation
     step Contract::Validate(key: :track)
     step :attach_audio
     step Contract::Persist()
+    pass :transcode
 
     def attach_audio(_context, model:, params:, **)
       model.audios.build(file: params[:track][:audio])
+    end
+
+    def transcode(_context, model:, **)
+      Platform::Track::Audio::TranscodeJob.perform_later(model.master_audio)
     end
   end
 end

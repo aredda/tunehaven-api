@@ -1,6 +1,6 @@
 services:
   database:
-    container_name: tunehaven_db
+    container_name: tunehaven_db_local
     image: 'postgres:latest'
     ports:
       - 5432:5432

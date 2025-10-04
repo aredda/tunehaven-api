@@ -1,6 +1,8 @@
 require "test_helper"
 
 class Admin::TracksControllerTest < AdminIntegrationTest
+  include ActiveJob::TestHelper
+
   let(:artist) { platform_artists(:radiohead) }
   let(:album) { platform_albums(:ok_computer) }
   let(:track) { platform_tracks(:let_down) }
@@ -93,9 +95,9 @@ class Admin::TracksControllerTest < AdminIntegrationTest
 
   describe "POST create" do
     it "should pass" do
-      assert_difference "Platform::Track.count" do
-        assert_difference -> { album.reload.tracks_count } do
-          assert_difference -> { Platform::Track::Audio.count } do
+      assert_difference -> { album.reload.tracks_count } do
+        assert_difference -> { Platform::Track::Audio.count } do
+          assert_enqueued_jobs 1 do
             post "/api/admin/tracks", headers: @auth_headers, params: {
               track: {
                 title: "Paranoid Android",
