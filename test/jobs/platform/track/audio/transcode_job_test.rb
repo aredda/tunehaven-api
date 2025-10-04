@@ -12,7 +12,7 @@ class Platform::Track::Audio::TranscodeJobTest < ActiveJob::TestCase
   it "should transcode 3 new versions of the audio" do
     audio = Fabricate(:track_audio, track:, file: Rack::Test::UploadedFile.new("test/fixtures/files/audio.flac", "audio/flac"))
 
-    assert_difference -> { Platform::Track::Audio.count }, 3 do
+    assert_difference -> { audio.track.audios.count }, 3 do
       Platform::Track::Audio::TranscodeJob.perform_now(audio)
 
       dir = File.dirname(audio.file.path)
