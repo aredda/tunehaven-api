@@ -20,6 +20,8 @@ class User::PlaylistsControllerTest < UserIntegrationTest
       assert_response :success
       assert_equal 5, res_data.count
       assert_equal %w[id title visibility tracks_count saves_count is_default is_owned is_saved created_at], res_data.first.keys
+      assert res_data.first["is_default"]
+      assert_equal "Liked", res_data.first["title"]
     end
   end
 

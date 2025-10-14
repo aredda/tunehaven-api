@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 module User::Playlist::Finder
-  class Paginated < ApplicationFinder
+  class All < Trailblazer::Finder
+    adapter :ActiveRecord
+
     filter_by :title, with: :apply_title
 
     def apply_title(entity, _attr, value)

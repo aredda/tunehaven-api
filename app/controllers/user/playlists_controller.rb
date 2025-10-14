@@ -8,8 +8,7 @@ class User::PlaylistsController < User::Controller
 
       render json: {
         success: true,
-        data: User::Playlist::View::Index.with_options(current_user:).for_collection.new(result),
-        meta: MetaView.new(result)
+        data: User::Playlist::View::Index.with_options(current_user:).for_collection.new(result)
       }, status: :ok
     end
   end
