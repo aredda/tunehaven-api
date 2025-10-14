@@ -10,7 +10,7 @@ module User::Playlist::Operation
     end
 
     def set_finder(ctx, entity:, params:, **)
-      ctx[:finder] = User::Playlist::Finder::Paginated.new(entity: entity.order(created_at: :desc), params:)
+      ctx[:finder] = User::Playlist::Finder::All.new(entity: entity.order(is_default: :desc, created_at: :desc), params:)
     end
   end
 end
