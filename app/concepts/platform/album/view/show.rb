@@ -2,6 +2,7 @@
 
 module Platform::Album::View
   class Show < Index
+    property :cover_url, getter: ->(represented:, **) { represented.cover.full.url }
     collection :tracks do
       property :id
       property :position
