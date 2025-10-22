@@ -16,6 +16,7 @@ namespace :user do
     member do
       get :stream
       put :toggle_like
+      get :playlists
     end
   end
   resources :playlists do
