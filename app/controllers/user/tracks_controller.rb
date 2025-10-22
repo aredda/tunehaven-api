@@ -48,4 +48,19 @@ class User::TracksController < User::Controller
 
     render json: { success: false, errors: @form.errors.messages }, status: :unprocessable_content
   end
+
+  # GET   /api/user/tracks/:id/playlists
+  def playlists
+    run User::Playlist::Operation::TrackIndex do |context|
+      return render json: {
+        success: true,
+        data: User::Playlist::View::TrackIndex.with_options(track: @model).for_collection.new(context[:data])
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_content
+  end
 end

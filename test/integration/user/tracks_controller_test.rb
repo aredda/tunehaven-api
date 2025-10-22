@@ -88,4 +88,29 @@ class User::TracksControllerTest < UserIntegrationTest
       end
     end
   end
+
+  describe "GET playlists" do
+    it "should fail: track not found" do
+      get "/api/user/tracks/xyz/playlists", headers: @auth_headers
+
+      assert_response :unprocessable_content
+      assert_equal [ "Track is not found!" ], res_errors["base"]
+    end
+    it "should pass" do
+      playlist1 = Fabricate(:playlist, user: @user, title: "AAA")
+      playlist2 = Fabricate(:playlist, user: @user, title: "BBB")
+
+      playlist1.tracks << track1
+
+      get "/api/user/tracks/#{track1.id}/playlists", headers: @auth_headers
+
+      assert_response :success
+      assert_equal 3, res_data.count
+      assert_equal %w[id visibility title is_default is_track_added], res_data.first.keys
+      assert_equal true, res_data.first["is_default"]
+      assert_equal false, res_data.first["is_track_added"]
+      assert_equal false, res_data.second["is_default"]
+      assert_equal true, res_data.second["is_track_added"]
+    end
+  end
 end
