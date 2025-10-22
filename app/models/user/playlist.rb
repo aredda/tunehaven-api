@@ -33,4 +33,6 @@ class User::Playlist < ApplicationRecord
       transition private: :public
     end
   end
+
+  def includes?(track) = tracks.include?(track)
 end
