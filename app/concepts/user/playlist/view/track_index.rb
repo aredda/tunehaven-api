@@ -7,6 +7,7 @@ module User::Playlist::View
     property :title
     property :is_default
     property :is_track_added, exec_context: :decorator
+    property :tracks_count
 
     def is_track_added = represented.includes?(self.class.options[:track])
   end
