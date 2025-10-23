@@ -106,7 +106,7 @@ class User::TracksControllerTest < UserIntegrationTest
 
       assert_response :success
       assert_equal 3, res_data.count
-      assert_equal %w[id visibility title is_default is_track_added], res_data.first.keys
+      assert_equal %w[id visibility title is_default is_track_added tracks_count], res_data.first.keys
       assert_equal true, res_data.first["is_default"]
       assert_equal false, res_data.first["is_track_added"]
       assert_equal false, res_data.second["is_default"]
