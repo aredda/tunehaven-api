@@ -4,5 +4,6 @@ module Platform::Artist::View
   class Index < ApplicationView
     property :id
     property :name
+    property :albums_count
   end
 end
