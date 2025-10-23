@@ -62,7 +62,7 @@ class User::SearchControllerTest < UserIntegrationTest
 
       assert_response 200
       assert_equal 3, res_data.count
-      assert_equal %w[ id name ], res_data.first.keys
+      assert_equal %w[ id name albums_count ], res_data.first.keys
 
       # filter by query
       get "/api/user/search", headers: @auth_headers, params: {
