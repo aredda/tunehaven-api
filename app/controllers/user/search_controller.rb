@@ -11,7 +11,7 @@ class User::SearchController < User::Controller
       when "track" then Platform::Track::View::Index.with_options(current_user:)
       when "album" then Platform::Album::View::Index
       when "artist" then Platform::Artist::View::Index
-      when "playlist" then User::Playlist::View::Index
+      when "playlist" then User::Playlist::View::Base
       else return false
       end
 
