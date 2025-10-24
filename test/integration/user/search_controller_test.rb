@@ -74,5 +74,27 @@ class User::SearchControllerTest < UserIntegrationTest
       assert_equal 1, res_data.count
       assert_equal "Fleetwood Mac", res_data.first["name"]
     end
+    it "should search for playlists" do
+      Fabricate(:playlist, visibility: :private, user: @user)
+      Fabricate(:playlist, visibility: :public, user: @user, title: "Visible to the naked eye")
+      Fabricate.times(2, :playlist, user: @user, visibility: :public)
+
+      get "/api/user/search", headers: @auth_headers, params: {
+        type: "playlist"
+      }
+
+      assert_response 200
+      assert_equal 3, res_data.count
+      assert_equal %w[ id visibility title tracks_count saves_count user ], res_data.first.keys
+
+      get "/api/user/search", headers: @auth_headers, params: {
+        type: "playlist",
+        query: "naked"
+      }
+
+      assert_response 200
+      assert_equal 1, res_data.count
+      assert_equal "Visible to the naked eye", res_data.first["title"]
+    end
   end
 end
