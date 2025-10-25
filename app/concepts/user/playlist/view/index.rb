@@ -13,6 +13,10 @@ module User::Playlist::View
     property :is_owned, exec_context: :decorator
     property :is_saved, exec_context: :decorator
     property :created_at
+    property :user do
+      property :id
+      property :username
+    end
 
     def is_owned = self.class.options[:current_user].owns_playlist?(represented)
 
