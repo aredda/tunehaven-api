@@ -29,7 +29,7 @@ class User::ArtistsControllerTest < UserIntegrationTest
       get "/api/user/artists/#{artist.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[ id slug name albums_count about ], res_data.keys
+      assert_equal %w[ id slug name albums_count about genres albums ], res_data.keys
     end
   end
 end
