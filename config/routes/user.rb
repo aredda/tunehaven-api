@@ -32,5 +32,6 @@ namespace :user do
       post :toggle_save
     end
   end
+  resources :artists, only: %i[index show]
   resource :search, controller: :search, only: :show
 end
