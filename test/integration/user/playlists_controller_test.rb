@@ -7,6 +7,8 @@ class User::PlaylistsControllerTest < UserIntegrationTest
     @playlists = Fabricate.times(2, :playlist, user: @user)
   end
 
+  let(:track) { platform_tracks(:dreams) }
+
   describe "GET index" do
     it "should get playlists" do
       Fabricate.times(2, :user_playlist_save, user: @user)
@@ -33,12 +35,17 @@ class User::PlaylistsControllerTest < UserIntegrationTest
       assert_equal [ "Playlist is not found!" ], res_errors["base"]
     end
     it "should pass" do
-      get "/api/user/playlists/#{@playlists.first.id}", headers: @auth_headers
+      @user.liked_playlist.track_relationships.create(track_id: track.id)
+
+      get "/api/user/playlists/#{@user.liked_playlist.id}", headers: @auth_headers
 
       assert_response :success
       assert_equal %w[ id title visibility tracks_count saves_count is_default is_owned is_saved created_at user description tracks ], res_data.keys
       assert_equal true, res_data["is_owned"]
+      assert_equal true, res_data["is_default"]
       assert_equal "private", res_data["visibility"]
+      assert_equal 1, res_data["tracks"].count
+      assert res_data["tracks"].first["is_liked"], res_data["tracks"].first
     end
   end
 
