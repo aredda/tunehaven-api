@@ -24,5 +24,8 @@ class Platform::GenreTest < ActiveSupport::TestCase
   context "associations" do
     should belong_to(:parent_genre).class_name("Platform::Genre").optional(true)
     should have_many(:child_genres).class_name("Platform::Genre")
+
+    should have_many(:album_relationships).class_name("Platform::AlbumGenre")
+    should have_many(:albums).class_name("Platform::Album").through(:album_relationships)
   end
 end

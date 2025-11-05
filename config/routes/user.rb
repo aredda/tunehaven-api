@@ -33,7 +33,11 @@ namespace :user do
     end
   end
   resources :artists, only: %i[index show]
-  resources :genres, only: :index
+  resources :genres, only: :index do
+    member do
+      get :albums
+    end
+  end
 
   resource :search, controller: :search, only: :show
 end
