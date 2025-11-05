@@ -19,6 +19,9 @@ class Platform::Genre < ApplicationRecord
   belongs_to :parent_genre, class_name: "Platform::Genre", inverse_of: :child_genres, foreign_key: :parent_id, optional: true
   has_many :child_genres, class_name: "Platform::Genre", inverse_of: :parent_genre, dependent: :destroy
 
+  has_many :album_relationships, class_name: "Platform::AlbumGenre", dependent: :destroy, foreign_key: :genre_id
+  has_many :albums, through: :album_relationships, source: :album
+
   def set_id
     self.id = name.parameterize
   end
