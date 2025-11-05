@@ -3,12 +3,34 @@
 require "test_helper"
 
 class User::GenresControllerTest < UserIntegrationTest
+  let(:genre) { platform_genres(:art_rock) }
+  let(:album) { platform_albums(:ok_computer) }
+
   describe "GET index" do
     it "should pass" do
       get "/api/user/genres", headers: @auth_headers
 
       assert_response :success
       assert_equal %w[ id name description ], res_data.first.keys
+    end
+  end
+
+  describe "GET :id/albums" do
+    it "should fail: genre is not found" do
+      get "/api/user/genres/invalid-genre/albums", headers: @auth_headers
+
+      assert_response :not_found
+      assert_equal [ "Genre is not found" ], res_errors["base"]
+    end
+    it "should pass" do
+      album.genres << genre
+
+      get "/api/user/genres/#{genre.id}/albums", headers: @auth_headers
+
+      assert_response :success
+      assert_equal 1, res_data.count
+      assert_equal %w[id title cover_thumb_url tracks_count release_date artist], res_data.first.keys
+      assert_equal "OK Computer", res_data.first["title"]
     end
   end
 end

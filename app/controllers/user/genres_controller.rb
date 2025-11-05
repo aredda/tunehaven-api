@@ -12,4 +12,22 @@ class User::GenresController < User::Controller
       }, status: :ok
     end
   end
+
+  # GET     /api/user/genres/:id/albums
+  def albums
+    run Platform::Album::Operation::ByGenreIndex do |context|
+      data = context[:finder].result
+
+      return render json: {
+        success: true,
+        data: Platform::Album::View::Index.for_collection.new(data),
+        meta: MetaView.new(data)
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :not_found
+  end
 end
