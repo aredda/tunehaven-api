@@ -19,7 +19,7 @@
 #  fk_rails_...  (playlist_id => user_playlists.id)
 #  fk_rails_...  (user_id => users.id)
 #
-Fabricator :user_playlist_save, class_name: "User::PlaylistSave" do
-  playlist { Fabricate(:playlist) }
+Fabricator :user_playlist_save, class_name: "User::Like" do
+  likable { Fabricate(:playlist) }
   user { Fabricate(:user) }
 end

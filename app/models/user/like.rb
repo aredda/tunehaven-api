@@ -20,4 +20,12 @@
 class User::Like < ApplicationRecord
   belongs_to :user
   belongs_to :likable, polymorphic: true
+
+  after_commit :update_counter, on: %i[ create destroy ]
+
+  def update_counter
+    return unless likable.has_attribute?(:saves_count)
+
+    likable.update_column(:likes_count, likable.user_saves.count)
+  end
 end

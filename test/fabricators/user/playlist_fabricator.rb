@@ -7,7 +7,7 @@
 #  id           :uuid             not null, primary key
 #  description  :text
 #  is_default   :boolean          default(FALSE)
-#  saves_count  :integer          default(0)
+#  likes_count  :integer          default(0)
 #  title        :string           not null
 #  tracks_count :integer          default(0)
 #  visibility   :string           default("private")
