@@ -38,6 +38,11 @@ namespace :user do
       get :albums
     end
   end
+  resource :library, controller: :library do
+    collection do
+      get :recent
+    end
+  end
 
   resource :search, controller: :search, only: :show
 end
