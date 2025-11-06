@@ -56,7 +56,7 @@ class User::AlbumsControllerTest < UserIntegrationTest
       end
     end
     it "should pass: unsaves album" do
-      @user.saved_albums << ok_computer
+      @user.album_saves.create likable: ok_computer
 
       assert_difference -> { @user.saved_albums.count }, -1 do
         post "/api/user/albums/#{ok_computer.id}/toggle_save", headers: @auth_headers

@@ -15,11 +15,11 @@ module User::Playlist::Operation
     end
 
     def find_user_playlist_save(context, params:, current_user:, **)
-      context[:model] = current_user.playlist_saves.find_by(playlist_id: params[:id])
+      context[:model] = current_user.playlist_saves.find_by(likable_id: params[:id])
     end
 
     def save_playlist(_, current_user:, params:, **)
-      current_user.playlist_saves.create(playlist_id: params[:id])
+      current_user.playlist_saves.create(likable_id: params[:id])
     end
 
     def unsave_playlist(_, model:, **)

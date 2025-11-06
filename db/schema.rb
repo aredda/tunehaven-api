@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_06_143352) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_06_154712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -109,14 +109,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_143352) do
     t.integer "audios_count", default: 0
   end
 
-  create_table "user_album_saves", force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.uuid "album_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "album_id"], name: "index_user_album_saves_on_user_id_and_album_id", unique: true
-  end
-
   create_table "user_jwt_denylists", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
@@ -130,14 +122,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_143352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["likable_id", "likable_type"], name: "index_user_likes_on_likable_id_and_likable_type", unique: true
-  end
-
-  create_table "user_playlist_saves", force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.uuid "playlist_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "playlist_id"], name: "index_user_playlist_saves_on_user_id_and_playlist_id", unique: true
   end
 
   create_table "user_playlist_tracks", force: :cascade do |t|
@@ -158,7 +142,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_143352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_default", default: false
-    t.integer "saves_count", default: 0
+    t.integer "likes_count", default: 0
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -187,11 +171,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_06_143352) do
   add_foreign_key "platform_track_genres", "platform_genres", column: "genre_id"
   add_foreign_key "platform_track_genres", "platform_tracks", column: "track_id"
   add_foreign_key "platform_tracks", "platform_albums", column: "album_id"
-  add_foreign_key "user_album_saves", "platform_albums", column: "album_id"
-  add_foreign_key "user_album_saves", "users"
   add_foreign_key "user_likes", "users"
-  add_foreign_key "user_playlist_saves", "user_playlists", column: "playlist_id"
-  add_foreign_key "user_playlist_saves", "users"
   add_foreign_key "user_playlist_tracks", "platform_tracks", column: "track_id", on_delete: :cascade
   add_foreign_key "user_playlist_tracks", "user_playlists", column: "playlist_id", on_delete: :cascade
   add_foreign_key "user_playlists", "users", on_delete: :cascade
