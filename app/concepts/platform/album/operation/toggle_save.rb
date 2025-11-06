@@ -7,11 +7,11 @@ module Platform::Album::Operation
     step :unsave_album
 
     def find_album_save(context, current_user:, model:, **)
-      context[:model] = current_user.album_saves.find_by(album_id: model.id)
+      context[:model] = current_user.album_saves.find_by(likable_id: model.id)
     end
 
     def save_album(_, current_user:, params:, **)
-      current_user.album_saves.create(album_id: params[:id])
+      current_user.album_saves.create(likable_id: params[:id])
     end
 
     def unsave_album(_, model:, **)
