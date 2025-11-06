@@ -29,11 +29,11 @@ class User < ApplicationRecord
   has_many :playlists, class_name: "User::Playlist", inverse_of: :user, dependent: :destroy
   has_one :liked_playlist, -> { where(is_default: true) }, class_name: "User::Playlist"
 
-  has_many :playlist_saves, class_name: "User::PlaylistSave", inverse_of: :user, dependent: :destroy
-  has_many :saved_playlists, class_name: "User::Playlist", through: :playlist_saves, source: :playlist
+  has_many :album_saves, -> { where(likable_type: "Platform::Album") }, class_name: "User::Like", inverse_of: :user, dependent: :destroy, as: :likable
+  has_many :saved_albums, through: :album_saves, source: :likable, source_type: "Platform::Album"
 
-  has_many :album_saves, class_name: "User::AlbumSave", inverse_of: :user, dependent: :destroy
-  has_many :saved_albums, through: :album_saves, source: :album
+  has_many :playlist_saves, -> { where(likable_type: "User::Playlist") }, class_name: "User::Like", inverse_of: :user, as: :likable, dependent: :destroy
+  has_many :saved_playlists, through: :playlist_saves, source: :likable, source_type: "User::Playlist"
 
   def create_default_playlist
     self.create_liked_playlist(title: "Liked")

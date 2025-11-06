@@ -33,10 +33,10 @@ class UserTest < ActiveSupport::TestCase
     should have_many(:playlists).class_name("User::Playlist")
     should have_one(:liked_playlist).class_name("User::Playlist")
 
-    should have_many(:playlist_saves).class_name("User::PlaylistSave")
+    should have_many(:playlist_saves).class_name("User::Like")
     should have_many(:saved_playlists).class_name("User::Playlist").through(:playlist_saves)
 
-    should have_many(:album_saves).class_name("User::AlbumSave")
+    should have_many(:album_saves).class_name("User::Like")
     should have_many(:saved_albums).through(:album_saves)
   end
 
