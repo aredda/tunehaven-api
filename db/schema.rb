@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_04_205108) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_06_143352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -123,6 +123,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_04_205108) do
     t.index ["jti"], name: "index_user_jwt_denylists_on_jti"
   end
 
+  create_table "user_likes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "likable_id", null: false
+    t.string "likable_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likable_id", "likable_type"], name: "index_user_likes_on_likable_id_and_likable_type", unique: true
+  end
+
   create_table "user_playlist_saves", force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "playlist_id", null: false
@@ -180,6 +189,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_04_205108) do
   add_foreign_key "platform_tracks", "platform_albums", column: "album_id"
   add_foreign_key "user_album_saves", "platform_albums", column: "album_id"
   add_foreign_key "user_album_saves", "users"
+  add_foreign_key "user_likes", "users"
   add_foreign_key "user_playlist_saves", "user_playlists", column: "playlist_id"
   add_foreign_key "user_playlist_saves", "users"
   add_foreign_key "user_playlist_tracks", "platform_tracks", column: "track_id", on_delete: :cascade
