@@ -13,6 +13,18 @@ class User::GenresController < User::Controller
     end
   end
 
+  # GET     /api/user/genres/featured
+  def featured
+    run Platform::Genre::Operation::FeaturedIndex do |context|
+      data = context[:data]
+
+      render json: {
+        success: true,
+        data: Platform::Genre::View::Index.for_collection.new(data)
+      }, status: :ok
+    end
+  end
+
   # GET     /api/user/genres/:id/albums
   def albums
     run Platform::Album::Operation::ByGenreIndex do |context|
