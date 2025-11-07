@@ -15,6 +15,18 @@ class User::GenresControllerTest < UserIntegrationTest
     end
   end
 
+  describe "GET featured" do
+    it "should pass" do
+      Platform::Genre.create(id: "rock", name: "Rock", featured: true)
+      Platform::Genre.create(id: "metal", name: "Metal", featured: true)
+
+      get "/api/user/genres/featured", headers: @auth_headers
+
+      assert_response :success
+      assert_equal 2, res_data.count
+    end
+  end
+
   describe "GET :id/albums" do
     it "should fail: genre is not found" do
       get "/api/user/genres/invalid-genre/albums", headers: @auth_headers

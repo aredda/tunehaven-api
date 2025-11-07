@@ -3,7 +3,8 @@
     "id": "rock",
     "name": "Rock",
     "description": "A broad genre of popular music that emerged in the 1950s, characterized by electric guitars, drums, and strong rhythms.",
-    "parent_id": null
+    "parent_id": null,
+    "featured": true
   },
   {
     "id": "hard-rock",
@@ -63,7 +64,8 @@
     "id": "metal",
     "name": "Metal",
     "description": "A genre evolving from rock, known for distorted guitars, heavy drumming, and powerful vocals.",
-    "parent_id": "rock"
+    "parent_id": "rock",
+    "featured": true
   },
   {
     "id": "heavy-metal",
@@ -117,7 +119,8 @@
     "id": "pop",
     "name": "Pop",
     "description": "Popular music focused on catchy melodies, simple structures, and mass appeal.",
-    "parent_id": null
+    "parent_id": null,
+    "featured": true
   },
   {
     "id": "dance-pop",
@@ -141,7 +144,8 @@
     "id": "hip-hop",
     "name": "Hip Hop",
     "description": "A cultural movement and music genre featuring rhythmic speech (rapping) over beats.",
-    "parent_id": null
+    "parent_id": null,
+    "featured": true
   },
   {
     "id": "trap",
@@ -165,7 +169,8 @@
     "id": "jazz",
     "name": "Jazz",
     "description": "A music genre originating in African-American communities, characterized by swing, improvisation, and complex harmonies.",
-    "parent_id": null
+    "parent_id": null,
+    "featured": true
   },
   {
     "id": "bebop",
@@ -201,7 +206,8 @@
     "id": "blues",
     "name": "Blues",
     "description": "A genre rooted in African-American history, using expressive lyrics and the 12-bar chord progression.",
-    "parent_id": null
+    "parent_id": null,
+    "featured": true
   },
   {
     "id": "delta-blues",
@@ -237,7 +243,8 @@
     "id": "electronic",
     "name": "Electronic",
     "description": "Music produced mainly with electronic instruments, synthesizers, and digital production.",
-    "parent_id": null
+    "parent_id": null,
+    "featured": true
   },
   {
     "id": "house",
@@ -291,7 +298,8 @@
     "id": "country",
     "name": "Country",
     "description": "A genre rooted in American folk traditions, often featuring guitars, storytelling, and rural themes.",
-    "parent_id": null
+    "parent_id": null,
+    "featured": true
   },
   {
     "id": "bluegrass",
@@ -327,7 +335,8 @@
     "id": "classical",
     "name": "Classical",
     "description": "Art music rooted in Western traditions, spanning centuries from Baroque to contemporary orchestral works.",
-    "parent_id": null
+    "parent_id": null,
+    "featured": true
   },
   {
     "id": "baroque",

@@ -34,6 +34,9 @@ namespace :user do
   end
   resources :artists, only: %i[index show]
   resources :genres, only: :index do
+    collection do
+      get :featured
+    end
     member do
       get :albums
     end
