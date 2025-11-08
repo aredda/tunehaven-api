@@ -13,6 +13,21 @@ class User::GenresController < User::Controller
     end
   end
 
+  # GET     /api/user/genres/:id
+  def show
+    run Platform::Genre::Operation::Show do
+      return render json: {
+        success: true,
+        data: Platform::Genre::View::Show.new(@model)
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :not_found
+  end
+
   # GET     /api/user/genres/featured
   def featured
     run Platform::Genre::Operation::FeaturedIndex do |context|

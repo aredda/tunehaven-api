@@ -11,7 +11,22 @@ class User::GenresControllerTest < UserIntegrationTest
       get "/api/user/genres", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[ id name description ], res_data.first.keys
+      assert_equal %w[ id name ], res_data.first.keys
+    end
+  end
+
+  describe "GET show" do
+    it "should pass" do
+      get "/api/user/genres/#{genre.id}", headers: @auth_headers
+
+      assert_response :success
+      assert_equal %w[ id name featured description ], res_data.keys
+    end
+    it "should fail" do
+      get "/api/user/genres/xyz", headers: @auth_headers
+
+      assert_response :not_found
+      assert_equal [ "Genre is not found" ], res_errors["base"]
     end
   end
 
