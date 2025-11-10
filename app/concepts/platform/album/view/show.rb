@@ -12,5 +12,9 @@ module Platform::Album::View
 
       def is_liked = Show.user.likes_track?(represented)
     end
+    collection :genres do
+      property :id
+      property :name
+    end
   end
 end
