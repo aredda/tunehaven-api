@@ -82,16 +82,19 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
     it "should pass" do
       assert_difference "Platform::Album.count" do
         assert_difference -> { artist.reload.albums_count } do
-          post "/api/admin/albums", headers: @auth_headers, params: {
-            album: {
-              title: "In Rainbows",
-              artist_id: artist.id,
-              cover: Rack::Test::UploadedFile.new("test/fixtures/files/cover.jpg", "image/jpeg")
+          assert_difference -> { Platform::AlbumGenre.count } do
+            post "/api/admin/albums", headers: @auth_headers, params: {
+              album: {
+                title: "In Rainbows",
+                artist_id: artist.id,
+                cover: Rack::Test::UploadedFile.new("test/fixtures/files/cover.jpg", "image/jpeg"),
+                genre_ids: [ "art-rock" ]
+              }
             }
-          }
 
-          assert_response :created
-          assert_equal "radiohead-in-rainbows", res_data["slug"]
+            assert_response :created
+            assert_equal "radiohead-in-rainbows", res_data["slug"]
+          end
         end
       end
     end
@@ -122,6 +125,20 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
 
         assert_response :unprocessable_content
         assert_equal [ "This album is already added!" ], res_errors["title"]
+      end
+    end
+    it "should fail: invalid genre ids" do
+      assert_no_difference("Platform::Album.count") do
+        post "/api/admin/albums", headers: @auth_headers, params: {
+          album: {
+            title: "Hail to the thief",
+            artist_id: artist.id,
+            genre_ids: %w[ invalid1 ]
+          }
+        }
+
+        assert_response :unprocessable_content
+        assert_equal [ "[invalid1] is not a valid genre!" ], res_errors["genre_ids"]
       end
     end
   end

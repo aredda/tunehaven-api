@@ -37,6 +37,7 @@ class User::AlbumsControllerTest < UserIntegrationTest
       get "/api/user/albums/#{ok_computer.id}", headers: @auth_headers
 
       assert_response :success
+      assert_equal %w[id title cover_thumb_url tracks_count release_date artist is_saved cover_url tracks genres], res_data.keys
       assert_equal true, res_data["is_saved"]
     end
   end
