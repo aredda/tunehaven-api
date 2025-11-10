@@ -16,7 +16,13 @@ class Platform::Track::Audio::TranscodeJobTest < ActiveJob::TestCase
       Platform::Track::Audio::TranscodeJob.perform_now(audio)
 
       dir = File.dirname(audio.file.path)
+      low = audio.track.audios.quality_low.first
+      mid = audio.track.audios.quality_mid.first
+      high = audio.track.audios.quality_high.first
 
+      assert_predicate low.file, :present?
+      assert_predicate mid.file, :present?
+      assert_predicate high.file, :present?
       assert File.exist?(File.join(dir, "128.mp3"))
       assert File.exist?(File.join(dir, "192.mp3"))
       assert File.exist?(File.join(dir, "320.mp3"))
