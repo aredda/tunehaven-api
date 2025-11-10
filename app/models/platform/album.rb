@@ -33,4 +33,8 @@ class Platform::Album < ApplicationRecord
   def set_slug
     self.slug = [ artist.slug, title ].join("-").parameterize unless slug.present?
   end
+
+  def genre_ids=(ids)
+    ids.each { |genre_id| genre_relationships.build(genre_id:) }
+  end
 end
