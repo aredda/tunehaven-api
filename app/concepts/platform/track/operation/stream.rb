@@ -7,7 +7,7 @@ module Platform::Track::Operation
 
     def find_audio(context, model:, **)
       # TODO: should get the audio based on the network's signal
-      context[:model] = model.audios.first
+      context[:model] = model.audios.find_by(quality: :low) || model.master_audio
     end
   end
 end

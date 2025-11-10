@@ -27,7 +27,7 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
         sample_rate: result.audio_sample_rate,
         channels: result.audio_channels,
         format: result.audio_codec,
-        file: path,
+        file: CarrierWave::SanitizedFile.new(path),
         quality: key
       )
     end
