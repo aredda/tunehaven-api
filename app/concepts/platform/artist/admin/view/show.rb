@@ -10,5 +10,9 @@ module Platform::Artist::Admin::View
       property :tracks_count
       property :cover_url, getter: ->(represented:, **) { represented.cover.full.url }
     end
+    collection :genres do
+      property :id
+      property :name
+    end
   end
 end

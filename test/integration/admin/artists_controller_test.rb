@@ -47,7 +47,7 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
       get "/api/admin/artists/#{artist.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id slug name about albums_count created_at updated_at albums], res_data.keys
+      assert_equal %w[id slug name about albums_count created_at updated_at albums genres], res_data.keys
 
       # find by slug
       get "/api/admin/artists/radiohead", headers: @auth_headers
@@ -67,12 +67,13 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
       assert_difference "Platform::Artist.count" do
         post "/api/admin/artists", headers: @auth_headers, params: {
           artist: {
-            name: "Queen"
+            name: "Arctic Monkeys",
+            genre_ids: [ "indie-rock" ]
           }
         }
 
         assert_response :created
-        assert_equal "queen", res_data["slug"]
+        assert_equal "arctic-monkeys", res_data["slug"]
       end
     end
     it "should fail: name already exists" do
@@ -91,12 +92,14 @@ class Admin::ArtistsControllerTest < AdminIntegrationTest
       assert_no_difference("Platform::Artist.count") do
         post "/api/admin/artists", headers: @auth_headers, params: {
           artist: {
-            name: nil
+            name: nil,
+            genre_ids: [ "invalid" ]
           }
         }
 
         assert_response :unprocessable_content
         assert_equal [ "must be filled", "size cannot be less than 2" ], res_errors["name"]
+        assert_equal [ "[invalid] is not a valid genre!" ], res_errors["genre_ids"]
       end
     end
   end
