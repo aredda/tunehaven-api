@@ -168,8 +168,6 @@ GEM
     ed25519 (1.4.0)
     erb (5.0.2)
     erubi (1.13.1)
-    et-orbi (1.2.11)
-      tzinfo
     excon (1.3.0)
       logger
     fabrication (3.0.0)
@@ -215,9 +213,6 @@ GEM
       nokogiri (>= 1.5.11, < 2.0.0)
     formatador (1.2.0)
       reline
-    fugit (1.11.1)
-      et-orbi (~> 1, >= 1.2.11)
-      raabro (~> 1.4)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-apis-compute_v1 (0.129.0)
@@ -361,7 +356,6 @@ GEM
     public_suffix (6.0.2)
     puma (6.6.1)
       nio4r (~> 2.0)
-    raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.0)
     rack-cors (3.0.0)
@@ -477,13 +471,6 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    solid_queue (1.2.1)
-      activejob (>= 7.1)
-      activerecord (>= 7.1)
-      concurrent-ruby (>= 1.3.1)
-      fugit (~> 1.11.0)
-      railties (>= 7.1)
-      thor (>= 1.3.1)
     sshkit (1.24.0)
       base64
       logger
@@ -616,7 +603,6 @@ DEPENDENCIES
   shoulda-matchers
   solid_cable
   solid_cache
-  solid_queue
   state_machines-activerecord
   streamio-ffmpeg
   test-unit
