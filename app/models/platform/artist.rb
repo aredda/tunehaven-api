@@ -22,4 +22,8 @@ class Platform::Artist < ApplicationRecord
   def set_slug
     self.slug = name.parameterize
   end
+
+  def genre_ids=(ids)
+    ids.map { |genre_id| genre_relationships.build(genre_id:) }
+  end
 end
