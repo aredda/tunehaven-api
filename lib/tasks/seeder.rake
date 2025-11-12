@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :seed do
-  task :artists do
+  task artists: :environment do
     begin
       json = JSON.parse(File.read(Rails.root.join("db", "seed/artists.json")))
     rescue
