@@ -1,6 +1,6 @@
 FROM ruby:3.4.4
 WORKDIR /app
-COPY Gemfile ./
+COPY Gemfile Gemfile.lock ./
 RUN bundle install
 COPY . .
 RUN apt-get update && apt-get install -y ffmpeg

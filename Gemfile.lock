@@ -475,15 +475,6 @@ GEM
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 4.0)
       multi_json (~> 1.10)
-    solid_cable (3.0.12)
-      actioncable (>= 7.2)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
-    solid_cache (1.0.7)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
     sshkit (1.24.0)
       base64
       logger
@@ -615,8 +606,6 @@ DEPENDENCIES
   rubocop-rails-omakase
   shoulda-context
   shoulda-matchers
-  solid_cable
-  solid_cache
   state_machines-activerecord
   streamio-ffmpeg
   test-unit

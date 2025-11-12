@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "Bundle Check"
+
+bundle check || bundle install
+
 echo "Migrating DB Changes"
 
 RAILS_ENV=production bundle exec rails db:migrate
