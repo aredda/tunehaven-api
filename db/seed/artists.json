@@ -1,0 +1,257 @@
+[
+  {
+    "name": "The Beatles",
+    "about": "The Beatles, formed in Liverpool in 1960, redefined popular music through innovative songwriting and studio experimentation, influencing virtually every rock act that followed.",
+    "genre_ids": ["rock", "pop-rock", "psychedelic-rock"]
+  },
+  {
+    "name": "The Rolling Stones",
+    "about": "Formed in 1962, The Rolling Stones became synonymous with rebellious rock 'n' roll, blending blues, swagger, and attitude in a career spanning six decades.",
+    "genre_ids": ["rock", "blues-rock", "hard-rock"]
+  },
+  {
+    "name": "Led Zeppelin",
+    "about": "Led Zeppelin, founded in 1968, fused blues, folk, and hard rock into a heavy, mystical sound that helped define the birth of heavy metal.",
+    "genre_ids": ["hard-rock", "blues-rock", "heavy-metal"]
+  },
+  {
+    "name": "Pink Floyd",
+    "about": "Pink Floyd are known for their conceptual albums, sonic experimentation, and philosophical lyrics that made them pioneers of progressive rock.",
+    "genre_ids": ["progressive-rock", "psychedelic-rock", "art-rock"]
+  },
+  {
+    "name": "Queen",
+    "about": "Fronted by Freddie Mercury, Queen became known for their theatrical performances and eclectic sound, merging rock, opera, and pop into timeless anthems.",
+    "genre_ids": ["rock", "glam-rock", "progressive-rock", "hard-rock"]
+  },
+  {
+    "name": "The Who",
+    "about": "The Who, known for their explosive live energy and conceptual albums like 'Tommy', helped shape modern rock’s power and ambition.",
+    "genre_ids": ["rock", "hard-rock", "mod-rock"]
+  },
+  {
+    "name": "Nirvana",
+    "about": "Nirvana brought grunge and alternative rock into the mainstream with raw emotion and anti-establishment energy that defined the 1990s.",
+    "genre_ids": ["grunge", "alternative-rock", "punk-rock"]
+  },
+  {
+    "name": "Radiohead",
+    "about": "Radiohead continuously reinvented rock with emotionally charged and experimental music, from 'OK Computer' to 'Kid A'.",
+    "genre_ids": ["alternative-rock", "art-rock", "experimental-rock", "indie-rock"]
+  },
+  {
+    "name": "U2",
+    "about": "U2 combined political messages and soaring anthems, building a global legacy with albums like 'The Joshua Tree' and 'Achtung Baby'.",
+    "genre_ids": ["rock", "alternative-rock", "post-punk"]
+  },
+  {
+    "name": "The Doors",
+    "about": "Led by Jim Morrison, The Doors created dark, poetic rock blending blues and psychedelia, becoming icons of 1960s counterculture.",
+    "genre_ids": ["psychedelic-rock", "blues-rock", "acid-rock"]
+  },
+  {
+    "name": "AC/DC",
+    "about": "With their electrifying riffs and raw energy, AC/DC became the ultimate hard rock act, embodying pure, unpretentious rock 'n' roll.",
+    "genre_ids": ["hard-rock", "rock-and-roll"]
+  },
+  {
+    "name": "Metallica",
+    "about": "Metallica revolutionized metal with aggressive speed and precision, establishing themselves as thrash metal legends with enduring global appeal.",
+    "genre_ids": ["heavy-metal", "thrash-metal", "hard-rock"]
+  },
+  {
+    "name": "Black Sabbath",
+    "about": "Black Sabbath, led by Ozzy Osbourne, are often credited as the founders of heavy metal, blending doom-laden riffs with dark themes.",
+    "genre_ids": ["heavy-metal", "doom-metal", "hard-rock"]
+  },
+  {
+    "name": "The Eagles",
+    "about": "The Eagles fused rock and country into smooth, melodic hits, with 'Hotel California' cementing their place in rock history.",
+    "genre_ids": ["rock", "country-rock", "soft-rock"]
+  },
+  {
+    "name": "Fleetwood Mac",
+    "about": "Fleetwood Mac’s lineup changes and emotional songwriting gave rise to timeless classics, especially their 1977 masterpiece 'Rumours'.",
+    "genre_ids": ["soft-rock", "pop-rock", "folk-rock"]
+  },
+  {
+    "name": "The Clash",
+    "about": "The Clash infused punk with political conviction, reggae rhythms, and adventurous experimentation, shaping punk’s evolution beyond rebellion.",
+    "genre_ids": ["punk-rock", "post-punk", "reggae-rock"]
+  },
+  {
+    "name": "The Velvet Underground",
+    "about": "The Velvet Underground, managed by Andy Warhol, blended avant-garde art with raw minimalism, influencing generations of alternative musicians.",
+    "genre_ids": ["art-rock", "experimental-rock", "proto-punk"]
+  },
+  {
+    "name": "The Strokes",
+    "about": "The Strokes revived garage rock in the early 2000s with stylish minimalism and infectious riffs that reshaped modern indie rock.",
+    "genre_ids": ["indie-rock", "garage-rock", "post-punk-revival"]
+  },
+  {
+    "name": "Arctic Monkeys",
+    "about": "Arctic Monkeys emerged in the 2000s with witty lyrics and sharp riffs, blending indie, garage, and modern rock with evolving sophistication.",
+    "genre_ids": ["indie-rock", "alternative-rock", "garage-rock"]
+  },
+  {
+    "name": "Foo Fighters",
+    "about": "Founded by former Nirvana drummer Dave Grohl, Foo Fighters deliver melodic, anthemic rock with consistent energy and heart.",
+    "genre_ids": ["alternative-rock", "post-grunge", "hard-rock"]
+  },
+  {
+    "name": "Pearl Jam",
+    "about": "Pearl Jam became leaders of the grunge movement, known for their integrity, powerful performances, and socially conscious lyrics.",
+    "genre_ids": ["grunge", "alternative-rock", "hard-rock"]
+  },
+  {
+    "name": "Soundgarden",
+    "about": "Soundgarden pioneered grunge with heavy riffs, complex structures, and Chris Cornell’s soaring vocals, blending metal and alternative rock.",
+    "genre_ids": ["grunge", "alternative-metal", "hard-rock"]
+  },
+  {
+    "name": "R.E.M.",
+    "about": "R.E.M. brought alternative rock to mainstream prominence with jangly guitars and introspective lyrics that influenced countless bands.",
+    "genre_ids": ["alternative-rock", "college-rock", "indie-rock"]
+  },
+  {
+    "name": "The Smiths",
+    "about": "The Smiths shaped indie music with melancholic lyrics and jangly guitars, embodying British alternative rock’s poetic sensibility.",
+    "genre_ids": ["indie-rock", "alternative-rock", "jangle-pop"]
+  },
+  {
+    "name": "Oasis",
+    "about": "Oasis dominated 1990s Britpop with swagger, anthemic melodies, and raw emotion, crafting era-defining hits like 'Wonderwall'.",
+    "genre_ids": ["britpop", "rock", "alternative-rock"]
+  },
+  {
+    "name": "Blur",
+    "about": "Blur blended art pop and indie rock into a defining Britpop sound, constantly reinventing themselves with creative flair.",
+    "genre_ids": ["britpop", "indie-rock", "alternative-rock"]
+  },
+  {
+    "name": "The Cure",
+    "about": "The Cure evolved from post-punk gloom to lush, emotional soundscapes, shaping gothic rock and alternative music’s emotional tone.",
+    "genre_ids": ["post-punk", "gothic-rock", "alternative-rock"]
+  },
+  {
+    "name": "Joy Division",
+    "about": "Joy Division’s haunting sound and introspective lyrics pioneered post-punk, leaving an indelible mark on alternative music.",
+    "genre_ids": ["post-punk", "gothic-rock", "new-wave"]
+  },
+  {
+    "name": "The Police",
+    "about": "The Police combined rock, reggae, and pop with tight musicianship and Sting’s distinctive vocals, creating timeless crossover hits.",
+    "genre_ids": ["rock", "new-wave", "reggae-rock"]
+  },
+  {
+    "name": "Red Hot Chili Peppers",
+    "about": "Red Hot Chili Peppers merged funk grooves with rock energy and introspective emotion, evolving into one of rock’s most enduring acts.",
+    "genre_ids": ["funk-rock", "alternative-rock", "rap-rock"]
+  },
+  {
+    "name": "Green Day",
+    "about": "Green Day popularized punk for a new generation with their sharp melodies and energetic anthems like 'Basket Case' and 'American Idiot'.",
+    "genre_ids": ["punk-rock", "pop-punk", "alternative-rock"]
+  },
+  {
+    "name": "Blink-182",
+    "about": "Blink-182 defined late 1990s pop-punk with humor, catchy hooks, and emotional undertones that resonated with youth culture.",
+    "genre_ids": ["pop-punk", "punk-rock", "alternative-rock"]
+  },
+  {
+    "name": "The Smashing Pumpkins",
+    "about": "Led by Billy Corgan, The Smashing Pumpkins blended heavy guitars, dreamlike atmospheres, and introspective lyrics into epic alt-rock.",
+    "genre_ids": ["alternative-rock", "grunge", "shoegaze"]
+  },
+  {
+    "name": "Muse",
+    "about": "Muse combine grandiose rock with electronic and symphonic elements, delivering high-energy performances and ambitious concept albums.",
+    "genre_ids": ["alternative-rock", "progressive-rock", "space-rock"]
+  },
+  {
+    "name": "Coldplay",
+    "about": "Coldplay emerged with emotional, melodic rock that blended intimacy and stadium grandeur, evolving into global pop-rock icons.",
+    "genre_ids": ["alternative-rock", "pop-rock", "indie-rock"]
+  },
+  {
+    "name": "The Killers",
+    "about": "The Killers crafted cinematic rock infused with synth-pop flair, defining 2000s alternative with hits like 'Mr. Brightside'.",
+    "genre_ids": ["indie-rock", "alternative-rock", "new-wave"]
+  },
+  {
+    "name": "Linkin Park",
+    "about": "Linkin Park fused rock, metal, and hip-hop into emotional, cathartic anthems that defined early 2000s nu-metal and alt-rock.",
+    "genre_ids": ["nu-metal", "alternative-rock", "rap-rock"]
+  },
+  {
+    "name": "Guns N' Roses",
+    "about": "Guns N' Roses brought raw aggression and swagger to hard rock with 'Appetite for Destruction' becoming one of rock’s biggest albums.",
+    "genre_ids": ["hard-rock", "heavy-metal", "glam-metal"]
+  },
+  {
+    "name": "Aerosmith",
+    "about": "Aerosmith blended blues-based hard rock with charisma and catchy hooks, becoming America’s definitive rock 'n' roll band.",
+    "genre_ids": ["hard-rock", "blues-rock", "rock-and-roll"]
+  },
+  {
+    "name": "Bon Jovi",
+    "about": "Bon Jovi combined rock hooks and pop sensibility into arena-ready anthems that defined 1980s mainstream rock.",
+    "genre_ids": ["arena-rock", "pop-rock", "hard-rock"]
+  },
+  {
+    "name": "Journey",
+    "about": "Journey became arena rock icons with soaring vocals and melodic anthems like 'Don’t Stop Believin’'.",
+    "genre_ids": ["arena-rock", "soft-rock", "classic-rock"]
+  },
+  {
+    "name": "Deep Purple",
+    "about": "Deep Purple fused classical influences with hard rock aggression, pioneering heavy metal’s early sound with 'Smoke on the Water'.",
+    "genre_ids": ["hard-rock", "progressive-rock", "heavy-metal"]
+  },
+  {
+    "name": "The Kinks",
+    "about": "The Kinks captured British life through witty songwriting and innovative riffs, influencing generations of rock musicians.",
+    "genre_ids": ["rock", "garage-rock", "britpop"]
+  },
+  {
+    "name": "Cream",
+    "about": "Cream, featuring Eric Clapton, combined blues virtuosity and psychedelic exploration, laying groundwork for hard rock and jam bands.",
+    "genre_ids": ["blues-rock", "psychedelic-rock", "hard-rock"]
+  },
+  {
+    "name": "Lynyrd Skynyrd",
+    "about": "Lynyrd Skynyrd became the face of Southern rock with anthems like 'Sweet Home Alabama' and fiery, guitar-driven sound.",
+    "genre_ids": ["southern-rock", "hard-rock", "blues-rock"]
+  },
+  {
+    "name": "The Beach Boys",
+    "about": "The Beach Boys revolutionized pop and rock with lush harmonies and ambitious production, influencing countless artists worldwide.",
+    "genre_ids": ["surf-rock", "pop-rock", "psychedelic-rock"]
+  },
+  {
+    "name": "The Ramones",
+    "about": "The Ramones’ fast, minimalist songs defined punk rock’s sound and attitude, inspiring a global punk revolution.",
+    "genre_ids": ["punk-rock", "garage-rock", "proto-punk"]
+  },
+  {
+    "name": "Sex Pistols",
+    "about": "The Sex Pistols ignited the punk movement with raw energy and anti-establishment fury that shook the British music scene.",
+    "genre_ids": ["punk-rock", "proto-punk"]
+  },
+  {
+    "name": "Kings of Leon",
+    "about": "Kings of Leon rose from Southern roots to international fame with raw garage rock evolving into polished arena anthems.",
+    "genre_ids": ["indie-rock", "alternative-rock", "southern-rock"]
+  },
+  {
+    "name": "Paramore",
+    "about": "Paramore brought emo and pop-punk to the mainstream with heartfelt lyrics, explosive choruses, and evolving artistic depth.",
+    "genre_ids": ["pop-punk", "alternative-rock", "emo-rock"]
+  },
+  {
+    "name": "The White Stripes",
+    "about": "The White Stripes stripped rock to its essentials, crafting garage blues-rock with minimalist energy and raw passion.",
+    "genre_ids": ["garage-rock", "blues-rock", "alternative-rock"]
+  }
+]

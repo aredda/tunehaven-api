@@ -7,3 +7,6 @@ AdminUser.create(email: ENV.fetch('ADMIN_EMAIL'), password: ENV.fetch('ADMIN_PAS
 ActiveRecord::Base.transaction do
   Platform::Genre.create(JSON.parse(File.read(Rails.root.join("db", "seed/genres.json"))))
 end
+
+# Seed Artists
+Rake::Task["seed:artists"].invoke
