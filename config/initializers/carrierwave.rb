@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 CarrierWave.configure do |config|
-  if Rails.env.production?
+  if not Rails.env.test?
     config.storage = :fog
     config.fog_credentials = {
       provider: "Google",
