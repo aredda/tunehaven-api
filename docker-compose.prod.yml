@@ -10,7 +10,9 @@ services:
       - ./db-data/:/var/lib/postgresql/data/
   api:
     container_name: api
-    build: .
+    build:
+      context: .
+      dockerfile: prod.Dockerfile
     entrypoint: ./entrypoint.sh
     volumes:
       - .:/app
