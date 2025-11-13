@@ -26,4 +26,10 @@ class Platform::Track::Audio < ApplicationRecord
   enum :quality, { original: "original", low: "low", mid: "mid", high: "high" }, prefix: true
 
   belongs_to :track, class_name: "Platform::Track", inverse_of: :audios, foreign_key: :track_id, counter_cache: :audios_count
+
+  def file_url
+    return file.url unless Rails.env.test?
+
+    file.path
+  end
 end
