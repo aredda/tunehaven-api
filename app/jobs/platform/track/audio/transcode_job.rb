@@ -12,7 +12,19 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
   }
 
   def perform(original)
-    audio = FFMPEG::Movie.new(original.file_url)
+    source = if Rails.env.test?
+      original.file.path
+    else
+      file = Tempfile.new([ "source", File.extname(original.file.path) ])
+      file.binmode
+      URI.open(original.file.url) do |remote|
+        file.write(remote.read)
+      end
+      file.rewind
+      file.path
+    end
+
+    audio = FFMPEG::Movie.new(source)
     dir = File.dirname(original.file_url)
 
     TIERS.each_pair do |key, value|
@@ -31,5 +43,7 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
         quality: key
       )
     end
+  ensure
+    FileUtils.rm_f(source) if source && File.exist?(source) && !Rails.env.test?
   end
 end
