@@ -12,8 +12,8 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
   }
 
   def perform(original)
-    audio = FFMPEG::Movie.new(original.file.path)
-    dir = File.dirname(original.file.path)
+    audio = FFMPEG::Movie.new(original.file_url)
+    dir = File.dirname(original.file_url)
 
     TIERS.each_pair do |key, value|
       audio_bitrate = value[:bitrate]
