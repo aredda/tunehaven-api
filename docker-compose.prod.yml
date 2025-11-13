@@ -15,7 +15,6 @@ services:
     build:
       context: .
       dockerfile: prod.Dockerfile
-    image: api-image
     entrypoint: ./entrypoint.sh
     volumes:
       - .:/app
@@ -28,7 +27,7 @@ services:
 
   jobber:
     container_name: jobber
-    image: api-image
+    image: tunehaven-api-api
     env_file:
       - .env
     depends_on:
