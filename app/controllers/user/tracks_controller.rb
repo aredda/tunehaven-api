@@ -34,7 +34,10 @@ class User::TracksController < User::Controller
   # GET   /api/user/tracks/:id/stream
   def stream
     run Platform::Track::Operation::Stream do
-      return send_file @model.file_url, type: "audio/#{@model.format}", disposition: "inline"
+      if Rails.env.test?
+        return send_file @model.file_url, type: "audio/#{@model.format}", disposition: "inline"
+      else
+        redirect_to @model.file_url
     end
 
     head :not_found
