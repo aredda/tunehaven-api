@@ -38,6 +38,7 @@ class User::TracksController < User::Controller
         return send_file @model.file_url, type: "audio/#{@model.format}", disposition: "inline"
       else
         redirect_to @model.file_url
+      end
     end
 
     head :not_found
