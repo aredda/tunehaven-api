@@ -12,13 +12,15 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
   }
 
   def perform(original)
+    Rails.logger.info "----- Downloading the source file"
+
     file = Tempfile.new([ "master", File.extname(original.file.path) ])
     URI.open(original.file_url) do |remote|
       IO.copy_stream(remote, file)
     end
     file.rewind
 
-    puts "----- Created a temporary source file"
+    Rails.logger.info "----- Created a temporary source file"
 
     # audio = FFMPEG::Movie.new(source)
     # dir = File.dirname(original.file_url)
