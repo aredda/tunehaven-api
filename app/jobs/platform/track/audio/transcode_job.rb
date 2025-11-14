@@ -12,6 +12,8 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
   }
 
   def perform(original)
+    raise original.file_url
+
     Rails.logger.info "----- Downloading the source file"
 
     file = Tempfile.new([ "master", File.extname(original.file_url) ])
