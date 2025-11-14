@@ -1,0 +1,10 @@
+development:
+  # 'async' runs in-process and is suitable for development
+  adapter: async
+
+test:
+  adapter: test
+
+production:
+  # This adapter uses Active Record to manage connections configured in database.yml
+  adapter: async
