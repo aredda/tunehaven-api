@@ -12,8 +12,15 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
   }
 
   def perform(original)
-    audio = FFMPEG::Movie.new(original.file_url)
-    dir = File.dirname(original.file_url)
+    file = Tempfile.new(%w[master flac])
+    URI.open(original.file_url) do |remote|
+      IO.copy_stream(remote, file)
+    end
+    file.rewind
+
+    audio = FFMPEG::Movie.new(file.path)
+    dir = File.dirname(file.path)
+    temp_files = []
 
     TIERS.each_pair do |key, value|
       audio_bitrate = value[:bitrate]
@@ -30,6 +37,11 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
         file: CarrierWave::SanitizedFile.new(path),
         quality: key
       )
+
+      temp_files << path
     end
+  ensure
+    file.close! if file
+    FileUtils.rm_f(temp_files) if temp_files.count.positive?
   end
 end
