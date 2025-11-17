@@ -12,38 +12,36 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
   }
 
   def perform(original)
-    raise original.file_url
-
-    Rails.logger.info "----- Downloading the source file"
-
-    file = Tempfile.new([ "master", File.extname(original.file_url) ])
+    file = Tempfile.new(%w[master flac])
     URI.open(original.file_url) do |remote|
       IO.copy_stream(remote, file)
     end
     file.rewind
 
-    Rails.logger.info "----- Created a temporary source file"
+    audio = FFMPEG::Movie.new(file.path)
+    dir = File.dirname(file.path)
+    temp_files = []
 
-    # audio = FFMPEG::Movie.new(source)
-    # dir = File.dirname(original.file_url)
-    #
-    # TIERS.each_pair do |key, value|
-    #   audio_bitrate = value[:bitrate]
-    #   path = File.join(dir, "#{audio_bitrate}.mp3")
-    #   result = audio.transcode(path, { audio_bitrate: })
-    #
-    #   original.track.audios.create!(
-    #     size: result.size,
-    #     duration: result.duration,
-    #     bitrate: result.bitrate,
-    #     sample_rate: result.audio_sample_rate,
-    #     channels: result.audio_channels,
-    #     format: result.audio_codec,
-    #     file: CarrierWave::SanitizedFile.new(path),
-    #     quality: key
-    #   )
-    # end
+    TIERS.each_pair do |key, value|
+      audio_bitrate = value[:bitrate]
+      path = File.join(dir, "#{audio_bitrate}.mp3")
+      result = audio.transcode(path, { audio_bitrate: })
+
+      original.track.audios.create!(
+        size: result.size,
+        duration: result.duration,
+        bitrate: result.bitrate,
+        sample_rate: result.audio_sample_rate,
+        channels: result.audio_channels,
+        format: result.audio_codec,
+        file: CarrierWave::SanitizedFile.new(path),
+        quality: key
+      )
+
+      temp_files << path
+    end
   ensure
     file.close! if file
+    FileUtils.rm_f(temp_files) if temp_files.count.positive?
   end
 end
