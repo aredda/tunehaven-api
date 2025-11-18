@@ -27,12 +27,14 @@ services:
 
   jobber:
     container_name: jobber
-    image: tunehaven-api-api
+    build:
+      context: .
+      dockerfile: prod.Dockerfile
     env_file:
       - .env
-    depends_on:
-      - api
     command: bundle exec good_job start
+    depends_on:
+      - database
 
   nginx:
     container_name: nginx
