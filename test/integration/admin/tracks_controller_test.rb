@@ -183,6 +183,32 @@ class Admin::TracksControllerTest < AdminIntegrationTest
     end
   end
 
+  describe "PUT transcode" do
+    it "should pass" do
+      Fabricate(:track_audio, track:, is_master: true)
+
+      assert_enqueued_jobs 1 do
+        put "/api/admin/tracks/#{track.id}/transcode", headers: @auth_headers
+
+        assert_response :success
+      end
+    end
+    it "should fail: track has no attached audio" do
+      put "/api/admin/tracks/#{track.id}/transcode", headers: @auth_headers
+
+      assert_response :unprocessable_entity
+      assert_equal [ "This track has no attached master audio!" ], res_errors["base"]
+    end
+    it "should fail: track not found" do
+      assert_no_difference "Platform::Track.count" do
+        put "/api/admin/tracks/abc/transcode", headers: @auth_headers
+
+        assert_response :unprocessable_content
+        assert_equal [ "Track is not found!" ], res_errors["base"]
+      end
+    end
+  end
+
   describe "DELETE destroy" do
     it "should pass" do
       assert_difference "Platform::Track.count", -1 do
