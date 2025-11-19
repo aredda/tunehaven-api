@@ -29,6 +29,10 @@ namespace :admin do
       put :transcode
     end
 
+    collection do
+      delete :/, action: :destroy_all
+    end
+
     resources :genres, controller: "tracks/genres"
     resources :audios, controller: "tracks/audios"
   end

@@ -111,4 +111,18 @@ class Admin::TracksController < Admin::Controller
       errors: @form.errors.messages
     }, status: :unprocessable_content
   end
+
+  # DELETE  /api/admin/tracks
+  def destroy_all
+    run Platform::Track::Admin::Operation::DestroyAll do
+      return render json: {
+        success: true
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_entity
+  end
 end

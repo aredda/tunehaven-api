@@ -226,4 +226,28 @@ class Admin::TracksControllerTest < AdminIntegrationTest
       end
     end
   end
+
+  describe "DELETE destroy_all" do
+    it "should fail: invalid track id" do
+      assert_no_difference -> { Platform::Track.count } do
+        delete "/api/admin/tracks", headers: @auth_headers, params: {
+          track_ids: [ "invalid id" ]
+        }
+
+        assert_response :unprocessable_entity
+        assert_equal [ "Could not find a track [invalid id]" ], res_errors["track_ids"]
+      end
+    end
+    it "should pass" do
+      track1 = Fabricate(:track, album:)
+
+      assert_difference -> { Platform::Track.count }, -2 do
+        delete "/api/admin/tracks", headers: @auth_headers, params: {
+          track_ids: [ track.id, track1.id ]
+        }
+
+        assert_response :success
+      end
+    end
+  end
 end
