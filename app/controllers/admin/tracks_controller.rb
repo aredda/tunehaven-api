@@ -83,6 +83,20 @@ class Admin::TracksController < Admin::Controller
     }, status: :unprocessable_content
   end
 
+  # PUT     /api/admin/tracks/:id/transcode
+  def transcode
+    run Platform::Track::Admin::Operation::Transcode do
+      return render json: {
+        success: true
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_entity
+  end
+
 
   # DELETE  /api/admin/tracks/:id
   def destroy
