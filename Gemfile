@@ -97,3 +97,5 @@ gem "trailblazer-rails"
 gem "dotenv-rails"
 
 gem "good_job"
+
+gem "google-cloud-pubsub"
