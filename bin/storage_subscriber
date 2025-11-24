@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$stdout.sync = true
+$stderr.sync = true
+
+require "googleauth"
+require "google/cloud/pubsub"
+
+ENV["GOOGLE_CLOUD_CREDENTIALS"] = ENV.fetch("GCS_JSON_KEY")
+
+pubsub = Google::Cloud::PubSub.new
+
+# Get a subscriber for a subscription
+subscriber = pubsub.subscriber ENV.fetch("GCS_SUBSCRIPTION")
+
+# Create a listener to listen for available messages
+# By default, this block will be called on 8 concurrent threads.
+# This can be changed with the :threads option
+listener = subscriber.listen do |received_message|
+  # process message
+  puts received_message.message.attributes
+
+  # acknowledge
+  received_message.acknowledge!
+end
+
+# Handle exceptions from listener
+listener.on_error do |exception|
+  puts "Exception: #{exception.class} #{exception.message}"
+end
+
+# Gracefully shut down the subscriber on program exit, blocking until
+# all received messages have been processed or 10 seconds have passed
+at_exit do
+  listener.stop!(10)
+end
+
+# Start background threads that will call the block passed to listen.
+listener.start
+
+puts "Listening to events..."
+
+sleep
