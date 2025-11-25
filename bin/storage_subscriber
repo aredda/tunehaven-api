@@ -19,10 +19,10 @@ subscriber = pubsub.subscriber ENV.fetch("GCS_SUBSCRIPTION")
 # This can be changed with the :threads option
 listener = subscriber.listen do |received_message|
   # process message
-  puts received_message.message.attributes
-
-  # acknowledge
-  received_message.acknowledge!
+  PubSub::Operation::Create.(notification: received_message) do
+    # acknowledge
+    received_message.acknowledge!
+  end
 end
 
 # Handle exceptions from listener

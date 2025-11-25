@@ -93,9 +93,11 @@ gem "trailblazer-activity"
 gem "trailblazer-finder"
 gem "trailblazer-operation"
 gem "trailblazer-rails"
+gem "trailblazer-test"
 
 gem "dotenv-rails"
 
 gem "good_job"
 
 gem "google-cloud-pubsub"
+gem "google-protobuf"
