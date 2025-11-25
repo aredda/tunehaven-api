@@ -607,6 +607,9 @@ GEM
     trailblazer-rails (2.4.4)
       railties (>= 6.0.0)
       trailblazer (>= 2.1.0, < 2.2.0)
+    trailblazer-test (1.0.0)
+      hashie
+      trailblazer-activity-dsl-linear (>= 1.2.6)
     trailblazer-wizard (0.0.8)
       activesupport
     tzinfo (2.0.6)
@@ -659,6 +662,7 @@ DEPENDENCIES
   fog-google
   good_job
   google-cloud-pubsub
+  google-protobuf
   kamal
   kaminari-activerecord
   minitest
@@ -686,6 +690,7 @@ DEPENDENCIES
   trailblazer-finder
   trailblazer-operation
   trailblazer-rails
+  trailblazer-test
   trailblazer-wizard
   tzinfo-data
   warden-jwt_auth
