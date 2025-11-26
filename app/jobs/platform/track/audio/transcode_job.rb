@@ -35,7 +35,8 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
         channels: result.audio_channels,
         format: result.audio_codec,
         file: CarrierWave::SanitizedFile.new(path),
-        quality: key
+        quality: key,
+        method: :coded
       )
 
       temp_files << path
