@@ -12,6 +12,7 @@ services:
 
   api:
     container_name: api
+    image: tunehaven:latest
     build:
       context: .
       dockerfile: prod.Dockerfile
@@ -27,9 +28,7 @@ services:
 
   jobber:
     container_name: jobber
-    build:
-      context: .
-      dockerfile: prod.Dockerfile
+    image: tunehaven:latest
     env_file:
       - .env
     command: bundle exec good_job start
@@ -48,9 +47,7 @@ services:
 
   storage_subscriber:
     container_name: storage_sub
-    build:
-      context: .
-      dockerfile: prod.Dockerfile
+    image: tunehaven:latest
     env_file:
       - .env
     depends_on:
