@@ -18,11 +18,22 @@ subscriber = pubsub.subscriber ENV.fetch("GCS_SUBSCRIPTION")
 # By default, this block will be called on 8 concurrent threads.
 # This can be changed with the :threads option
 listener = subscriber.listen do |received_message|
-  # process message
-  PubSub::Operation::Create.(notification: received_message) do
-    # acknowledge
-    received_message.acknowledge!
+  event = received_message.message.attributes["eventType"]
+  operation = case event
+  when "OBJECT_DELETE"
+    PubSub::Operation::Destroy
+  else
+    PubSub::Operation::Create
   end
+
+  result = operation.(notification: received_message)
+
+  if result.success?
+    puts "#{event}: #{result[:model].title}"
+  end
+
+  ensure
+    received_message.acknowledge!
 end
 
 # Handle exceptions from listener

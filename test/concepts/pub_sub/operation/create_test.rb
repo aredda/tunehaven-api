@@ -20,11 +20,13 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
     notification.message = OpenStruct.new
     notification.message.data = JSON.generate({ name: "uploads/library/Radiohead/The Bends/Fake Plastic Trees.flac", contentType: "audio/flac" })
 
-    assert_difference -> { Platform::Track.count } do
-      assert_pass PubSub::Operation::Create, { notification: } do |result|
-        assert_equal "Fake Plastic Trees", result[:model].title
-        assert_equal "The Bends", result[:model].album.title
-        assert_equal "radiohead-the-bends", result[:model].album.slug
+    assert_difference -> { Platform::Track::Audio.count } do
+      assert_difference -> { Platform::Track.count } do
+        assert_pass PubSub::Operation::Create, { notification: } do |result|
+          assert_equal "Fake Plastic Trees", result[:model].title
+          assert_equal "The Bends", result[:model].album.title
+          assert_equal "radiohead-the-bends", result[:model].album.slug
+        end
       end
     end
   end

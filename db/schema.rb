@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_11_165309) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_26_152914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -183,6 +183,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_11_165309) do
     t.integer "channels"
     t.boolean "is_master", default: false
     t.string "quality", default: "low"
+    t.string "method", default: "uploaded"
+    t.text "unsigned_file_url"
   end
 
   create_table "platform_track_genres", force: :cascade do |t|
