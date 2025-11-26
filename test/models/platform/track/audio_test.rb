@@ -2,19 +2,21 @@
 #
 # Table name: platform_track_audios
 #
-#  id          :uuid             not null, primary key
-#  bitrate     :string
-#  channels    :integer
-#  duration    :integer
-#  file        :string
-#  format      :string
-#  is_master   :boolean          default(FALSE)
-#  quality     :string           default("low")
-#  sample_rate :integer
-#  size        :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  track_id    :uuid             not null
+#  id                :uuid             not null, primary key
+#  bitrate           :string
+#  channels          :integer
+#  duration          :integer
+#  file              :string
+#  format            :string
+#  is_master         :boolean          default(FALSE)
+#  method            :string           default("uploaded")
+#  quality           :string           default("low")
+#  sample_rate       :integer
+#  size              :integer
+#  unsigned_file_url :text
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  track_id          :uuid             not null
 #
 # Foreign Keys
 #

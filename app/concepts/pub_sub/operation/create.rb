@@ -8,7 +8,10 @@ module PubSub::Operation
     def process_notification(context, notification:, **)
       data = JSON.parse(notification.message.data)
       filename = data["name"]
-      content_type = data["content_type"]
+      content_type = data["contentType"]
+      remote_link = data["mediaLink"]
+
+      return false unless %w[audio/flac].include? content_type
 
       return false unless filename.include? "/library/"
 
@@ -18,7 +21,7 @@ module PubSub::Operation
 
       segments = entities.split "/"
 
-      false if segments.count != 3
+      return false if segments.count != 3
 
       artist_slug, album_slug, track_file = segments.first.parameterize, segments.second.parameterize, segments.third
       track_title = track_file.split(".").first
@@ -38,6 +41,14 @@ module PubSub::Operation
       track = Platform::Track.create!(
         album:,
         title: track_title.split.map(&:capitalize).join(" ")
+      )
+
+      # Create Platform::Track::Audio
+      track.audios.create!(
+        quality: :original,
+        is_master: true,
+        method: :loaded,
+        unsigned_file_url: remote_link
       )
 
       context[:model] = track
