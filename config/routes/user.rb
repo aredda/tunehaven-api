@@ -48,4 +48,6 @@ namespace :user do
   end
 
   resource :search, controller: :search, only: :show
+
+  resources :settings, only: %i[index create]
 end
