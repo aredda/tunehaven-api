@@ -38,6 +38,9 @@ class UserTest < ActiveSupport::TestCase
 
     should have_many(:album_saves).class_name("User::Like")
     should have_many(:saved_albums).through(:album_saves)
+
+    should have_many(:settings).class_name("User::Setting")
+    should have_one(:quality_setting).class_name("User::Setting")
   end
 
   context "default playlist creation hook" do
