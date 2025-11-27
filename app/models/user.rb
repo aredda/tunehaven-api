@@ -37,6 +37,9 @@ class User < ApplicationRecord
   has_many :playlist_saves, -> { where(likable_type: "User::Playlist") }, class_name: "User::Like", inverse_of: :user, dependent: :destroy
   has_many :saved_playlists, through: :playlist_saves, source: :likable, source_type: "User::Playlist"
 
+  has_many :settings, class_name: "User::Setting", inverse_of: :user, dependent: :destroy
+  has_one :quality_setting, -> { where(key: :quality) }, class_name: "User::Setting"
+
   def create_default_playlist
     self.create_liked_playlist(title: "Liked")
   end
