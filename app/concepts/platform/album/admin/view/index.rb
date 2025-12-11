@@ -13,6 +13,10 @@ module Platform::Album::Admin::View
       property :slug
       property :name
     end
+    collection :genres do
+      property :id
+      property :name
+    end
     property :created_at
     property :updated_at
   end
