@@ -19,7 +19,7 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
 
       assert_response :success
       assert_equal 2, res_data.count
-      assert_equal %w[id slug title cover_thumb_url release_date tracks_count artist created_at updated_at], res_data.first.keys
+      assert_equal %w[id slug title cover_thumb_url release_date tracks_count artist genres created_at updated_at], res_data.first.keys
 
       # filter by: title
       get "/api/admin/albums", headers: @auth_headers, params: {
@@ -60,7 +60,7 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
       get "/api/admin/albums/#{album.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id slug title cover_thumb_url release_date tracks_count artist created_at updated_at cover_url tracks], res_data.keys
+      assert_equal %w[id slug title cover_thumb_url release_date tracks_count artist genres created_at updated_at cover_url tracks], res_data.keys
 
       album.set_slug
       album.save
