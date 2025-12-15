@@ -10,3 +10,6 @@ end
 
 # Seed Artists
 Rake::Task["seed:artists"].invoke
+
+# Seed Albums
+Rake::Task["seed:albums"].invoke
