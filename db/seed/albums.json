@@ -1,0 +1,156 @@
+[
+  {
+    "release_date": "01-03-1973",
+    "slug": "dark-side-of-the-moon",
+    "title": "Dark Side of the Moon",
+    "tracks_count": 10,
+    "artist_slug": "pink-floyd"
+  },
+  {
+    "release_date": "26-09-1969",
+    "slug": "abbey-road",
+    "title": "Abbey Road",
+    "tracks_count": 17,
+    "artist_slug": "the-beatles"
+  },
+  {
+    "release_date": "08-11-1971",
+    "slug": "led-zeppelin-iv",
+    "title": "Led Zeppelin IV",
+    "tracks_count": 8,
+    "artist_slug": "led-zeppelin"
+  },
+  {
+    "release_date": "12-09-1975",
+    "slug": "wish-you-were-here",
+    "title": "Wish You Were Here",
+    "tracks_count": 5,
+    "artist_slug": "pink-floyd"
+  },
+  {
+    "release_date": "10-10-2007",
+    "slug": "in-rainbows",
+    "title": "In Rainbows",
+    "tracks_count": 10,
+    "artist_slug": "radiohead"
+  },
+  {
+    "release_date": "21-05-1997",
+    "slug": "ok-computer",
+    "title": "OK Computer",
+    "tracks_count": 12,
+    "artist_slug": "radiohead"
+  },
+  {
+    "release_date": "04-02-1977",
+    "slug": "rumours",
+    "title": "Rumours",
+    "tracks_count": 11,
+    "artist_slug": "fleetwood-mac"
+  },
+  {
+    "release_date": "23-08-1994",
+    "slug": "grace",
+    "title": "Grace",
+    "tracks_count": 10,
+    "artist_slug": "jeff-buckley"
+  },
+  {
+    "release_date": "10-10-1969",
+    "slug": "in-the-court-of-the-crimson-king",
+    "title": "In the Court of the Crimson King",
+    "tracks_count": 5,
+    "artist_slug": "king-crimson"
+  },
+  {
+    "release_date": "16-06-1972",
+    "slug": "the-rise-and-fall-of-ziggy-stardust",
+    "title": "The Rise and Fall of Ziggy Stardust",
+    "tracks_count": 11,
+    "artist_slug": "david-bowie"
+  },
+  {
+    "release_date": "21-07-1987",
+    "slug": "appetite-for-destruction",
+    "title": "Appetite for Destruction",
+    "tracks_count": 12,
+    "artist_slug": "guns-n-roses"
+  },
+  {
+    "release_date": "04-01-1967",
+    "slug": "the-doors",
+    "title": "The Doors",
+    "tracks_count": 6,
+    "artist_slug": "the-doors"
+  },
+  {
+    "release_date": "29-09-1992",
+    "slug": "dirt",
+    "title": "Dirt",
+    "tracks_count": 12,
+    "artist_slug": "alice-in-chains"
+  },
+  {
+    "release_date": "21-11-1975",
+    "slug": "a-night-at-the-opera",
+    "title": "A Night at the Opera",
+    "tracks_count": 12,
+    "artist_slug": "queen"
+  },
+  {
+    "release_date": "20-06-2000",
+    "slug": "white-pony",
+    "title": "White Pony",
+    "tracks_count": 11,
+    "artist_slug": "deftones"
+  },
+  {
+    "release_date": "30-11-1979",
+    "slug": "the-wall",
+    "title": "The Wall",
+    "tracks_count": 26,
+    "artist_slug": "pink-floyd"
+  },
+  {
+    "release_date": "27-07-1979",
+    "slug": "highway-to-hell",
+    "title": "Highway to Hell",
+    "tracks_count": 10,
+    "artist_slug": "ac-dc"
+  },
+  {
+    "release_date": "24-09-1991",
+    "slug": "ten",
+    "title": "Ten",
+    "tracks_count": 11,
+    "artist_slug": "pearl-jam"
+  },
+  {
+    "release_date": "05-08-1966",
+    "slug": "revolver",
+    "title": "Revolver",
+    "tracks_count": 14,
+    "artist_slug": "the-beatles"
+  },
+  {
+    "release_date": "25-07-1980",
+    "slug": "back-in-black",
+    "title": "Back in Black",
+    "tracks_count": 10,
+    "artist_slug": "ac-dc"
+  },
+  {
+    "release_date": "30-07-2001",
+    "slug": "is-this-it",
+    "title": "Is This It",
+    "tracks_count": 11,
+    "artist_slug": "the-strokes"
+  },
+  {
+    "release_date": "21-11-1975",
+    "slug": "a-night-at-the-opera",
+    "title": "A Night at the Opera",
+    "tracks_count": 12,
+    "artist_slug": "queen"
+  }
+]
