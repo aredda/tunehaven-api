@@ -12,7 +12,7 @@ namespace :seed do
 
     ActiveRecord::Base.transaction do
       json.each do |artist|
-        genres = Platform::Genre.where(id: artist["genre_ids"]).pluck(:id)
+        genres = Platform::Genre.where(id: artist["genre_ids"])
 
         Platform::Artist.create(
           name: artist["name"],
