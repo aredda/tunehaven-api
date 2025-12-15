@@ -8,8 +8,22 @@ namespace :seed do
       puts "Could not find artists.json"
     end
 
+    count = 0
+
     ActiveRecord::Base.transaction do
-      Platform::Artist.create(json)
+      json.each do |artist|
+        genres = Platform::Genre.where(id: artist["genre_ids"]).pluck(:id)
+
+        Platform::Artist.create(
+          name: artist["name"],
+          about: artist["about"],
+          genres:
+        )
+
+        count += 1
+      end
     end
+
+    puts "[Seeder] #{count} artist(s) inserted."
   end
 end
