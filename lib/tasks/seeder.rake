@@ -39,14 +39,18 @@ namespace :seed do
     ActiveRecord::Base.transaction do
       json.each do |album|
         if (artist = Platform::Artist.find_by(slug: album["artist_slug"]))
-          Platform::Album.create!(
-            title: album["title"],
-            artist:,
-            release_date: album["release_date"],
-            slug: album["slug"]
-          )
+          genres = Platform::Genre.where(id: album["genres"])
+          row = Platform::Album.find_or_initialize_by(title: album["title"]) do
+            count += 1
+          end
 
-          count+=1
+          row.title = album["title"]
+          row.artist = artist
+          row.release_date = album["release_date"]
+          row.slug = album["slug"]
+          row.genres = genres
+
+          row.save!
         end
       end
     end
