@@ -101,3 +101,6 @@ gem "good_job"
 
 gem "google-cloud-pubsub"
 gem "google-protobuf"
+
+gem "sentry-ruby"
+gem "sentry-rails"
