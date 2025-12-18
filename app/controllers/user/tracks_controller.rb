@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class User::TracksController < User::Controller
-  before_action :authenticate_user!, except: :stream
-
   # GET   /api/user/tracks
   def index
     run User::PlaylistTrack::Operation::DefaultIndex do |context|
