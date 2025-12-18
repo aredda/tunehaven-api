@@ -25,7 +25,10 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
     TIERS.each_pair do |key, value|
       audio_bitrate = value[:bitrate]
       path = File.join(dir, "#{audio_bitrate}.mp3")
-      result = audio.transcode(path, { audio_bitrate: })
+      result = audio.transcode(path, {
+        audio_bitrate:,
+        custom: %w[-fps_mode 2]
+      })
 
       original.track.audios.create!(
         size: result.size,
@@ -36,7 +39,8 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
         format: result.audio_codec,
         file: CarrierWave::SanitizedFile.new(path),
         quality: key,
-        method: :coded
+        method: :coded,
+        is_master: false
       )
 
       temp_files << path
