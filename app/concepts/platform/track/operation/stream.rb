@@ -2,12 +2,12 @@
 
 module Platform::Track::Operation
   class Stream < Show
-    step :find_audio
     step :find_quality_setting
+    step :find_audio
     fall ->(_, **) { fail_error(_, "Audio is not found!") }
 
     def find_quality_setting(context, current_user:, **)
-      context[:quality] = current_user.quality_setting&.value || :low
+      context[:quality] = current_user.quality_setting&.value || :original
     end
 
     def find_audio(context, model:, quality:, **)
