@@ -42,4 +42,8 @@ namespace :admin do
       get :stats
     end
   end
+
+  scope :logs, module: :logs do
+    resources :storage_sub_events
+  end
 end
