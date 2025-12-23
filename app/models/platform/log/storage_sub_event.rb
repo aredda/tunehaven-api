@@ -6,15 +6,18 @@
 #
 #  id            :bigint           not null, primary key
 #  error_message :string
+#  event_type    :string
 #  filename      :string
-#  state         :integer
-#  type          :string
+#  state         :string           default(NULL)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
 class Platform::Log::StorageSubEvent < ApplicationRecord
-  enum :state, { processed: 0, succeeded: 1, failed: 2 }, prefix: true
-  enum :type, { added: "OBJECT_FINALIZE", deleted: "OBJECT_DELETE" }, prefix: true
+  enum :event_type, { added: "OBJECT_FINALIZE", deleted: "OBJECT_DELETE" }, prefix: true
 
-  state_machine initial: :processed
+  state_machine :state, initial: :processed do
+    state :processed
+    state :succeeded
+    state :failed
+  end
 end

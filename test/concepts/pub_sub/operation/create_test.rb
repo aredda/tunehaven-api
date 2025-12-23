@@ -10,9 +10,8 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
       message: OpenStruct.new({ data: JSON.generate({ name: "invalid", contentType: "" }) })
     }
 
-    assert_fail PubSub::Operation::Create, { notification: OpenStruct.new(notification) } do |result|
-      assert_equal [ "Failed to process this entry: invalid" ], result["contract.default"].errors.messages[:base]
-    end
+    assert_fail PubSub::Operation::Create, { notification: OpenStruct.new(notification) }
+    assert_equal 1, Platform::Log::StorageSubEvent.count
   end
 
   it "should pass" do

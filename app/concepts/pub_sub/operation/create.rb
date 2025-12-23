@@ -60,8 +60,8 @@ module PubSub::Operation
       filename = data["name"]
 
       # Log the error
-      Platform::Log::StorageSubEvent.create(
-        event: :added,
+      Platform::Log::StorageSubEvent.create!(
+        event_type: :added,
         filename:,
         state: :failed,
         error_message: "Processing failed"
