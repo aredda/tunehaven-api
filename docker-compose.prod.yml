@@ -48,8 +48,10 @@ services:
   storage_subscriber:
     container_name: storage_sub
     image: tunehaven:latest
+    volumes:
+      - .:/app
     env_file:
       - .env
     depends_on:
       - database
-    command: ["bundle", "exec", "rails", "runner", "bin/storage_subscriber"]
+    entrypoint: ./storage_subscriber_entrypoint.sh
