@@ -52,13 +52,20 @@ module PubSub::Operation
       )
 
       context[:model] = track
+      context[:filename] = filename
     end
 
-    def fail_process_failed(context, notification:, **)
+    def fail_process_failed(_context, notification:, **)
       data = JSON.parse(notification.message.data)
       filename = data["name"]
 
-      fail_error(context, "Failed to process this entry: #{filename}")
+      # Log the error
+      Platform::Log::StorageSubEvent.create(
+        event: :added,
+        filename:,
+        state: :failed,
+        error_message: "Processing failed"
+      )
     end
   end
 end
