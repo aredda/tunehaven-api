@@ -21,7 +21,7 @@ subscriber = pubsub.subscriber ENV.fetch("GCS_SUBSCRIPTION")
 listener = subscriber.listen do |received_message|
   event = received_message.message.attributes["eventType"]
 
-  puts "Received a [#{event}] message at #{Time.current.now.strftime("%m/%d/%Y %I:%M%p")}"
+  puts "Received a [#{event}] message at #{Time.now.strftime("%m/%d/%Y %I:%M%p")}"
 
   operation = case event
   when "OBJECT_DELETE"
