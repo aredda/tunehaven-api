@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_27_141137) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_23_140747) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -168,6 +168,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_27_141137) do
     t.datetime "updated_at", null: false
     t.string "parent_id"
     t.boolean "featured", default: false
+  end
+
+  create_table "platform_log_storage_sub_events", force: :cascade do |t|
+    t.string "type"
+    t.string "filename"
+    t.integer "state"
+    t.string "error_message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "platform_track_audios", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

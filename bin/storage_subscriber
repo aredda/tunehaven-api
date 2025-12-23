@@ -29,7 +29,12 @@ listener = subscriber.listen do |received_message|
   result = operation.(notification: received_message)
 
   if result.success?
-    puts "#{event}: #{result[:model].title}"
+    # Log the event
+    Platform::Log::StorageSubEvent.create(
+      type: event,
+      filename: result[:filename],
+      state: :succeeded
+    )
   end
 
   ensure
