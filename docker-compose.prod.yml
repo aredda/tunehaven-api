@@ -2,7 +2,7 @@ services:
 
   database:
     container_name: database
-    image: 'postgres:latest'
+    image: 'postgres:17'
     ports:
       - "5432:5432"
     env_file:
@@ -52,4 +52,4 @@ services:
       - .env
     depends_on:
       - database
-    command: [ "ruby", "bin/storage_subscriber"]
+    command: ["bundle", "exec", "rails", "runner", "bin/storage_subscriber"]

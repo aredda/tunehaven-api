@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-$stdout.sync = true
-$stderr.sync = true
-
+require_relative '../config/environment'
 require "googleauth"
 require "google/cloud/pubsub"
+
+$stdout.sync = true
+$stderr.sync = true
 
 ENV["GOOGLE_CLOUD_CREDENTIALS"] = ENV.fetch("GCS_JSON_KEY")
 
@@ -19,6 +20,9 @@ subscriber = pubsub.subscriber ENV.fetch("GCS_SUBSCRIPTION")
 # This can be changed with the :threads option
 listener = subscriber.listen do |received_message|
   event = received_message.message.attributes["eventType"]
+
+  puts "Received a [#{event}] message at #{Time.current.now.strftime("%m/%d/%Y %I:%M%p")}"
+
   operation = case event
   when "OBJECT_DELETE"
     PubSub::Operation::Destroy
