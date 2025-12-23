@@ -4,9 +4,9 @@
 #
 #  id            :bigint           not null, primary key
 #  error_message :string
+#  event_type    :string
 #  filename      :string
-#  state         :integer
-#  type          :string
+#  state         :string           default(NULL)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #

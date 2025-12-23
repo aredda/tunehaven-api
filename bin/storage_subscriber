@@ -35,7 +35,7 @@ listener = subscriber.listen do |received_message|
   if result.success?
     # Log the event
     Platform::Log::StorageSubEvent.create(
-      type: event,
+      event_type: event,
       filename: result[:filename],
       state: :succeeded
     )

@@ -3,7 +3,7 @@
 module Platform::Log::StorageSubEvent::Admin::View
   class Index < ApplicationView
     property :id
-    property :type
+    property :event_type
     property :filename
     property :state
     property :created_at
