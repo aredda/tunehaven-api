@@ -6,6 +6,7 @@ module PubSub::Operation
 
     step :process_notification
     fall :fail_process_failed
+    step :transcode_audio
 
     def process_notification(context, notification:, **)
       data = JSON.parse(notification.message.data)
@@ -46,7 +47,7 @@ module PubSub::Operation
       )
 
       # Create Platform::Track::Audio
-      track.audios.create!(
+      context[:audio] = track.audios.create!(
         quality: :original,
         is_master: true,
         method: :loaded,
@@ -67,6 +68,10 @@ module PubSub::Operation
         state: :failed,
         error_message: "Processing failed"
       )
+    end
+
+    def transcode_audio(_context, audio:, **)
+      Platform::Track::Audio::TranscodeJob.perform_later(audio)
     end
   end
 end
