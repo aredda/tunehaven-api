@@ -49,7 +49,7 @@ class Admin::Tracks::AudiosControllerTest < AdminIntegrationTest
         }
 
         assert_response :unprocessable_content
-        assert_equal [ "You are not allowed to upload \"jpg\" files, allowed types: flac, wav, aiff" ], res_errors["file"]
+        assert_equal [ "You are not allowed to upload \"jpg\" files, allowed types: flac, wav, aiff, mp3" ], res_errors["file"]
       end
     end
     it "should fail: missing file" do

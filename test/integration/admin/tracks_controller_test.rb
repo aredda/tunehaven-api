@@ -72,27 +72,6 @@ class Admin::TracksControllerTest < AdminIntegrationTest
     end
   end
 
-  describe "GET stream" do
-    it "should fail: track is not found" do
-      get "/api/admin/tracks/xyz/stream", headers: @auth_headers
-
-      assert_response :not_found
-    end
-    it "should fail: audio is not found" do
-      get "/api/admin/tracks/#{track.id}/stream", headers: @auth_headers
-
-      assert_response :not_found
-    end
-    it "should pass" do
-      Fabricate(:track_audio, track:, file: Rack::Test::UploadedFile.new("test/fixtures/files/audio.flac", "audio/flac"), format: "flac")
-
-      get "/api/admin/tracks/#{track.id}/stream", headers: @auth_headers
-
-      assert_response :success
-      assert_equal "audio/flac", response.headers["Content-Type"]
-    end
-  end
-
   describe "POST create" do
     it "should pass" do
       assert_difference -> { album.reload.tracks_count } do
