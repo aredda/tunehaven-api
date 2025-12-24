@@ -19,6 +19,9 @@ RUN bundle config set --local deployment 'true' && \
 # Copy application code (changes most frequently)
 COPY . .
 
+# Make ALL shell scripts executable (handles both entrypoints)
+RUN chmod +x *.sh
+
 EXPOSE 3000
 
 CMD ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0", "-e", "production"]
