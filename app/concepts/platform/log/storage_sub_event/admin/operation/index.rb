@@ -2,6 +2,6 @@
 
 module Platform::Log::StorageSubEvent::Admin::Operation
   class Index < ApplicationOperation
-    step Finder(ApplicationFinder, :all, Platform::Log::StorageSubEvent)
+    step Finder(ApplicationFinder, :all, Platform::Log::StorageSubEvent.order(created_at: :desc))
   end
 end
