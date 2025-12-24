@@ -15,7 +15,9 @@ class Platform::Track::AudioUploader < AudioUploader
     model.channels = media.audio_channels
     model.format = media.audio_codec
     model.is_master = Platform::Track::Audio.where(track_id: model.track_id).count.zero?
-    model.quality = :original
+    if model.is_master
+      model.quality = :original
+    end
   end
 
   def store_dir
@@ -27,6 +29,6 @@ class Platform::Track::AudioUploader < AudioUploader
   end
 
   def filename
-    "#{model.bitrate}.#{model.format}"
+    "#{model.quality}.#{model.format}"
   end
 end
