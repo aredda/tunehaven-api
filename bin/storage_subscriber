@@ -20,8 +20,9 @@ subscriber = pubsub.subscriber ENV.fetch("GCS_SUBSCRIPTION")
 # This can be changed with the :threads option
 listener = subscriber.listen do |received_message|
   event = received_message.message.attributes["eventType"]
+  filename = JSON.parse(received_message.message.data)["name"]
 
-  puts "Received a [#{event}] message at #{Time.now.strftime("%m/%d/%Y %I:%M%p")}"
+  puts "[#{Time.now.strftime("%m/%d/%Y %I:%M%p")}] - [#{event}] - [#{filename}]"
 
   operation = case event
   when "OBJECT_DELETE"
@@ -36,7 +37,7 @@ listener = subscriber.listen do |received_message|
     # Log the event
     Platform::Log::StorageSubEvent.create(
       event_type: event,
-      filename: result[:filename],
+      filename:,
       state: :succeeded
     )
   end

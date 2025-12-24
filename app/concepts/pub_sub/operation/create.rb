@@ -52,7 +52,6 @@ module PubSub::Operation
       )
 
       context[:model] = track
-      context[:filename] = filename
     end
 
     def fail_process_failed(_context, notification:, **)
