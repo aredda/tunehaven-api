@@ -12,13 +12,11 @@ services:
 
   api:
     container_name: api
-    image: tunehaven:latest
     build:
       context: .
       dockerfile: prod.Dockerfile
+    image: tunehaven:latest
     entrypoint: ./entrypoint.sh
-    volumes:
-      - .:/app
     ports:
       - "3000:3000"
     depends_on:
@@ -34,6 +32,7 @@ services:
     command: bundle exec good_job start
     depends_on:
       - database
+      - api
 
   nginx:
     container_name: nginx
@@ -48,8 +47,6 @@ services:
   storage_subscriber:
     container_name: storage_sub
     image: tunehaven:latest
-    volumes:
-      - .:/app
     env_file:
       - .env
     depends_on:
