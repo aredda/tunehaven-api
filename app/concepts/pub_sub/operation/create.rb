@@ -2,6 +2,8 @@
 
 module PubSub::Operation
   class Create < ApplicationOperation
+    include Helpers::TitleFormatter
+
     step :process_notification
     fall :fail_process_failed
 
@@ -24,7 +26,7 @@ module PubSub::Operation
       return false if segments.count != 3
 
       artist_slug, album_slug, track_file = segments.first.parameterize, segments.second.parameterize, segments.third
-      track_title = track_file.split(".").first
+      track_title = cleanse_title track_file.split(".flac").first
 
       # Create Platform::Artist if it's not found
       artist = Platform::Artist.find_or_create_by!(slug: artist_slug) do |row|
