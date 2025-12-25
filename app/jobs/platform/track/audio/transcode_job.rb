@@ -14,11 +14,16 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
   def perform(original)
     source = original.method_uploaded? ? original.file_url : original.unsigned_file_url
 
-    file = Tempfile.new(%w[master flac])
+    file = Tempfile.new(%w[master .flac])
     URI.open(source) do |remote|
       IO.copy_stream(remote, file)
     end
     file.rewind
+
+    # If this original file is imported instead of uploaded, then we should upload it
+    if original.method_loaded?
+      original.update(file: CarrierWave::SanitizedFile.new(file))
+    end
 
     audio = FFMPEG::Movie.new(file.path)
     temp_files = []
