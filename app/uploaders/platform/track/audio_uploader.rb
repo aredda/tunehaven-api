@@ -14,8 +14,8 @@ class Platform::Track::AudioUploader < AudioUploader
     model.sample_rate = media.audio_sample_rate
     model.channels = media.audio_channels
     model.format = media.audio_codec
-    model.is_master = Platform::Track::Audio.where(track_id: model.track_id).count.zero?
-    if model.is_master
+    model.is_master = Platform::Track::Audio.where(track_id: model.track_id).count.zero? if model.is_master.blank?
+    if model.quality.blank? && model.is_master
       model.quality = :original
     end
   end
