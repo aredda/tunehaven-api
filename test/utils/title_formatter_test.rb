@@ -9,9 +9,12 @@ class TitleFormatterTest < Minitest::Test
   include ::Helpers::TitleFormatter
 
   def test_cleanse_title
-    target = "01. Airbag"
-
-    assert_equal "Airbag", cleanse_title(target)
+    assert_equal "Airbag", cleanse_title("1. Airbag")
+    assert_equal "Airbag", cleanse_title("02. Airbag")
+    assert_equal "Airbag", cleanse_title("01- Airbag")
+    assert_equal "Airbag", cleanse_title("10 - Airbag")
+    assert_equal "Airbag", cleanse_title("8- Airbag")
+    assert_equal "Airbag", cleanse_title("9 - Airbag")
   end
 
   def test_skip_cleansing
