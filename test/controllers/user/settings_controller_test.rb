@@ -5,12 +5,10 @@ require "test_helper"
 class User::SettingsControllerTest < UserIntegrationTest
   describe "GET index" do
     it "should pass" do
-      Fabricate.times(3, :user_setting, user: @user)
-
       get "/api/user/settings", headers: @auth_headers
 
       assert_response :success
-      assert_equal 3, res_data.count
+      assert_equal 1, res_data.count
       assert_equal %w[id key value], res_data.first.keys
     end
   end
@@ -29,7 +27,7 @@ class User::SettingsControllerTest < UserIntegrationTest
       end
     end
     it "should pass" do
-      assert_difference -> { User::Setting.count }, 2 do
+      assert_difference -> { @user.settings.count }, 1 do
         post "/api/user/settings", headers: @auth_headers, params: {
           settings: [
             { key: "quality", value: "original" },
