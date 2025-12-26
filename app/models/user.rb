@@ -24,6 +24,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable,
          :jwt_authenticatable, jwt_revocation_strategy: User::JwtDenylist
 
+  before_create :create_default_settings
   after_create :create_default_playlist
 
   has_many :playlists, class_name: "User::Playlist", inverse_of: :user, dependent: :destroy
@@ -59,4 +60,8 @@ class User < ApplicationRecord
   def likes_track?(track) = liked_playlist.tracks.include?(track)
 
   def saved_album?(album) = saved_albums.include?(album)
+
+  def create_default_settings
+    settings.build([ { key: :quality, value: :low } ])
+  end
 end
