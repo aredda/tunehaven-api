@@ -43,13 +43,17 @@ class UserTest < ActiveSupport::TestCase
     should have_one(:quality_setting).class_name("User::Setting")
   end
 
-  context "default playlist creation hook" do
-    it "create a default playlist" do
-      user = Fabricate(:user)
+  context "hooks" do
+    let(:user) { Fabricate(:user) }
 
+    it "should create a default playlist" do
       assert_not_nil user.liked_playlist
       assert_equal "Liked", user.liked_playlist.title
       assert user.liked_playlist.is_default
+    end
+    it "should create default settings" do
+      assert_not_equal 0, user.settings.count
+      assert_includes user.settings.pluck(:key), "quality"
     end
   end
 end
