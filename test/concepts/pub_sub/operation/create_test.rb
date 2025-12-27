@@ -25,6 +25,7 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
           assert_equal "Fake Plastic Trees", result[:model].title
           assert_equal "The Bends", result[:model].album.title
           assert_equal "radiohead-the-bends", result[:model].album.slug
+          assert_equal 3, result[:model].position
         end
       end
     end
