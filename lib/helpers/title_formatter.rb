@@ -14,5 +14,18 @@ module Helpers
 
       raw
     end
+
+    def dissect_title(raw)
+      if raw.match? NUMBERED_TITLE_REGEX
+        separator = "."
+        separator = "-" if raw.include?("-")
+
+        array = raw.split(separator)
+
+        return { title: array[1].strip, order: Integer(array[0]) }
+      end
+
+      { title: raw, order: nil }
+    end
   end
 end

@@ -27,8 +27,8 @@ module PubSub::Operation
       return false if segments.count != 3
 
       artist_slug, album_slug, track_file = segments.first.parameterize, segments.second.parameterize, segments.third
-      track_title = cleanse_title track_file.split(".flac").first
-
+      track_info = dissect_title track_file.split(".flac").first
+      track_title = track_info[:title]
       # Create Platform::Artist if it's not found
       artist = Platform::Artist.find_or_create_by!(slug: artist_slug) do |row|
         row.name = artist_slug.titleize
@@ -43,7 +43,8 @@ module PubSub::Operation
       # Create Platform::Track instance
       track = Platform::Track.create!(
         album:,
-        title: track_title.split.map(&:capitalize).join(" ")
+        title: track_title.split.map(&:capitalize).join(" "),
+        position: track_info[:order]
       )
 
       # Create Platform::Track::Audio
