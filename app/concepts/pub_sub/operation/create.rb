@@ -5,40 +5,23 @@ module PubSub::Operation
     include Helpers::TitleFormatter
 
     step :process_notification
+    step :is_audio, Output(:failure) => Id(:process_image)
+    step :process_audio
     fall :fail_process_failed
-    step :transcode_audio
+    step :transcode_audio, pass_fast: true
+    pass :process_image
 
-    def process_notification(context, notification:, **)
-      data = JSON.parse(notification.message.data)
-      filename = data["name"]
-      content_type = data["contentType"]
-      remote_link = data["mediaLink"]
+    def is_audio(_context, content_type:, **)
+      "audio/flac".eql? content_type
+    end
 
-      return false unless %w[audio/flac].include? content_type
-
-      return false unless filename.include? "/library/"
-
-      entities = (filename.split "/library/").last
-
-      return false if entities.nil?
-
-      segments = entities.split "/"
-
-      return false if segments.count != 3
-
+    def process_audio(context, segments:, media_link:, **)
       artist_slug, album_slug, track_file = segments.first.parameterize, segments.second.parameterize, segments.third
       track_info = dissect_title track_file.split(".flac").first
       track_title = track_info[:title]
-      # Create Platform::Artist if it's not found
-      artist = Platform::Artist.find_or_create_by!(slug: artist_slug) do |row|
-        row.name = artist_slug.titleize
-      end
 
       # Create Platform::Album if it's not found
-      album = Platform::Album.find_or_create_by!(slug: "#{artist_slug}-#{album_slug}") do |row|
-        row.title = album_slug.titleize
-        row.artist = artist
-      end
+      album = find_or_initialize_album(artist_slug, album_slug)
 
       # Create Platform::Track instance
       track = Platform::Track.create!(
@@ -52,16 +35,34 @@ module PubSub::Operation
         quality: :original,
         is_master: true,
         method: :loaded,
-        unsigned_file_url: remote_link
+        unsigned_file_url: media_link
       )
 
       context[:model] = track
     end
 
-    def fail_process_failed(_context, notification:, **)
+    def process_notification(context, notification:, **)
       data = JSON.parse(notification.message.data)
-      filename = data["name"]
+      filename = context[:filename] = data["name"]
+      content_type = context[:content_type] = data["contentType"]
+      context[:media_link] = data["mediaLink"]
 
+      return false unless %w[audio/flac image/jpeg image/png].include? content_type
+
+      return false unless filename.include? "/library/"
+
+      entities = (filename.split "/library/").last
+
+      return false if entities.nil?
+
+      segments = entities.split "/"
+
+      return false if segments.count != 3
+
+      context[:segments] = segments
+    end
+
+    def fail_process_failed(_context, filename:, **)
       # Log the error
       Platform::Log::StorageSubEvent.create!(
         event_type: :added,
@@ -73,6 +74,32 @@ module PubSub::Operation
 
     def transcode_audio(_context, audio:, **)
       Platform::Track::Audio::TranscodeJob.perform_later(audio)
+    end
+
+    def process_image(_context, segments:, filename:, bucket:, media_link:, **)
+      artist_slug, album_slug = segments.first.parameterize, segments.second.parameterize
+      album = find_or_initialize_album(artist_slug, album_slug)
+
+      unless album.cover.present?
+        album.remote_cover_url = media_link
+        album.save!
+
+        original_file = bucket.file filename
+        original_file.delete if original_file.present?
+      end
+    end
+
+    def find_or_initialize_album(artist_slug, album_slug)
+      # Create Platform::Artist if it's not found
+      artist = Platform::Artist.find_or_create_by!(slug: artist_slug) do |row|
+        row.name = artist_slug.titleize
+      end
+
+      # Create Platform::Album if it's not found
+      Platform::Album.find_or_create_by!(slug: "#{artist_slug}-#{album_slug}") do |row|
+        row.title = album_slug.titleize
+        row.artist = artist
+      end
     end
   end
 end
