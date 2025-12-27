@@ -17,6 +17,11 @@ class TitleFormatterTest < Minitest::Test
     assert_equal "Airbag", cleanse_title("9 - Airbag")
   end
 
+  def test_dissect_title
+    assert_equal({ title: "Airbag", order: 1 }, dissect_title("1. Airbag"))
+    assert_equal({ title: "Karma Police", order: 5 }, dissect_title("05 - Karma Police"))
+  end
+
   def test_skip_cleansing
     target = "Airbag"
 
