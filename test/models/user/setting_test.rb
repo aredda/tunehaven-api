@@ -11,7 +11,7 @@
 #
 # Indexes
 #
-#  index_user_settings_on_key  (key) UNIQUE
+#  index_user_settings_on_user_id_and_key  (user_id,key) UNIQUE
 #
 # Foreign Keys
 #

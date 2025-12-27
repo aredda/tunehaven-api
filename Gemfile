@@ -79,6 +79,7 @@ gem "dry-validation"
 
 gem "faker"
 
+gem "mini_magick"
 gem "multi_json"
 gem "kaminari-activerecord"
 gem "reform"
@@ -100,6 +101,7 @@ gem "dotenv-rails"
 gem "good_job"
 
 gem "google-cloud-pubsub"
+gem "google-cloud-storage"
 gem "google-protobuf"
 
 gem "sentry-ruby"

@@ -8,7 +8,7 @@
 #  error_message :string
 #  event_type    :string
 #  filename      :string
-#  state         :string           default(NULL)
+#  state         :string           default("processed")
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
