@@ -22,7 +22,7 @@ module Helpers
 
         array = raw.split(separator)
 
-        return { title: array[1].strip, order: Integer(array[0]) }
+        return { title: array[1].strip, order: array[0].to_i }
       end
 
       { title: raw, order: nil }

@@ -20,6 +20,9 @@ class TitleFormatterTest < Minitest::Test
   def test_dissect_title
     assert_equal({ title: "Airbag", order: 1 }, dissect_title("1. Airbag"))
     assert_equal({ title: "Karma Police", order: 5 }, dissect_title("05 - Karma Police"))
+    assert_equal({ title: "Karma Police", order: 8 }, dissect_title("08- Karma Police"))
+    assert_equal({ title: "Karma Police", order: 9 }, dissect_title("09. Karma Police"))
+    assert_equal({ title: "invalid. Karma Police", order: nil }, dissect_title("invalid. Karma Police"))
   end
 
   def test_skip_cleansing
