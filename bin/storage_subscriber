@@ -27,8 +27,6 @@ listener = subscriber.listen do |received_message|
   event = received_message.message.attributes["eventType"]
   filename = JSON.parse(received_message.message.data)["name"]
 
-  puts "[#{Time.now.strftime("%m/%d/%Y %I:%M%p")}] - [#{event}] - [#{filename}]"
-
   operation = case event
   when "OBJECT_DELETE"
     PubSub::Operation::Destroy
@@ -39,6 +37,8 @@ listener = subscriber.listen do |received_message|
   result = operation.(bucket:, notification: received_message)
 
   if result.success?
+    puts "[#{Time.now.strftime("%m/%d/%Y %I:%M%p")}] - [#{event}] - [#{filename}]"
+
     # Log the event
     Platform::Log::StorageSubEvent.create(
       event_type: event,
