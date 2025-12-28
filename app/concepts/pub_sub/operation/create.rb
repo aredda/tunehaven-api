@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 module PubSub::Operation
-  class Create < ApplicationOperation
+  class Create < Process
     include Helpers::TitleFormatter
 
-    step :process_notification
     step :is_audio, Output(:failure) => Id(:process_image)
     step :process_audio
     fall :fail_process_failed
@@ -39,27 +38,6 @@ module PubSub::Operation
       )
 
       context[:model] = track
-    end
-
-    def process_notification(context, notification:, **)
-      data = JSON.parse(notification.message.data)
-      filename = context[:filename] = data["name"]
-      content_type = context[:content_type] = data["contentType"]
-      context[:media_link] = data["mediaLink"]
-
-      return false unless %w[audio/flac image/jpeg image/png].include? content_type
-
-      return false unless filename.include? "/library/"
-
-      entities = (filename.split "/library/").last
-
-      return false if entities.nil?
-
-      segments = entities.split "/"
-
-      return false if segments.count != 3
-
-      context[:segments] = segments
     end
 
     def fail_process_failed(_context, filename:, **)
