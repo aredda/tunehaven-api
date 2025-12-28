@@ -37,8 +37,6 @@ listener = subscriber.listen do |received_message|
   result = operation.(bucket:, notification: received_message)
 
   if result.success?
-    puts "[#{Time.now.strftime("%m/%d/%Y %I:%M%p")}] - [#{event}] - [#{filename}]"
-
     # Log the event
     Platform::Log::StorageSubEvent.create(
       event_type: event,
