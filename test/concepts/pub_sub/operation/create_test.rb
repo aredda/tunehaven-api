@@ -37,7 +37,10 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
 
     notification = OpenStruct.new
     notification.message = OpenStruct.new
-    notification.message.data = JSON.generate({ name: "uploads/library/radiohead/the-bends/folder.jpg", contentType: "image/jpeg" })
+    notification.message.data = JSON.generate({
+                                                name: "uploads/library/radiohead/kid-a/folder.jpg",
+                                                contentType: "image/jpeg",
+                                                mediaLink: "https://storage.googleapis.com/tunehaven-bucket/uploads/library/radiohead/kid-a/folder.jpg" })
 
     ENV["GOOGLE_CLOUD_CREDENTIALS"] = '{
       "type": "service_account",
@@ -56,7 +59,7 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
     bucket = Google::Cloud::Storage.new.bucket "tunehaven-bucket", skip_lookup: true
 
     assert_pass PubSub::Operation::Create, { bucket:, notification: } do |result|
-      album = Platform::Album.find_by slug: "radiohead-the-bends"
+      album = Platform::Album.find_by slug: "radiohead-kid-a"
 
       assert_predicate album.cover, :present?
     end

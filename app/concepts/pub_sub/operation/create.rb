@@ -55,15 +55,25 @@ module PubSub::Operation
     end
 
     def process_image(_context, segments:, filename:, bucket:, media_link:, **)
-      artist_slug, album_slug = segments.first.parameterize, segments.second.parameterize
+      artist_slug, album_slug, short_filename = segments.first.parameterize, segments.second.parameterize, segments.third.split(".")
       album = find_or_initialize_album(artist_slug, album_slug)
 
       unless album.cover.present?
-        album.remote_cover_url = media_link
+        file = Tempfile.new([short_filename.first, ".#{short_filename.second}"])
+        URI.open(media_link) do |remote|
+          IO.copy_stream(remote, file)
+        end
+        file.rewind
+
+        album.cover = CarrierWave::SanitizedFile.new(file)
         album.save!
 
-        original_file = bucket.file filename
-        original_file.delete if original_file.present?
+        file.unlink
+
+        unless filename.include? short_filename.join(".")
+          original_file = bucket.file filename
+          original_file.delete if original_file.present?
+        end
       end
     end
 
