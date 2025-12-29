@@ -25,9 +25,9 @@ module PubSub::Operation
       # Create Platform::Track instance
       track = Platform::Track.create!(
         album:,
-        title: track_title.split.map(&:capitalize).join(" "),
-        position: track_info[:order]
+        title: track_title.split.map(&:capitalize).join(" ")
       )
+      track.set_list_position track_info[:order]
 
       # Create Platform::Track::Audio
       context[:audio] = track.audios.create!(
@@ -60,7 +60,7 @@ module PubSub::Operation
 
       unless album.cover.present?
         begin
-          file = Tempfile.new([short_filename.first, ".#{short_filename.second}"])
+          file = Tempfile.new([ short_filename.first, ".#{short_filename.second}" ])
           URI.open(media_link) do |remote|
             IO.copy_stream(remote, file)
           end
