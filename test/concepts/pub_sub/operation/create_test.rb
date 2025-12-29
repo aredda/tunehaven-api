@@ -18,7 +18,7 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
   it "should pass" do
     notification = OpenStruct.new
     notification.message = OpenStruct.new
-    notification.message.data = JSON.generate({ name: "uploads/library/Radiohead/The Bends/03. Fake Plastic Trees.flac", contentType: "audio/flac" })
+    notification.message.data = JSON.generate({ name: "uploads/library/Radiohead/The Bends/15. Fake Plastic Trees.flac", contentType: "audio/flac" })
 
     assert_difference -> { Platform::Track::Audio.count } do
       assert_difference -> { Platform::Track.count } do
@@ -26,7 +26,7 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
           assert_equal "Fake Plastic Trees", result[:model].title
           assert_equal "The Bends", result[:model].album.title
           assert_equal "radiohead-the-bends", result[:model].album.slug
-          assert_equal 3, result[:model].position
+          assert_equal 15, result[:model].position
         end
       end
     end
