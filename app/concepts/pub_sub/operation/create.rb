@@ -59,20 +59,21 @@ module PubSub::Operation
       album = find_or_initialize_album(artist_slug, album_slug)
 
       unless album.cover.present?
-        file = Tempfile.new([short_filename.first, ".#{short_filename.second}"])
-        URI.open(media_link) do |remote|
-          IO.copy_stream(remote, file)
-        end
-        file.rewind
+        begin
+          file = Tempfile.new([short_filename.first, ".#{short_filename.second}"])
+          URI.open(media_link) do |remote|
+            IO.copy_stream(remote, file)
+          end
+          file.rewind
 
-        album.cover = CarrierWave::SanitizedFile.new(file)
-        album.save!
+          album.update cover: CarrierWave::SanitizedFile.new(file)
 
-        file.unlink
-
-        unless filename.include? short_filename.join(".")
-          original_file = bucket.file filename
-          original_file.delete if original_file.present?
+          unless media_link.include? album.reload.cover.identifier
+            original_file = bucket.file filename
+            original_file.delete if original_file.present?
+          end
+        ensure
+          file.close!
         end
       end
     end
