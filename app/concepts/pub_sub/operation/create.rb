@@ -50,8 +50,8 @@ module PubSub::Operation
       )
     end
 
-    def transcode_audio(_context, audio:, **)
-      Platform::Track::Audio::TranscodeJob.perform_later(audio)
+    def transcode_audio(_context, filename:, audio:, **)
+      Platform::Track::Audio::TranscodeJob.perform_later(audio, filename)
     end
 
     def process_image(_context, segments:, filename:, bucket:, media_link:, **)

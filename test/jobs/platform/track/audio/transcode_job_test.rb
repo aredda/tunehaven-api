@@ -37,7 +37,7 @@ class Platform::Track::Audio::TranscodeJobTest < ActiveJob::TestCase
     audio = Fabricate(:track_audio, quality: :original, is_master: true, track:, method: :loaded, unsigned_file_url: "https://storage.googleapis.com/download/storage/v1/b/tunehaven-bucket/o/uploads%2Flibrary%2Fradiohead%2Fok-computer%2F01.%20Airbag.flac?generation=1766588670722585&alt=media")
 
     assert_difference -> { audio.track.audios.count }, 3 do
-      Platform::Track::Audio::TranscodeJob.perform_now(audio)
+      Platform::Track::Audio::TranscodeJob.perform_now(audio, "uploads/library/radiohead/ok-computer/01. Airbag.flac")
 
       low = audio.track.audios.quality_low.first
       mid = audio.track.audios.quality_mid.first
@@ -47,6 +47,7 @@ class Platform::Track::Audio::TranscodeJobTest < ActiveJob::TestCase
       assert_predicate mid.file, :present?
       assert_predicate high.file, :present?
       assert_predicate audio.reload.file, :present?
+      assert_equal "uploaded", audio.method
     end
   end
 end
