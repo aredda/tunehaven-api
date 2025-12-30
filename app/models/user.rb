@@ -53,6 +53,12 @@ class User < ApplicationRecord
     save
   end
 
+  def send_reset_password_instructions
+    super
+
+    UserMailer.forgot_password(self).deliver_later
+  end
+
   def owns_playlist?(playlist) = playlists.include?(playlist)
 
   def saved_playlist?(playlist) = saved_playlists.include?(playlist)
