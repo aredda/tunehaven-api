@@ -11,7 +11,7 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
     high: { bitrate: 320 }
   }
 
-  def perform(original)
+  def perform(original, *args)
     source = original.method_uploaded? ? original.file_url : original.unsigned_file_url
 
     file = Tempfile.new(%w[master .flac])
@@ -51,8 +51,24 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
 
       temp_files << path
     end
+
+    # remove original file and update the original's audio
+    if original.method_loaded?
+      filename = args.first
+
+      raise "Missing Argument: filename" unless filename.present?
+
+      bucket = Helpers::StorageManager.bucket
+      original_remote_file = bucket.file filename, skip_lookup: true
+
+      raise "File was not found in the bucket." unless original_remote_file.present?
+
+      original_remote_file.delete
+
+      original.update method: :uploaded
+    end
   ensure
-    file.close! if file
-    FileUtils.rm_f(temp_files) if temp_files.count.positive?
+    file.close! if file.present?
+    FileUtils.rm_f(temp_files) if temp_files.present?
   end
 end
