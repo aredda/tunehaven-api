@@ -4,18 +4,12 @@
 require_relative '../config/environment'
 require "googleauth"
 require "google/cloud/pubsub"
-require "google/cloud/storage"
+require_relative "../lib/helpers/storage_manager"
 
 $stdout.sync = true
 $stderr.sync = true
 
-ENV["GOOGLE_CLOUD_CREDENTIALS"] = ENV.fetch("GCS_JSON_KEY")
-
 pubsub = Google::Cloud::PubSub.new
-
-# Connect to the bucket
-storage = Google::Cloud::Storage.new
-bucket = storage.bucket ENV.fetch("GCS_BUCKET_NAME"), skip_lookup: true
 
 # Get a subscriber for a subscription
 subscriber = pubsub.subscriber ENV.fetch("GCS_SUBSCRIPTION")
@@ -34,7 +28,7 @@ listener = subscriber.listen do |received_message|
     PubSub::Operation::Create
   end
 
-  result = operation.(bucket:, notification: received_message)
+  result = operation.(bucket: Helpers::StorageManager.bucket, notification: received_message)
 
   if result.success?
     # Log the event
