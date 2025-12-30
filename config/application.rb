@@ -38,5 +38,15 @@ module TunehavenApi
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
     config.middleware.use ActionDispatch::Session::CookieStore
+
+    # Mailer settings
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: ENV.fetch("MAILER_ADDRESS"),
+      port: ENV.fetch("MAILER_PORT"),
+      user_name: ENV.fetch("MAILER_USER"),
+      password: ENV.fetch("MAILER_PASSWORD"),
+      authentication: :login
+    }
   end
 end
