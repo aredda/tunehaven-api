@@ -33,5 +33,7 @@ class User::PlaylistTest < ActiveSupport::TestCase
 
     should have_many(:track_relationships).class_name("User::PlaylistTrack")
     should have_many(:tracks).through(:track_relationships)
+
+    should have_many(:user_saves).class_name("User::Like")
   end
 end

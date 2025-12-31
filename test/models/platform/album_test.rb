@@ -32,5 +32,7 @@ class Platform::AlbumTest < ActiveSupport::TestCase
 
     should have_many(:genre_relationships).class_name("Platform::AlbumGenre")
     should have_many(:tracks).class_name("Platform::Track")
+
+    should have_many(:user_saves).class_name("User::Like")
   end
 end
