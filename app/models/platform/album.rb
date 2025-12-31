@@ -28,7 +28,7 @@ class Platform::Album < ApplicationRecord
 
   has_many :tracks, -> { order(position: :asc) }, class_name: "Platform::Track", foreign_key: :album_id, inverse_of: :album, dependent: :destroy
 
-  has_many :user_saves, class_name: "User::Like", inverse_of: :likable, as: :likable
+  has_many :user_saves, class_name: "User::Like", inverse_of: :likable, as: :likable, dependent: :destroy
 
   def set_slug
     self.slug = [ artist.slug, title ].join("-").parameterize unless slug.present?
