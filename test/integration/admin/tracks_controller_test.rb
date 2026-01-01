@@ -175,7 +175,7 @@ class Admin::TracksControllerTest < AdminIntegrationTest
     it "should fail: track has no attached audio" do
       put "/api/admin/tracks/#{track.id}/transcode", headers: @auth_headers
 
-      assert_response :unprocessable_entity
+      assert_response :unprocessable_content
       assert_equal [ "This track has no attached master audio!" ], res_errors["base"]
     end
     it "should fail: track not found" do
@@ -213,7 +213,7 @@ class Admin::TracksControllerTest < AdminIntegrationTest
           track_ids: [ "invalid id" ]
         }
 
-        assert_response :unprocessable_entity
+        assert_response :unprocessable_content
         assert_equal [ "Could not find a track [invalid id]" ], res_errors["track_ids"]
       end
     end
