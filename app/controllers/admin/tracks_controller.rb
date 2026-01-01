@@ -94,7 +94,7 @@ class Admin::TracksController < Admin::Controller
     render json: {
       success: false,
       errors: @form.errors.messages
-    }, status: :unprocessable_entity
+    }, status: :unprocessable_content
   end
 
 
@@ -123,6 +123,6 @@ class Admin::TracksController < Admin::Controller
     render json: {
       success: false,
       errors: @form.errors.messages
-    }, status: :unprocessable_entity
+    }, status: :unprocessable_content
   end
 end

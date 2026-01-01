@@ -7,6 +7,7 @@ namespace :user do
     collection do
       post :forget
       post :reset
+      get :verify
     end
   end
 
