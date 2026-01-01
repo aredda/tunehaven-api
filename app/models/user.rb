@@ -54,7 +54,10 @@ class User < ApplicationRecord
   end
 
   def send_reset_password_instructions
-    super
+    self.reset_password_token = SecureRandom.alphanumeric(6).upcase
+    self.reset_password_sent_at = Time.now
+
+    save
 
     UserMailer.forgot_password(self).deliver_later
   end
