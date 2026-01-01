@@ -25,6 +25,29 @@ class User::PasswordControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  describe "GET verify" do
+    it "should verify the reset password token" do
+      user.send_reset_password_instructions
+
+      get "/api/user/password/verify", params: {
+        token: user.reload.reset_password_token
+      }
+
+      assert_response :success
+    end
+    it "should fail: invalid token" do
+      user.send_reset_password_instructions
+      user.update reset_password_sent_at: 1.day.ago
+
+      get "/api/user/password/verify", params: {
+        token: user.reload.reset_password_token
+      }
+
+      assert_response :unprocessable_content
+      assert_equal [ "Invalid or expired token!" ], res_errors["base"]
+    end
+  end
+
   describe "POST reset" do
     it "should fail: invalid token" do
       post "/api/user/password/reset", params: {
