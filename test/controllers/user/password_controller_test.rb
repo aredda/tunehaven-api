@@ -21,6 +21,7 @@ class User::PasswordControllerTest < ActionDispatch::IntegrationTest
 
       assert_response :success
       assert_predicate user.reload.reset_password_token, :present?
+      assert_equal 6, user.reset_password_token.length
       assert_predicate user.reset_password_sent_at, :present?
     end
   end
