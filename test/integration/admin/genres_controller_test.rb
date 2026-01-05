@@ -14,7 +14,7 @@ class Admin::GenresControllerTest < AdminIntegrationTest
 
       assert_response :success
       assert_equal 2, res_data.count
-      assert_equal %w[id name description parent_id created_at updated_at], res_data.first.keys
+      assert_equal %w[id name color description parent_id created_at updated_at], res_data.first.keys
 
       # filter by: name
       get "/api/admin/genres", headers: @auth_headers, params: {
@@ -54,7 +54,7 @@ class Admin::GenresControllerTest < AdminIntegrationTest
       get "/api/admin/genres/#{genre.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id name description parent_id created_at updated_at], res_data.keys
+      assert_equal %w[id name color description parent_id created_at updated_at], res_data.keys
     end
     it "should fail: genre is not found" do
       get "/api/admin/genres/xyz", headers: @auth_headers

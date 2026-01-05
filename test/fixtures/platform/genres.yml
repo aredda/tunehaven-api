@@ -9,6 +9,7 @@
 # Table name: platform_genres
 #
 #  id          :string           not null, primary key
+#  color       :string
 #  description :text
 #  featured    :boolean          default(FALSE)
 #  name        :string           not null

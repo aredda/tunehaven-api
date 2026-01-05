@@ -11,7 +11,7 @@ class User::GenresControllerTest < UserIntegrationTest
       get "/api/user/genres", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[ id name ], res_data.first.keys
+      assert_equal %w[ id name color ], res_data.first.keys
     end
   end
 
@@ -20,7 +20,7 @@ class User::GenresControllerTest < UserIntegrationTest
       get "/api/user/genres/#{genre.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[ id name featured description ], res_data.keys
+      assert_equal %w[ id name color featured description ], res_data.keys
     end
     it "should fail" do
       get "/api/user/genres/xyz", headers: @auth_headers

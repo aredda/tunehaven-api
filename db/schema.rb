@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_27_182159) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_05_155320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -168,6 +168,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_27_182159) do
     t.datetime "updated_at", null: false
     t.string "parent_id"
     t.boolean "featured", default: false
+    t.string "color"
   end
 
   create_table "platform_log_storage_sub_events", force: :cascade do |t|
