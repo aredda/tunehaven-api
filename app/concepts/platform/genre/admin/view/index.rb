@@ -4,6 +4,7 @@ module Platform::Genre::Admin::View
   class Index < ApplicationView
     property :id
     property :name
+    property :color
     property :description
     property :parent_id
     property :created_at

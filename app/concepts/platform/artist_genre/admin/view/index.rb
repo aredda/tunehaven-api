@@ -6,6 +6,7 @@ module Platform::ArtistGenre::Admin::View
     property :genre do
       property :id
       property :name
+      property :color
     end
   end
 end
