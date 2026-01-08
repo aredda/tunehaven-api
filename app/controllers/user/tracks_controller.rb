@@ -47,6 +47,24 @@ class User::TracksController < User::Controller
     head :not_found
   end
 
+  # GET   /api/user/tracks/:id/download
+  def download
+    run Platform::Track::Operation::Download do
+      if Rails.env.test?
+        return send_file @model.file_url, type: "audio/#{@model.format}", disposition: "inline"
+      else
+        io = URI.open(@model.file_url)
+
+        return send_data io.read,
+                         filename: @model.file.identifier,
+                         type: io.content_type,
+                         disposition: "inline"
+      end
+    end
+
+    head :not_found
+  end
+
   # PUT   /api/user/tracks/:id/toggle_like
   def toggle_like
     run User::PlaylistTrack::Operation::ToggleLike do

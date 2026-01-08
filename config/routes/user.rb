@@ -16,6 +16,7 @@ namespace :user do
   resources :tracks do
     member do
       get :stream
+      get :download
       put :toggle_like
       get :playlists
     end

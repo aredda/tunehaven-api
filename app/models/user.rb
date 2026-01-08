@@ -40,6 +40,7 @@ class User < ApplicationRecord
 
   has_many :settings, class_name: "User::Setting", inverse_of: :user, dependent: :destroy
   has_one :quality_setting, -> { where(key: :quality) }, class_name: "User::Setting"
+  has_one :download_quality_setting, -> { where(key: :download_quality) }, class_name: "User::Setting"
 
   def create_default_playlist
     self.create_liked_playlist(title: "Liked")
@@ -71,6 +72,6 @@ class User < ApplicationRecord
   def saved_album?(album) = saved_albums.include?(album)
 
   def create_default_settings
-    settings.build([ { key: :quality, value: :low } ])
+    settings.build([ { key: :quality, value: :low }, { key: :download_quality, value: :low } ])
   end
 end
