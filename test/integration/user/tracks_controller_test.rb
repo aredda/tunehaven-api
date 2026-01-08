@@ -64,6 +64,29 @@ class User::TracksControllerTest < UserIntegrationTest
     end
   end
 
+  describe "GET download" do
+    it "should fail: track is not found" do
+      get "/api/user/tracks/xyz/download", headers: @auth_headers
+
+      assert_response :not_found
+    end
+    it "should fail: setting is not set" do
+      Fabricate(:track_audio, track: track1, quality: :high, file: Rack::Test::UploadedFile.new("test/fixtures/files/audio.flac", "audio/flac"), format: "flac")
+
+      get "/api/user/tracks/#{track1.id}/download", headers: @auth_headers
+
+      assert_response :not_found
+    end
+    it "should pass" do
+      Fabricate(:track_audio, track: track1, quality: :low, file: Rack::Test::UploadedFile.new("test/fixtures/files/audio.flac", "audio/flac"), format: "flac")
+
+      get "/api/user/tracks/#{track1.id}/download", headers: @auth_headers
+
+      assert_response :success
+      assert_equal "audio/flac", response.headers["Content-Type"]
+    end
+  end
+
   describe "PUT toggle_like" do
     it "should fail: track is not found" do
       put "/api/user/tracks/xyz/toggle_like", headers: @auth_headers
