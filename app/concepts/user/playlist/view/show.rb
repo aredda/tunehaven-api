@@ -12,6 +12,12 @@ module User::Playlist::View
         property :slug
         property :name
       end
+      property :album do
+        property :id
+        property :title
+        property :slug
+        property :short_slug, getter: ->(represented:, **) { represented.title.parameterize }
+      end
       property :duration_in_seconds
       property :is_liked, exec_context: :decorator, if: ->(**) { Show.options.present? }
 
