@@ -4,6 +4,8 @@ module Platform::Album::View
   class Index < ApplicationView
     property :id
     property :title
+    property :slug
+    property :short_slug, getter: ->(represented:, **) { represented.title.parameterize }
     property :cover_thumb_url, getter: ->(represented:, **) { represented.cover.thumb.url }
     property :tracks_count
     property :release_date

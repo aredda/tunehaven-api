@@ -8,7 +8,7 @@ class User::SettingsControllerTest < UserIntegrationTest
       get "/api/user/settings", headers: @auth_headers
 
       assert_response :success
-      assert_equal 1, res_data.count
+      assert_equal 2, res_data.count
       assert_equal %w[id key value], res_data.first.keys
     end
   end
@@ -36,7 +36,7 @@ class User::SettingsControllerTest < UserIntegrationTest
         }
 
         assert_response :created
-        assert_equal 2, res_data.count
+        assert_equal 3, res_data.count
         assert_equal %w[id key value], res_data.first.keys
       end
 
@@ -50,10 +50,11 @@ class User::SettingsControllerTest < UserIntegrationTest
         }
 
         assert_response :created
-        assert_equal 2, res_data.count
+        assert_equal 3, res_data.count
         assert_equal %w[id key value], res_data.first.keys
         assert_equal "low", res_data.first["value"]
-        assert_equal "french", res_data.second["value"]
+        assert_equal "low", res_data.second["value"]
+        assert_equal "french", res_data.third["value"]
       end
     end
   end

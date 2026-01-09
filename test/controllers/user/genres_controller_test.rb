@@ -56,7 +56,7 @@ class User::GenresControllerTest < UserIntegrationTest
 
       assert_response :success
       assert_equal 1, res_data.count
-      assert_equal %w[id title cover_thumb_url tracks_count release_date artist], res_data.first.keys
+      assert_equal %w[id title slug short_slug cover_thumb_url tracks_count release_date artist], res_data.first.keys
       assert_equal "OK Computer", res_data.first["title"]
     end
   end
