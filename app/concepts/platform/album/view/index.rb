@@ -12,6 +12,7 @@ module Platform::Album::View
     property :artist do
       property :id
       property :name
+      property :slug
     end
     property :is_saved, exec_context: :decorator, if: ->(**) { self.class.options.present? }
 
