@@ -14,5 +14,6 @@ module Platform::Track::View
       property :short_slug, getter: ->(represented:, **) { represented.title.parameterize }
     end
     property :cover_url, getter: ->(represented:, **) { represented.album.cover.full.url }
+    property :cover_thumb_url, getter: ->(represented:, **) { represented.album.cover.thumb.url }
   end
 end
