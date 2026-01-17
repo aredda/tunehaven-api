@@ -50,7 +50,7 @@ class User::TracksController < User::Controller
   # GET   /api/user/tracks/:id/download
   def download
     run Platform::Track::Operation::Download do
-      return @model.file_url
+      return render json: { data: @model.file_url }, status: :ok
     end
 
     head :not_found
