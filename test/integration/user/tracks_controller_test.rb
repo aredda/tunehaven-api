@@ -84,6 +84,7 @@ class User::TracksControllerTest < UserIntegrationTest
       get "/api/user/tracks/#{track1.id}/download", headers: @auth_headers
 
       assert_response :success
+      assert_predicate res_data, :present?
     end
   end
 
