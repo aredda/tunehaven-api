@@ -12,12 +12,23 @@ class Platform::Track::Audio::TranscodeJob < ApplicationJob
   }
 
   def perform(original, *args)
-    source = original.method_uploaded? ? original.file_url : original.unsigned_file_url
+    source = original.method_uploaded? ? original.file_url : original.bucket_uri
 
     file = Tempfile.new(%w[master .flac])
-    URI.open(source) do |remote|
-      IO.copy_stream(remote, file)
+
+    if original.method_uploaded?
+      URI.open(source) do |remote|
+        IO.copy_stream(remote, file)
+      end
+    else
+      bucket = Helpers::StorageManager.bucket
+      bucket_file = bucket.file source, skip_lookup: true
+
+      raise "Unable to find an audio to transcode" unless bucket_file.exists?
+
+      bucket_file.download file.path
     end
+
     file.rewind
 
     # If this original file is imported instead of uploaded, then we should upload it

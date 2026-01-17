@@ -9,7 +9,6 @@ module PubSub::Operation
       data = JSON.parse(notification.message.data)
       filename = context[:filename] = data["name"]
       content_type = context[:content_type] = data["contentType"]
-      context[:media_link] = data["mediaLink"]
 
       return false unless %w[audio/flac image/jpeg image/png].include? content_type
 
