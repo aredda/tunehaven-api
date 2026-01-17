@@ -31,13 +31,25 @@ class Platform::Track::Audio::TranscodeJobTest < ActiveJob::TestCase
     end
   end
 
+  it "should find the bucket object despite Uniform-access policy" do
+    skip
+
+    filename = "uploads/library/the-strokes/the-new-abnormal/01-the adults are talking.flac"
+
+    bucket = ::Helpers::StorageManager.bucket
+    file = bucket.file filename, skip_lookup: true
+
+    assert file.exists?
+  end
+
   it "should transcode an imported audio from the bucket" do
     skip
 
-    audio = Fabricate(:track_audio, quality: :original, is_master: true, track:, method: :loaded, unsigned_file_url: "https://storage.googleapis.com/download/storage/v1/b/tunehaven-bucket/o/uploads%2Flibrary%2Fradiohead%2Fok-computer%2F01.%20Airbag.flac?generation=1766588670722585&alt=media")
+    filename = "uploads/library/the-strokes/the-new-abnormal/01-the adults are talking.flac"
+    audio = Fabricate(:track_audio, quality: :original, is_master: true, track:, method: :loaded, bucket_uri: filename)
 
     assert_difference -> { audio.track.audios.count }, 3 do
-      Platform::Track::Audio::TranscodeJob.perform_now(audio, "uploads/library/radiohead/ok-computer/01. Airbag.flac")
+      Platform::Track::Audio::TranscodeJob.perform_now(audio, filename)
 
       low = audio.track.audios.quality_low.first
       mid = audio.track.audios.quality_mid.first
