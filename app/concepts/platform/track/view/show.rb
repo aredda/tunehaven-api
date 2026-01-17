@@ -15,5 +15,12 @@ module Platform::Track::View
     end
     property :cover_url, getter: ->(represented:, **) { represented.album.cover.full.url }
     property :cover_thumb_url, getter: ->(represented:, **) { represented.album.cover.thumb.url }
+    property :download_url, exec_context: :decorator
+
+    def download_url
+      quality = Show.user.download_quality_setting.value
+
+      represented.audios.find_by(quality:)&.file_url
+    end
   end
 end
