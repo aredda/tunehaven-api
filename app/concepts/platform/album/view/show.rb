@@ -9,6 +9,13 @@ module Platform::Album::View
       property :title
       property :duration_in_seconds
       property :is_liked, exec_context: :decorator
+      property :download_url, exec_context: :decorator
+
+      def download_url
+        quality = Show.user.download_quality_setting.value
+
+        represented.audios.find_by(quality:)&.file_url
+      end
 
       def is_liked = Show.user.likes_track?(represented)
     end
