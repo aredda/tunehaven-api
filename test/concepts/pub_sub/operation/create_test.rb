@@ -39,8 +39,8 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
     notification.message = OpenStruct.new
     notification.message.data = JSON.generate({
                                                 name: "uploads/library/radiohead/kid-a/folder.jpg",
-                                                contentType: "image/jpeg",
-                                                mediaLink: "https://storage.googleapis.com/tunehaven-bucket/uploads/library/radiohead/kid-a/folder.jpg" })
+                                                contentType: "image/jpeg"
+                                              })
 
     ENV["GOOGLE_CLOUD_CREDENTIALS"] = '{
       "type": "service_account",

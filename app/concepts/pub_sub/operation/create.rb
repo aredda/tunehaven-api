@@ -14,7 +14,7 @@ module PubSub::Operation
       "audio/flac".eql? content_type
     end
 
-    def process_audio(context, segments:, media_link:, **)
+    def process_audio(context, segments:, filename:, **)
       artist_slug, album_slug, track_file = segments.first.parameterize, segments.second.parameterize, segments.third
       track_info = dissect_title track_file.split(".flac").first
       track_title = track_info[:title]
@@ -34,7 +34,7 @@ module PubSub::Operation
         quality: :original,
         is_master: true,
         method: :loaded,
-        unsigned_file_url: media_link
+        bucket_uri: filename
       )
 
       context[:model] = track
@@ -54,27 +54,17 @@ module PubSub::Operation
       Platform::Track::Audio::TranscodeJob.perform_later(audio, filename)
     end
 
-    def process_image(_context, segments:, filename:, bucket:, media_link:, **)
+    def process_image(_context, segments:, filename:, bucket:, **)
       artist_slug, album_slug, short_filename = segments.first.parameterize, segments.second.parameterize, segments.third.split(".")
       album = find_or_initialize_album(artist_slug, album_slug)
 
       unless album.cover.present?
-        begin
-          file = Tempfile.new([ short_filename.first, ".#{short_filename.second}" ])
-          URI.open(media_link) do |remote|
-            IO.copy_stream(remote, file)
-          end
-          file.rewind
+        file = Tempfile.new([ short_filename.first, ".#{short_filename.second}" ])
+        bucket_file = bucket.file filename, skip_lookup: true
+        bucket_file.download file.path
+        file.rewind
 
-          album.update cover: CarrierWave::SanitizedFile.new(file)
-
-          unless media_link.include? album.reload.cover.identifier
-            original_file = bucket.file filename
-            original_file.delete if original_file.present?
-          end
-        ensure
-          file.close!
-        end
+        album.update cover: CarrierWave::SanitizedFile.new(file)
       end
     end
 
