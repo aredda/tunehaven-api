@@ -84,7 +84,6 @@ class User::TracksControllerTest < UserIntegrationTest
       get "/api/user/tracks/#{track1.id}/download", headers: @auth_headers
 
       assert_response :success
-      assert_equal "audio/flac", response.headers["Content-Type"]
     end
   end
 

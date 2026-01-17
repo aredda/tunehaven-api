@@ -50,16 +50,7 @@ class User::TracksController < User::Controller
   # GET   /api/user/tracks/:id/download
   def download
     run Platform::Track::Operation::Download do
-      if Rails.env.test?
-        return send_file @model.file_url, type: "audio/#{@model.format}", disposition: "inline"
-      else
-        io = URI.open(@model.file_url)
-
-        return send_data io.read,
-                         filename: @model.file.identifier,
-                         type: io.content_type,
-                         disposition: "inline"
-      end
+      return @model.file_url
     end
 
     head :not_found
