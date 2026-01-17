@@ -39,7 +39,7 @@ class User::TracksControllerTest < UserIntegrationTest
       get "/api/user/tracks/#{track1.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[id title duration_in_seconds is_liked artist album cover_url cover_thumb_url], res_data.keys
+      assert_equal %w[id title duration_in_seconds is_liked artist album cover_url cover_thumb_url download_url], res_data.keys
       assert_equal "rumours", res_data["album"]["short_slug"]
     end
   end
