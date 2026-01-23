@@ -1,0 +1,3 @@
+tunehaven.servemp3.com {
+    reverse_proxy api:3000
+}
