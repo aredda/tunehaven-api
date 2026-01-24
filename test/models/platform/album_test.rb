@@ -4,6 +4,7 @@
 #
 #  id           :uuid             not null, primary key
 #  cover        :string
+#  likes_count  :integer          default(0)
 #  release_date :date
 #  slug         :citext
 #  title        :citext           not null
