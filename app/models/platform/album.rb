@@ -4,6 +4,7 @@
 #
 #  id           :uuid             not null, primary key
 #  cover        :string
+#  likes_count  :integer          default(0)
 #  release_date :date
 #  slug         :citext
 #  title        :citext           not null
@@ -17,6 +18,8 @@
 #  fk_rails_...  (artist_id => platform_artists.id)
 #
 class Platform::Album < ApplicationRecord
+  alias_attribute :saves_count, :likes_count
+
   mount_uploader :cover, CoverUploader
 
   before_create :set_slug
