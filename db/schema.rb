@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_17_155409) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_24_152441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -143,6 +143,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_17_155409) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.citext "slug"
+    t.integer "likes_count", default: 0
   end
 
   create_table "platform_artist_genres", force: :cascade do |t|
@@ -225,7 +226,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_17_155409) do
     t.string "likable_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["likable_id", "likable_type"], name: "index_user_likes_on_likable_id_and_likable_type", unique: true
+    t.index ["user_id", "likable_id"], name: "index_user_likes_on_user_id_and_likable_id", unique: true
   end
 
   create_table "user_playlist_tracks", force: :cascade do |t|

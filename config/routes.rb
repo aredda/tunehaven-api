@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     devise_for :admins, class_name: AdminUser, path: "/admin",
                controllers: { sessions: "admin/sessions", passwords: "admin/passwords" }
 
+    resource :home, controller: :home, only: :show
+
     draw(:user)
     draw(:admin)
   end
