@@ -38,6 +38,14 @@ class Platform::Album < ApplicationRecord
   end
 
   def genre_ids=(ids)
-    ids.each { |genre_id| genre_relationships.build(genre_id:) }
+    ids.each do |genre_id|
+      unless genre_relationships.exists?(genre_id:)
+        genre = Platform::Genre.find_or_create_by(id: genre_id) do |row|
+          row.name = genre_id.humanize.titleize
+        end
+
+        genre_relationships.build(genre:) if Platform::Genre.exists?(id: genre_id)
+      end
+    end
   end
 end

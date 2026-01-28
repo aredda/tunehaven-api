@@ -76,8 +76,15 @@ module PubSub::Operation
 
       # Create Platform::Album if it's not found
       Platform::Album.find_or_create_by!(slug: "#{artist_slug}-#{album_slug}") do |row|
+        metadata = Musicbrainz::ReleaseGroup.find_by(artist: artist.name, title: album_slug.titleize)
+
         row.title = album_slug.titleize
         row.artist = artist
+
+        if metadata.present?
+          row.release_date = metadata.release_date
+          row.genre_ids = metadata.genres.map { |genre| genre.titleize.parameterize }
+        end
       end
     end
   end

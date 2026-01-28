@@ -26,6 +26,9 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
           assert_equal "Fake Plastic Trees", result[:model].title
           assert_equal "The Bends", result[:model].album.title
           assert_equal "radiohead-the-bends", result[:model].album.slug
+          assert_predicate result[:model].album.release_date, :present?
+          assert_not_equal 0, result[:model].album.genres.count
+          assert_includes result[:model].album.genres.pluck(:name), "Alternative Rock"
           assert_equal 15, result[:model].position
         end
       end

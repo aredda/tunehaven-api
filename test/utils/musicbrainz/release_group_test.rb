@@ -11,4 +11,10 @@ class Musicbrainz::ReleaseGroupTest < Minitest::Test
     assert release.genres.length > 0
     assert_includes release.genres, "alternative rock"
   end
+
+  def test_not_found
+    release = Musicbrainz::ReleaseGroup.find_by artist: "INVALID ARTIST", title: "INVALID ALBUM"
+
+    assert_nil release
+  end
 end

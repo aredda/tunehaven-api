@@ -27,8 +27,10 @@ module Musicbrainz
           f.adapter Faraday.default_adapter
         end
 
-        response = client.get "release-group/?query=#{query}"
+        response = client.get "release-group/?query=#{query}&type=album|ep"
         json = JSON.parse response.body
+
+        return nil if json["count"].zero?
 
         release_group = from_json json["release-groups"].first
 
