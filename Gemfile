@@ -106,3 +106,6 @@ gem "google-protobuf"
 
 gem "sentry-ruby"
 gem "sentry-rails"
+
+gem "faraday"
+gem "faraday-digestauth"
