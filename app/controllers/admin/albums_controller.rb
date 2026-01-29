@@ -72,6 +72,20 @@ class Admin::AlbumsController < Admin::Controller
     }, status: :unprocessable_content
   end
 
+  # PUT     /api/admin/albums/:id/metadata
+  def metadata
+    run Platform::Album::Admin::Operation::FetchMetadata do
+      return render json: {
+        success: true
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_content
+  end
+
   # DELETE  /api/admin/albums/:id
   def destroy
     run Platform::Album::Admin::Operation::Destroy do

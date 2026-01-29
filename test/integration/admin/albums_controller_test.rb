@@ -179,4 +179,30 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
       end
     end
   end
+
+  describe "PUT metadata" do
+    it "should fail: album not found" do
+      put "/api/admin/albums/xyz/metadata", headers: @auth_headers
+
+      assert_response :unprocessable_content
+      assert_equal [ "Album is not found!" ], res_errors["base"]
+    end
+    it "should fail: invalid album" do
+      album.update title: "INVALID"
+
+      put "/api/admin/albums/#{album.id}/metadata", headers: @auth_headers
+
+      assert_response :unprocessable_content
+      assert_equal [ "Failed to retrieve metadata from MusicBrainz" ], res_errors["base"]
+    end
+    it "should pass" do
+      album.update title: "In Rainbows"
+
+      put "/api/admin/albums/#{album.id}/metadata", headers: @auth_headers
+
+      assert_response :success
+      assert_equal "10-10-2007", album.reload.release_date.strftime("%m-%d-%Y")
+      assert_includes album.genres.pluck(:name), "Alternative Rock"
+    end
+  end
 end

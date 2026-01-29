@@ -75,10 +75,18 @@ module PubSub::Operation
       end
 
       # Create Platform::Album if it's not found
-      Platform::Album.find_or_create_by!(slug: "#{artist_slug}-#{album_slug}") do |row|
-        metadata = Musicbrainz::ReleaseGroup.find_by(artist: artist.name, title: album_slug.titleize)
+      title = album_slug.titleize
 
-        row.title = album_slug.titleize
+      Platform::Album.find_or_create_by!(slug: "#{artist_slug}-#{album_slug}") do |row|
+        metadata = nil
+
+        begin
+          metadata = Musicbrainz::ReleaseGroup.find_by(artist: artist.name, title:)
+        rescue
+          Rails.logger.error "Failed to retrieve metadata for: #{title}"
+        end
+
+        row.title = title
         row.artist = artist
 
         if metadata.present?
