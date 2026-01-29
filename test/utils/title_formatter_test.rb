@@ -6,12 +6,14 @@ class TitleFormatterTest < Minitest::Test
   include ::Helpers::TitleFormatter
 
   def test_cleanse_title
-    assert_equal "Airbag", cleanse_title("1. Airbag")
-    assert_equal "Airbag", cleanse_title("02. Airbag")
-    assert_equal "Airbag", cleanse_title("01- Airbag")
-    assert_equal "Airbag", cleanse_title("10 - Airbag")
-    assert_equal "Airbag", cleanse_title("8- Airbag")
-    assert_equal "Airbag", cleanse_title("9 - Airbag")
+    assert_equal %w[1 Airbag], cleanse_title("1. Airbag")
+    assert_equal %w[02 Airbag], cleanse_title("02. Airbag")
+    assert_equal %w[01 Airbag], cleanse_title("01- Airbag")
+    assert_equal %w[10 Airbag], cleanse_title("10 - Airbag")
+    assert_equal %w[8 Airbag], cleanse_title("8- Airbag")
+    assert_equal %w[9 Airbag], cleanse_title("9 - Airbag")
+    assert_equal %w[1 Airbag], cleanse_title("1 Airbag")
+    assert_equal %w[01 Airbag], cleanse_title("01 Airbag")
   end
 
   def test_dissect_title
@@ -20,6 +22,8 @@ class TitleFormatterTest < Minitest::Test
     assert_equal({ title: "Karma Police", order: 8 }, dissect_title("08- Karma Police"))
     assert_equal({ title: "Karma Police", order: 9 }, dissect_title("09. Karma Police"))
     assert_equal({ title: "invalid. Karma Police", order: nil }, dissect_title("invalid. Karma Police"))
+    assert_equal({ title: "Airbag", order: 1 }, dissect_title("01 Airbag"))
+    assert_equal({ title: "Airbag", order: 1 }, dissect_title("1 Airbag"))
   end
 
   def test_dissect_and_insert
