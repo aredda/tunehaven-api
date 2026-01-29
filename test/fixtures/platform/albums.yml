@@ -19,6 +19,10 @@
 #  updated_at   :datetime         not null
 #  artist_id    :uuid             not null
 #
+# Indexes
+#
+#  index_platform_albums_on_slug  (slug) UNIQUE
+#
 # Foreign Keys
 #
 #  fk_rails_...  (artist_id => platform_artists.id)

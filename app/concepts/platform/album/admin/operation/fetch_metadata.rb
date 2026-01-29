@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Platform::Album::Admin::Operation
-  class FetchMetadata < Show
+  class FetchMetadata < ApplicationOperation
+    step Subprocess(Show), Output(:failure) => Track(:end)
     step :fetch_api
     fall :fail_connection_error
     step :update

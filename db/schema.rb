@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_24_152441) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_29_185432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -144,6 +144,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_24_152441) do
     t.datetime "updated_at", null: false
     t.citext "slug"
     t.integer "likes_count", default: 0
+    t.index ["slug"], name: "index_platform_albums_on_slug", unique: true
   end
 
   create_table "platform_artist_genres", force: :cascade do |t|
