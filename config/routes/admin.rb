@@ -20,6 +20,10 @@ namespace :admin do
       get :autocomplete
     end
 
+    member do
+      put :metadata
+    end
+
     resources :genres, controller: "albums/genres"
   end
   resources :tracks do
