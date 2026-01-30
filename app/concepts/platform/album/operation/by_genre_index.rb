@@ -5,7 +5,7 @@ module Platform::Album::Operation
     step :set_finder
 
     def set_finder(context, model:, params:, **)
-      context[:finder] = ApplicationFinder.new(entity: model.albums.order(title: :asc), params:)
+      context[:finder] = ApplicationFinder.new(entity: model.albums.order(likes_count: :asc), params:)
     end
   end
 end
