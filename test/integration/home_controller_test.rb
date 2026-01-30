@@ -25,7 +25,7 @@ class HomeControllerTest < UserIntegrationTest
       get "/api/home", headers: @auth_headers
 
       assert_response :success
-      assert_equal %w[user_recent_saves most_album_saves], res_data.keys
+      assert_equal %w[user_recent_saves most_album_saves recently_added_albums], res_data.keys
 
       # User recent saves
       assert_equal 1, res_data["user_recent_saves"].count
@@ -35,6 +35,9 @@ class HomeControllerTest < UserIntegrationTest
       assert_equal 2, res_data["most_album_saves"].count
       assert_equal "Rumours", res_data["most_album_saves"].first["title"]
       assert_equal "OK Computer", res_data["most_album_saves"].second["title"]
+
+      # Recently added albums
+      assert_equal 2, res_data["recently_added_albums"].count
     end
   end
 end
