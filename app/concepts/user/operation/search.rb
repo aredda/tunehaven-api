@@ -8,9 +8,9 @@ module User::Operation
     def set_finder(context, params:, **)
       entity = case params[:type]
       when "track" then Platform::Track
-      when "album" then Platform::Album
+      when "album" then Platform::Album.order(likes_count: :desc)
       when "artist" then Platform::Artist
-      when "playlist" then User::Playlist.visibility_public
+      when "playlist" then User::Playlist.visibility_public.order(likes_count: :desc)
       else return false
       end
 
