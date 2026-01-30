@@ -4,5 +4,6 @@ module User::View
   class Home < ApplicationView
     collection :user_recent_saves, decorator: User::Library::View::Index
     collection :most_album_saves, decorator: Platform::Album::View::Index
+    collection :recently_added_albums, decorator: Platform::Album::View::Index
   end
 end
