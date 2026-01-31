@@ -14,7 +14,7 @@ class Platform::Album::CoverUploader < ImageUploader
   end
 
   version :full do
-    process resize_to_fill: [ 500, 500 ]
+    process resize_to_fill: [ 1080, 1080 ]
   end
 
   version :thumb do
