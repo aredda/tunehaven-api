@@ -18,7 +18,7 @@ module Musicbrainz
 
     class << self
       def find_by(artist:, title:, **)
-        query = URI.encode_uri_component "release:#{title} AND artist:#{artist}"
+        query = URI.encode_uri_component "query=artist:#{artist} AND releasegroup:#{title} AND primarytype:album AND NOT secondarytype:*"
 
         client = Faraday.new("https://musicbrainz.org/ws/2/", headers: {
           "Accept" => "application/json"
@@ -27,7 +27,7 @@ module Musicbrainz
           f.adapter Faraday.default_adapter
         end
 
-        response = client.get "release-group/?query=#{query}&type=album|ep"
+        response = client.get "release-group/?query=#{query}"
         json = JSON.parse response.body
 
         return nil if json["count"].zero?
