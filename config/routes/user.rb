@@ -52,4 +52,6 @@ namespace :user do
   resource :search, controller: :search, only: :show
 
   resources :settings, only: %i[index create]
+
+  resources :users, only: :show
 end

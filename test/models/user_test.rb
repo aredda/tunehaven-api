@@ -8,6 +8,9 @@
 #  confirmed_at           :datetime
 #  email                  :citext           not null
 #  encrypted_password     :string           default(""), not null
+#  followers_count        :integer          default(0)
+#  following_count        :integer          default(0)
+#  public_playlists_count :integer          default(0)
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  state                  :string
