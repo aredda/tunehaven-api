@@ -14,14 +14,14 @@ class User::UsersControllerTest < UserIntegrationTest
       get "/api/user/users/#{user.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %(id username followers_count following_count playlists_count), res_data.keys
-      assert_equal "cool_kid", res_data["name"]
+      assert_equal %w[id username followers_count following_count public_playlists_count created_at], res_data.keys
+      assert_equal "cool_kid", res_data["username"]
     end
     it "should pass: own account" do
       get "/api/user/users/#{@user.id}", headers: @auth_headers
 
       assert_response :success
-      assert_equal %(id username email followers_count following_count playlists_count), res_data.keys
+      assert_equal %w[id username email followers_count following_count public_playlists_count created_at], res_data.keys
     end
   end
 end
