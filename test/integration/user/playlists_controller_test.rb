@@ -118,10 +118,12 @@ class User::PlaylistsControllerTest < UserIntegrationTest
 
       assert_equal "private", playlist.visibility
 
-      put "/api/user/playlists/#{playlist.id}/toggle_visibility", headers: @auth_headers
+      assert_difference -> { @user.reload.public_playlists_count } do
+        put "/api/user/playlists/#{playlist.id}/toggle_visibility", headers: @auth_headers
 
-      assert_response 200
-      assert_equal "public", playlist.reload.visibility
+        assert_response 200
+        assert_equal "public", playlist.reload.visibility
+      end
     end
   end
 
@@ -146,9 +148,11 @@ class User::PlaylistsControllerTest < UserIntegrationTest
     end
     it "should pass" do
       assert_difference -> { @user.playlists.count }, -1 do
-        delete "/api/user/playlists/#{@playlists.last.id}", headers: @auth_headers
+        assert_difference -> { @user.playlists.count }, -1 do
+          delete "/api/user/playlists/#{@playlists.last.id}", headers: @auth_headers
 
-        assert_response :success
+          assert_response :success
+        end
       end
     end
   end

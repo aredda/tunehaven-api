@@ -20,6 +20,10 @@
 class User::Playlist < ApplicationRecord
   alias_attribute :saves_count, :likes_count
 
+  after_create :increment_if_public
+  after_destroy :decrement_if_public
+  after_update :handle_update
+
   enum :visibility, { public: "public", private: "private" }, prefix: true
 
   belongs_to :user, class_name: "User", inverse_of: :playlists
@@ -37,4 +41,24 @@ class User::Playlist < ApplicationRecord
   end
 
   def includes?(track) = tracks.include?(track)
+
+  def increment_if_public
+    user.increment!(:public_playlists_count) if visibility_public?
+  end
+
+  def decrement_if_public
+    user.decrement!(:public_playlists_count) if visibility_public?
+  end
+
+  def handle_update
+    puts "change is handled"
+
+    if visibility_public?
+      puts "visibility is public"
+
+      increment_if_public
+    else
+      decrement_if_public
+    end
+  end
 end
