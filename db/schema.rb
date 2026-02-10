@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_29_185432) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_10_165057) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -272,6 +272,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_29_185432) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.integer "public_playlists_count", default: 0
+    t.integer "followers_count", default: 0
+    t.integer "following_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
