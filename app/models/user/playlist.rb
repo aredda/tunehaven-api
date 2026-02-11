@@ -22,7 +22,7 @@ class User::Playlist < ApplicationRecord
 
   after_create :increment_if_public
   after_destroy :decrement_if_public
-  after_update :handle_update
+  after_update :handle_update, if: :saved_change_to_visibility?
 
   enum :visibility, { public: "public", private: "private" }, prefix: true
 
@@ -51,14 +51,10 @@ class User::Playlist < ApplicationRecord
   end
 
   def handle_update
-    puts "change is handled"
-
     if visibility_public?
-      puts "visibility is public"
-
-      increment_if_public
+      user.increment!(:public_playlists_count)
     else
-      decrement_if_public
+      user.decrement!(:public_playlists_count)
     end
   end
 end
