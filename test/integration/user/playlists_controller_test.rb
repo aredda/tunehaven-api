@@ -124,6 +124,13 @@ class User::PlaylistsControllerTest < UserIntegrationTest
         assert_response 200
         assert_equal "public", playlist.reload.visibility
       end
+
+      assert_difference -> { @user.reload.public_playlists_count }, -1 do
+        put "/api/user/playlists/#{playlist.id}/toggle_visibility", headers: @auth_headers
+
+        assert_response 200
+        assert_equal "private", playlist.reload.visibility
+      end
     end
   end
 
