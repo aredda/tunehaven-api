@@ -13,6 +13,17 @@ class User::GenresControllerTest < UserIntegrationTest
       assert_response :success
       assert_equal %w[ id name color ], res_data.first.keys
     end
+    it "should pass: filter with query" do
+      get "/api/user/genres", headers: @auth_headers, params: {
+        q: "art"
+      }
+
+      assert_response :success
+      assert_equal 1, res_data.count
+      assert_equal %w[ id name color ], res_data.first.keys
+      assert_equal "art-rock", res_data.first["id"]
+      assert_equal "Art Rock", res_data.first["name"]
+    end
   end
 
   describe "GET show" do
