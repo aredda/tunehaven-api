@@ -3,6 +3,8 @@
 require "test_helper"
 
 class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
+  include ActiveJob::TestHelper
+
   describe "POST create" do
     it "should fail: invalid params" do
       assert_no_difference "User.count" do
@@ -53,18 +55,20 @@ class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
       end
     end
     it "should pass" do
-      assert_difference "User.count", 1 do
-        post "/api/user/sign_up", params: {
-          user: {
-            email: "brando@gmail.com",
-            username: "brando",
-            password: "12345678"
+      assert_enqueued_jobs 1 do
+        assert_difference "User.count", 1 do
+          post "/api/user/sign_up", params: {
+            user: {
+              email: "brando@gmail.com",
+              username: "brando",
+              password: "12345678"
+            }
           }
-        }
 
-        assert_response :created
-        assert res_data["token"].present?
-        assert_not_empty res_data["token"]
+          assert_response :created
+          assert res_data["token"].present?
+          assert_not_empty res_data["token"]
+        end
       end
     end
   end
