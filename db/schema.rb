@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_10_165057) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_19_150000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -215,6 +215,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_165057) do
     t.integer "audios_count", default: 0
   end
 
+  create_table "user_follows", force: :cascade do |t|
+    t.uuid "follower_id", null: false
+    t.uuid "following_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id", "following_id"], name: "index_user_follows_on_follower_and_following", unique: true
+    t.index ["follower_id"], name: "index_user_follows_on_follower_id"
+    t.index ["following_id"], name: "index_user_follows_on_following_id"
+  end
+
   create_table "user_jwt_denylists", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
@@ -289,6 +299,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_165057) do
   add_foreign_key "platform_track_genres", "platform_genres", column: "genre_id"
   add_foreign_key "platform_track_genres", "platform_tracks", column: "track_id"
   add_foreign_key "platform_tracks", "platform_albums", column: "album_id"
+  add_foreign_key "user_follows", "users", column: "follower_id", on_delete: :cascade
+  add_foreign_key "user_follows", "users", column: "following_id", on_delete: :cascade
   add_foreign_key "user_likes", "users"
   add_foreign_key "user_playlist_tracks", "platform_tracks", column: "track_id", on_delete: :cascade
   add_foreign_key "user_playlist_tracks", "user_playlists", column: "playlist_id", on_delete: :cascade
