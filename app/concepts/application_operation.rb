@@ -15,6 +15,10 @@ class ApplicationOperation < Trailblazer::Operation
     ctx["contract.default"].errors.add(:base, fail_not_found_message(ctx))
   end
 
+  def exception_handler(exception, context)
+    fail_error(context, exception.message)
+  end
+
   def fail_not_found_message(_context)
     I18n.t("errors.not_found?")
   end
