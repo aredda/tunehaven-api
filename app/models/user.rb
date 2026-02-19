@@ -81,9 +81,9 @@ class User < ApplicationRecord
   def saved_album?(album) = saved_albums.include?(album)
 
   def follow(user)
-    raise "A user cannot follow himself" if self.id == user.id
+    raise(StandardError, "A user cannot follow himself") if self.id == user.id
 
-    raise "Already followed" if following?(user)
+    raise(StandardError, "You are already following this user") if following?(user)
 
     active_follows.create!(following: user)
   end
