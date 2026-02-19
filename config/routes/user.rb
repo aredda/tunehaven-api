@@ -53,5 +53,10 @@ namespace :user do
 
   resources :settings, only: %i[index create]
 
-  resources :users, only: :show
+  resources :users, only: :show do
+    member do
+      post :follow
+      delete :unfollow
+    end
+  end
 end

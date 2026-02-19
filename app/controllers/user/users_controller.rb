@@ -15,4 +15,32 @@ class User::UsersController < User::Controller
       errors: @form.errors.messages
     }, status: :not_found
   end
+
+  # POST  /api/user/users/:id/follow
+  def follow
+    run User::Operation::FollowUser do
+      return render json: {
+        success: true
+      }, status: :created
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_content
+  end
+
+  # DELETE  /api/user/users/:id/unfollow
+  def unfollow
+    run User::Operation::UnfollowUser do
+      return render json: {
+        success: true
+      }, status: :ok
+    end
+
+    render json: {
+      success: false,
+      errors: @form.errors.messages
+    }, status: :unprocessable_content
+  end
 end
