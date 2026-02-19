@@ -24,6 +24,39 @@ class User::GenresControllerTest < UserIntegrationTest
       assert_equal "art-rock", res_data.first["id"]
       assert_equal "Art Rock", res_data.first["name"]
     end
+
+    it "should handle special characters safely" do
+      get "/api/user/genres", headers: @auth_headers, params: {
+        q: "'; DROP TABLE users; --"
+      }
+
+      assert_response :success
+      # Should return all results, not crash or execute SQL injection
+      assert_equal 2, res_data.count
+    end
+
+    it "should handle non-string input safely" do
+      get "/api/user/genres", headers: @auth_headers, params: {
+        q: { malicious: "input" }
+      }
+
+      assert_response :success
+      # Should return all results, as if nothing happened
+      assert_equal 2, res_data.count
+    end
+
+    it "should allow safe characters in search" do
+      Platform::Genre.create(id: "test-rock", name: "Test Rock", featured: false)
+
+      get "/api/user/genres", headers: @auth_headers, params: {
+        q: "test rock"
+      }
+
+      assert_response :success
+      assert_equal 1, res_data.count
+      assert_equal "test-rock", res_data.first["id"]
+      assert_equal "Test Rock", res_data.first["name"]
+    end
   end
 
   describe "GET show" do

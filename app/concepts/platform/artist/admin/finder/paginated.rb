@@ -5,7 +5,11 @@ module Platform::Artist::Admin::Finder
     filter_by :name, with: :apply_name
 
     def apply_name(entity, _attribute, value)
-      entity.where("name ILIKE ?", "%#{value}%") if value.present?
+      return unless value.present?
+
+      sanitized_value = sanitize_search_query(value)
+
+      entity.where("name ILIKE ?", "%#{sanitized_value}%") if sanitized_value.present?
     end
   end
 end
