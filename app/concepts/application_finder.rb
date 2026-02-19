@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationFinder < Trailblazer::Finder
+  include Concerns::SearchSanitizer
+
   adapter :ActiveRecord
   paginator :Kaminari
 
