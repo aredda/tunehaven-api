@@ -2,7 +2,6 @@
 
 module Platform::Genre::Admin::Finder
   class Base < ApplicationFinder
-
     filter_by :name, with: :apply_name
 
     def apply_name(entity, _attribute, value)

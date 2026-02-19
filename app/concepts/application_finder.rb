@@ -2,7 +2,7 @@
 
 class ApplicationFinder < Trailblazer::Finder
   include Concerns::SearchSanitizer
-  
+
   adapter :ActiveRecord
   paginator :Kaminari
 
