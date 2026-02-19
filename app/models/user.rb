@@ -45,6 +45,12 @@ class User < ApplicationRecord
   has_one :quality_setting, -> { where(key: :quality) }, class_name: "User::Setting"
   has_one :download_quality_setting, -> { where(key: :download_quality) }, class_name: "User::Setting"
 
+  has_many :active_follows, class_name: "User::Follow", foreign_key: :follower_id, dependent: :destroy
+  has_many :following, through: :active_follows, source: :following
+
+  has_many :passive_follows, class_name: "User::Follow", foreign_key: :following_id, dependent: :destroy
+  has_many :followers, through: :passive_follows, source: :follower
+
   def create_default_playlist
     self.create_liked_playlist(title: "Liked")
   end
@@ -73,6 +79,26 @@ class User < ApplicationRecord
   def likes_track?(track) = liked_playlist.tracks.include?(track)
 
   def saved_album?(album) = saved_albums.include?(album)
+
+  def follow(user)
+    raise "A user cannot follow himself" if self.id == user.id
+
+    raise "Already followed" if following?(user)
+
+    active_follows.create!(following: user)
+  end
+
+  def unfollow(user)
+    active_follows.find_by(following: user)&.destroy
+  end
+
+  def following?(user)
+    following.include?(user)
+  end
+
+  def followed_by?(user)
+    followers.include?(user)
+  end
 
   def create_default_settings
     settings.build([ { key: :quality, value: :low }, { key: :download_quality, value: :low } ])
