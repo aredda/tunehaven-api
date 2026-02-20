@@ -22,17 +22,13 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
-    def res_errors
-      response.parsed_body["errors"]
-    end
+    def res_errors = response.parsed_body["errors"]
 
-    def res_data
-      response.parsed_body["data"]
-    end
+    def res_data = response.parsed_body["data"]
 
-    def res_meta
-      response.parsed_body["meta"]
-    end
+    def res_meta = response.parsed_body["meta"]
+
+    def res_success? = response.parsed_body["success"]
   end
 end
 

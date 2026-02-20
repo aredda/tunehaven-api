@@ -11,7 +11,12 @@ namespace :user do
     end
   end
 
-  resource :me, controller: :me, only: :show
+  resource :me, controller: :me, only: :show do
+    collection do
+      get :followers
+      get :following
+    end
+  end
 
   resources :tracks do
     member do
