@@ -64,7 +64,7 @@ jobs:
         uses: federicocarboni/setup-ffmpeg@v3.1
 
       - name: Setup ImageMagick
-        uses: mfinelli/setup-imagemagick@v7.0.0
+        uses: mfinelli/setup-imagemagick@v8.0.0
 
       - name: Checkout code
         uses: actions/checkout@v5
