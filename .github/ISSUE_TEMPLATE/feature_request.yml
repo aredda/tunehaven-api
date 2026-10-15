@@ -1,0 +1,37 @@
+name: Feature request
+description: Suggest an idea or enhancement for Tunehaven API
+title: "feat: <short description>"
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Tunehaven API! Please search existing issues first.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What problem does this solve? Is it related to a frustration or gap?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe what you would like to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: API shape, examples, links, or anything else that helps.
+    validations:
+      required: false
