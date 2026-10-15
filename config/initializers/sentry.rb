@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Sentry.init do |config|
-  config.dsn = "https://***REMOVED***@o1428973.ingest.us.sentry.io/4510556573597696"
+  config.dsn = ENV.fetch("SENTRY_DSN", nil)
   config.breadcrumbs_logger = [ :active_support_logger, :http_logger ]
 
   # Add data like request headers and IP for users,
