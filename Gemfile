@@ -79,11 +79,11 @@ gem "dry-validation"
 gem "faker"
 
 gem "mini_magick"
-gem "multi_json"
 gem "kaminari-activerecord"
 gem "reform"
 gem "representable"
 gem "responders"
+gem "ostruct"
 
 gem "state_machines-activerecord"
 gem "streamio-ffmpeg"
