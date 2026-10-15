@@ -4,7 +4,7 @@ require "fileutils"
 class Admin::AlbumsControllerTest < AdminIntegrationTest
   # Remove uploaded test files
   def teardown
-    FileUtils.rm_rf("public/test/uploads")
+    remove_test_uploads
   end
 
   let(:artist) { platform_artists(:radiohead) }
@@ -192,7 +192,9 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
     it "should fail: invalid album" do
       album.update title: "INVALID"
 
-      put "/api/admin/albums/#{album.id}/metadata", headers: @auth_headers
+      stub_method(Musicbrainz::ReleaseGroup, :find_by, nil) do
+        put "/api/admin/albums/#{album.id}/metadata", headers: @auth_headers
+      end
 
       assert_response :unprocessable_content
       assert_equal [ "Failed to retrieve metadata from MusicBrainz" ], res_errors["base"]
@@ -200,7 +202,12 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
     it "should pass" do
       album.update title: "In Rainbows"
 
-      put "/api/admin/albums/#{album.id}/metadata", headers: @auth_headers
+      metadata = Musicbrainz::ReleaseGroup.new id: "rg-1", title: "In Rainbows", release_date: "2007-10-10"
+      metadata.genres = [ "Alternative Rock" ]
+
+      stub_method(Musicbrainz::ReleaseGroup, :find_by, metadata) do
+        put "/api/admin/albums/#{album.id}/metadata", headers: @auth_headers
+      end
 
       assert_response :success
       assert_equal "10-10-2007", album.reload.release_date.strftime("%m-%d-%Y")

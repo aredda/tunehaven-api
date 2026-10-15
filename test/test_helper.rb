@@ -6,6 +6,40 @@ require "shoulda-matchers"
 require "devise/jwt/test_helpers"
 require "fabrication"
 
+# Minitest 6 removed `Object#stub` (it now lives in the minitest-mock gem).
+# This dependency-free replacement stubs a single method for the duration of
+# a block, keeping tests that touch external services hermetic.
+module StubMethod
+  def stub_method(receiver, name, value)
+    singleton = receiver.singleton_class
+    singleton.send(:alias_method, :"__stub_original_#{name}", name)
+
+    singleton.define_method(name) do |*args, **kwargs, &block|
+      value.respond_to?(:call) ? value.call(*args, **kwargs, &block) : value
+    end
+
+    yield
+  ensure
+    singleton.send(:remove_method, name)
+    singleton.send(:alias_method, name, :"__stub_original_#{name}")
+    singleton.send(:remove_method, :"__stub_original_#{name}")
+  end
+end
+
+Minitest::Test.include(StubMethod)
+
+# Isolate each parallel test worker's local uploads so that a per-test teardown
+# in one process cannot delete files another process is still using.
+module TestUploads
+  def remove_test_uploads
+    FileUtils.rm_rf(Rails.root.join("public/test/uploads/#{Process.pid}"))
+  end
+end
+
+Minitest::Test.include(TestUploads)
+
+Minitest.after_run { FileUtils.rm_rf(Rails.root.join("public/test")) }
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :minitest

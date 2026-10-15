@@ -7,8 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files.
+# Ignore all environment files, but keep the template.
 /.env*
+!/.example.env
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -36,11 +37,8 @@
 
 # Ignore uploads
 /public/uploads/*
+/public/test/
 
 # Ignore local database data directories
 /db-data/
 /test-db-data/
-
-# Ignore local data
-/db-data/*
-/test-db-data/*

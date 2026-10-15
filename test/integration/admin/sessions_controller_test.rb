@@ -4,7 +4,7 @@ require "test_helper"
 
 class AdminUser::SessionsControllerTest < ActionDispatch::IntegrationTest
   test "#sign_in" do
-    Fabricate(:admin, email: "brando@gmail.com", password: "12345678")
+    Fabricate(:admin, email: "brando@example.com", password: "12345678")
 
     # failure: invalid email
     post "/api/admin/sign_in", params: {
@@ -20,7 +20,7 @@ class AdminUser::SessionsControllerTest < ActionDispatch::IntegrationTest
     # failure: invalid password
     post "/api/admin/sign_in", params: {
       admin: {
-        email: "brando@gmail.com",
+        email: "brando@example.com",
         password: "invalid_password"
       }
     }
@@ -31,7 +31,7 @@ class AdminUser::SessionsControllerTest < ActionDispatch::IntegrationTest
     # success
     post "/api/admin/sign_in", params: {
       admin: {
-        email: "brando@gmail.com",
+        email: "brando@example.com",
         password: "12345678"
       }
     }
@@ -41,13 +41,13 @@ class AdminUser::SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#sign_out" do
-    user = Fabricate(:admin, email: "brando@gmail.com", password: "12345678")
+    user = Fabricate(:admin, email: "brando@example.com", password: "12345678")
     headers = Devise::JWT::TestHelpers.auth_headers({ "Accept" => "application/json" }, user, scope: :admin)
 
     # logged in
     post "/api/admin/sign_in", params: {
       admin: {
-        email: "brando@gmail.com",
+        email: "brando@example.com",
         password: "12345678"
       }
     }

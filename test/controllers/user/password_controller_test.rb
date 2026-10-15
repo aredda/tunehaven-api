@@ -8,7 +8,7 @@ class User::PasswordControllerTest < ActionDispatch::IntegrationTest
   describe "POST forget" do
     it "should fail: email not found" do
       post "/api/user/password/forget", params: {
-        email: "brando@gmail.com"
+        email: "brando@example.com"
       }
 
       assert_response :unprocessable_content

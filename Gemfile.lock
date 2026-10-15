@@ -563,9 +563,6 @@ GEM
     test-unit (3.7.8)
       power_assert
     thor (1.5.0)
-    thruster (0.1.27)
-    thruster (0.1.27-aarch64-linux)
-    thruster (0.1.27-x86_64-linux)
     timecop (0.9.11)
     timeout (0.6.1)
     trailblazer (2.1.3)
@@ -687,7 +684,6 @@ DEPENDENCIES
   state_machines-activerecord
   streamio-ffmpeg
   test-unit
-  thruster
   timecop
   trailblazer
   trailblazer-activity

@@ -4,6 +4,7 @@ FROM ruby:4.0.7
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ffmpeg \
+    imagemagick \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user to run the app
