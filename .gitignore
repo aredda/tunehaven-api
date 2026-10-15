@@ -36,3 +36,11 @@
 
 # Ignore uploads
 /public/uploads/*
+
+# Ignore local database data directories
+/db-data/
+/test-db-data/
+
+# Ignore local data
+/db-data/*
+/test-db-data/*
