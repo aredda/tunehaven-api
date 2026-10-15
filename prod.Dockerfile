@@ -22,6 +22,9 @@ COPY . .
 # Make ALL shell scripts executable (handles both entrypoints)
 RUN chmod +x *.sh
 
+# All containers (api, jobber, storage_subscriber) run in production mode
+ENV RAILS_ENV=production
+
 EXPOSE 3000
 
-CMD ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0", "-e", "production"]
+CMD ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
