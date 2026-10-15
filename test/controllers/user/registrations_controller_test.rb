@@ -23,12 +23,12 @@ class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
       end
     end
     it "should fail: email is already taken" do
-      Fabricate(:user, email: "brando@gmail.com")
+      Fabricate(:user, email: "brando@example.com")
 
       assert_no_difference "User.count" do
         post "/api/user/sign_up", params: {
           user: {
-            email: "BRANDO@gmail.com",
+            email: "BRANDO@example.com",
             username: "brando",
             password: "12345678"
           }
@@ -44,7 +44,7 @@ class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
       assert_no_difference "User.count" do
         post "/api/user/sign_up", params: {
           user: {
-            email: "brando@gmail.com",
+            email: "brando@example.com",
             username: "brando",
             password: "12345678"
           }
@@ -59,7 +59,7 @@ class User::RegistrationsControllerTest < ActionDispatch::IntegrationTest
         assert_difference "User.count", 1 do
           post "/api/user/sign_up", params: {
             user: {
-              email: "brando@gmail.com",
+              email: "brando@example.com",
               username: "brando",
               password: "12345678"
             }

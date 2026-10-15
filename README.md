@@ -41,7 +41,6 @@ client application.
 - [Testing and code quality](#testing-and-code-quality)
 - [Deployment](#deployment)
 - [Project structure](#project-structure)
-- [Known limitations](#known-limitations)
 - [Contributing](#contributing)
 - [License](#license)
 - [Security](#security)
@@ -258,7 +257,7 @@ cp .example.env .env
 | `POSTGRES_PORT` | yes | Database port (e.g. `5432`). |
 | `POSTGRES_USER` | yes | Database role. |
 | `POSTGRES_PASSWORD` | yes | Database password. |
-| `POSTGRES_DATABASE` | yes | Database name used to initialise the Postgres container. |
+| `POSTGRES_DB` | yes | Name of the database created by the Postgres container. |
 | `SECRET_KEY_BASE` | production | Rails key for signing/encrypting; generate with `bin/rails secret`. |
 | `DEVISE_JWT_SECRET` | yes | Secret used to sign JWTs; generate with a strong random value. |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | seeding | Credentials for the admin created by `db:seed`. |
@@ -273,9 +272,9 @@ cp .example.env .env
 | `SENTRY_DSN` | no | Sentry DSN. Leave blank to disable error reporting. |
 | `RAILS_MASTER_KEY` | no | Only needed if you use Rails encrypted credentials. |
 
-> `POSTGRES_DATABASE` initialises the database **container**. Rails itself connects to
-> fixed names per environment: `tunehaven_db_dev`, `tunehaven_db_test` and
-> `tunehaven_db_prod` (see `config/database.yml`).
+> `POSTGRES_DB` names the database created by the Postgres **container**. Rails itself
+> connects to fixed names per environment: `tunehaven_db_dev`, `tunehaven_db_test` and
+> `tunehaven_db_prod` (see `config/database.yml`); `db:prepare` creates them on first boot.
 
 ### Running natively
 
@@ -574,7 +573,7 @@ docker compose -f docker-compose.prod.yml up -d --build
 
 What happens on boot:
 
-1. **`api`** runs `entrypoint.sh`: installs any missing gems, runs `rails db:migrate`, then
+1. **`api`** runs `entrypoint.sh`: installs any missing gems, runs `rails db:prepare`, then
    `exec`s the Puma server as a **non‑root user** (`app`).
 2. **`jobber`** runs `bundle exec good_job start` to process background jobs.
 3. **`storage_subscriber`** runs `bin/storage_subscriber` to consume Pub/Sub notifications.

@@ -4,7 +4,7 @@ require "test_helper"
 
 class Platform::Track::Audio::TranscodeJobTest < ActiveJob::TestCase
   def teardown
-    FileUtils.rm_rf("public/test/uploads")
+    remove_test_uploads
   end
 
   let(:track) { platform_tracks(:let_down) }

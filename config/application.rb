@@ -39,14 +39,16 @@ module TunehavenApi
     config.middleware.use ActionDispatch::Flash
     config.middleware.use ActionDispatch::Session::CookieStore
 
-    # Mailer settings
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-      address: ENV.fetch("MAILER_ADDRESS"),
-      port: ENV.fetch("MAILER_PORT"),
-      user_name: ENV.fetch("MAILER_USER"),
-      password: ENV.fetch("MAILER_PASSWORD"),
-      authentication: :login
-    }
+    # Mailer settings (only when SMTP is configured, so the app boots without them)
+    if ENV["MAILER_ADDRESS"].present?
+      config.action_mailer.delivery_method = :smtp
+      config.action_mailer.smtp_settings = {
+        address: ENV.fetch("MAILER_ADDRESS"),
+        port: ENV.fetch("MAILER_PORT"),
+        user_name: ENV.fetch("MAILER_USER"),
+        password: ENV.fetch("MAILER_PASSWORD"),
+        authentication: :login
+      }
+    end
   end
 end

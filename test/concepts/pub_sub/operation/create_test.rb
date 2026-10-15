@@ -20,16 +20,21 @@ class PubSub::Operation::CreateTest < ActiveSupport::TestCase
     notification.message = OpenStruct.new
     notification.message.data = JSON.generate({ name: "uploads/library/Radiohead/The Bends/15. Fake Plastic Trees.flac", contentType: "audio/flac" })
 
-    assert_difference -> { Platform::Track::Audio.count } do
-      assert_difference -> { Platform::Track.count } do
-        assert_pass PubSub::Operation::Create, { notification: } do |result|
-          assert_equal "Fake Plastic Trees", result[:model].title
-          assert_equal "The Bends", result[:model].album.title
-          assert_equal "radiohead-the-bends", result[:model].album.slug
-          assert_predicate result[:model].album.release_date, :present?
-          assert_not_equal 0, result[:model].album.genres.count
-          assert_includes result[:model].album.genres.pluck(:name), "Alternative Rock"
-          assert_equal 15, result[:model].position
+    metadata = Musicbrainz::ReleaseGroup.new id: "rg-1", title: "The Bends", release_date: "1995-03-13"
+    metadata.genres = [ "Alternative Rock" ]
+
+    stub_method(Musicbrainz::ReleaseGroup, :find_by, metadata) do
+      assert_difference -> { Platform::Track::Audio.count } do
+        assert_difference -> { Platform::Track.count } do
+          assert_pass PubSub::Operation::Create, { notification: } do |result|
+            assert_equal "Fake Plastic Trees", result[:model].title
+            assert_equal "The Bends", result[:model].album.title
+            assert_equal "radiohead-the-bends", result[:model].album.slug
+            assert_predicate result[:model].album.release_date, :present?
+            assert_not_equal 0, result[:model].album.genres.count
+            assert_includes result[:model].album.genres.pluck(:name), "Alternative Rock"
+            assert_equal 15, result[:model].position
+          end
         end
       end
     end

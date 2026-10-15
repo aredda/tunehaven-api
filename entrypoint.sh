@@ -5,9 +5,9 @@ echo "Bundle Check"
 
 bundle check || bundle install
 
-echo "Migrating DB Changes"
+echo "Preparing Database"
 
-bundle exec rails db:migrate
+bundle exec rails db:prepare
 
 echo "Starting Server"
 

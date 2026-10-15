@@ -9,7 +9,7 @@ class Admin::TracksControllerTest < AdminIntegrationTest
 
   # Remove uploaded test files
   def teardown
-    FileUtils.rm_rf("public/test/uploads")
+    remove_test_uploads
   end
 
   describe "GET index" do

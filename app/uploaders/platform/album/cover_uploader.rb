@@ -4,7 +4,7 @@ class Platform::Album::CoverUploader < ImageUploader
   def store_dir
     dirs = [ model.artist.name, model.title ]
 
-    return "test/uploads/library/#{dirs.map(&:parameterize).join("/")}" if Rails.env.test?
+    return "#{test_upload_prefix}/library/#{dirs.map(&:parameterize).join("/")}" if Rails.env.test?
 
     "uploads/library/#{dirs.map(&:parameterize).join("/")}"
   end
