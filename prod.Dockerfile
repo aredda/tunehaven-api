@@ -6,23 +6,32 @@ RUN apt-get update && \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
+# Create a non-root user to run the app
+RUN groupadd --system --gid 1000 app && \
+    useradd --system --uid 1000 --gid app --create-home --shell /bin/bash app
+
+RUN mkdir -p /app && chown app:app /app
 WORKDIR /app
 
 # Copy dependency files only (changes less frequently than app code)
-COPY Gemfile Gemfile.lock ./
+COPY --chown=app:app Gemfile Gemfile.lock ./
 
-# Install gems (cached unless Gemfile changes)
+USER app
+ENV HOME=/home/app \
+    BUNDLE_JOBS=4 \
+    BUNDLE_RETRY=3
+
+# Install gems into vendor/bundle (cached unless Gemfile changes)
 RUN bundle config set --local deployment 'true' && \
     bundle config set --local without 'development test' && \
-    bundle install --jobs 4 --retry 3
+    bundle install
 
 # Copy application code (changes most frequently)
-COPY . .
+COPY --chown=app:app . .
 
-# Make ALL shell scripts executable (handles both entrypoints)
+# Ensure shell scripts are executable (handles both entrypoints)
 RUN chmod +x *.sh
 
-# All containers (api, jobber, storage_subscriber) run in production mode
 ENV RAILS_ENV=production
 
 EXPOSE 3000
