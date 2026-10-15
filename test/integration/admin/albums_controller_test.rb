@@ -80,6 +80,8 @@ class Admin::AlbumsControllerTest < AdminIntegrationTest
 
   describe "POST create" do
     it "should pass" do
+      skip "ImageMagick was not found" unless MiniMagick.imagemagick7?
+
       assert_difference "Platform::Album.count" do
         assert_difference -> { artist.reload.albums_count } do
           assert_difference -> { Platform::AlbumGenre.count } do
