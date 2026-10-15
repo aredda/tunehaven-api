@@ -1,4 +1,4 @@
-FROM ruby:3.4.4
+FROM ruby:4.0.7
 
 # Install system dependencies first (changes rarely)
 RUN apt-get update && \
